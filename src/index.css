@@ -31,6 +31,9 @@ body{
 .row{
     margin-left: 30px;
     scroll-behavior: smooth;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
 }
 
 .row>h3{
@@ -40,9 +43,11 @@ margin-top: 30px;
 }
 
 .movieDiv{
+    /* --movieDiv-index: 0; */
     display: flex;
     overflow: hidden;
     scroll-behavior: smooth;
+    /* transform: translateX(calc(var(--movieDiv-index) * -10%)); */
 }
 
 .movieCard{
@@ -54,20 +59,38 @@ margin-top: 30px;
 
 .arrowLeft, .arrowRight{
     height: 150px;
+    text-align: center;
     width: 40px;
     font-size: 40px;
+    font-weight: 100;
     color: white;
     position: absolute;
     background-color: rgba(84, 81, 81, 0.564);
     line-height: 150px;
     cursor: pointer;
+    transition-timing-function: ease-in-out;
+    transition: 0.4s;
+    display: none;
+}
+
+.movieDiv:hover .arrowLeft{
+    display: block;
+}
+
+.movieDiv:hover .arrowRight{
+    display: block;
 }
 
 .arrowLeft{ 
-    left: 10px;
+    left: 0px;
 }
 
 .arrowRight{
     right: 0px;
+}
+
+.arrowLeft:hover, .arrowRight:hover{
+    background-color: rgba(0, 0, 0, 0.704);
+    font-size: 50px;
 }
 
