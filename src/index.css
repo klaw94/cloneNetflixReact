@@ -1,6 +1,7 @@
 body{
     margin: 0;
     font-family: 'Poppins', serif;
+    background-color: black;
 }
 
 .App{
@@ -37,9 +38,9 @@ body{
 }
 
 .row>h3{
-margin-bottom: 5px;
-font-size: 1.4vw;
-margin-top: 30px;
+    margin-bottom: 5px;
+    font-size: 1.4vw;
+    margin-top: 30px;
 }
 
 .movieDiv{
@@ -55,6 +56,8 @@ margin-top: 30px;
     margin-left: 4px;
     border-radius: 4px;
     cursor: pointer;
+    transition-timing-function: ease-in-out;
+    transition: 0.7s;
 }
 
 .arrowLeft, .arrowRight{
@@ -93,4 +96,27 @@ margin-top: 30px;
     background-color: rgba(0, 0, 0, 0.704);
     font-size: 50px;
 }
+
+.movieCard:hover{
+    height: 250px;
+}
+
+
+.movieCard:hover ~ .arrowRight, .arrowLeft{
+    animation: fade-out 1s ease-in-out both;
+}
+
+
+
+@keyframes fade-out {
+    from {
+        opacity: 1;
+
+    }
+    to {
+      opacity: 0;
+    }
+}
+
+
 
