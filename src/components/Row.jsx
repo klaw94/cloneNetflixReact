@@ -22,28 +22,37 @@ export default function Row(props){
   let styles = {marginLeft : -40}
 
   const scroll = (scrollOffset) => {
+   // ref.current.style.overflowX = "hidden"
     ref.current.scrollLeft += scrollOffset;
     if (ref.current.scrollLeft > 3800 && scrollOffset > 0){
+
       ref.current.scrollLeft = 0;
-      ref.current.style.setProperty("--movieDiv-index", 0)
 
     }
     if(ref.current.scrollLeft === 0 && scrollOffset < 0){
       ref.current.scrollLeft = 4500;
-      ref.current.style.setProperty("--movieDiv-index", 3)
       
     }
+    
+    // setTimeout(function(){
+    //   ref.current.style.overflowX = "visible"
+    // }, 1000);
+  
+    
 
     setMargin(false)
+
   };
 
     return (
         <div className="row">
             <h3>{props.title}</h3>
             <div className="movieDiv" ref={ref} style={!margin ? styles : {}}>
+              <div className="overflowY">
               {!margin && <div className="arrowLeft" onClick={()=>scroll(-1 * window.innerWidth - 300)} >{"<"}</div>}
                 {visualMovies}
               <div className="arrowRight" onClick={()=>scroll(window.innerWidth -300)}>{">"}</div>
+              </div>
             </div>
 
         </div>

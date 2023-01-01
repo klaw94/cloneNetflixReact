@@ -3,6 +3,9 @@ body{
     font-family: 'Poppins', serif;
     background-color: black;
 }
+body::-webkit-scrollbar {
+   display: none;
+  }
 
 .App{
     background-color: black;
@@ -44,11 +47,19 @@ body{
 }
 
 .movieDiv{
-    /* --movieDiv-index: 0; */
-    display: flex;
-    overflow: hidden;
+    display: block;
     scroll-behavior: smooth;
-    /* transform: translateX(calc(var(--movieDiv-index) * -10%)); */
+    overflow-x: scroll;
+    overflow-y: hidden;
+    padding: 20px;
+}
+
+.movieDiv::-webkit-scrollbar {
+  display: none;
+  }
+
+.overflowY{
+    display: flex;
 }
 
 .movieCard{
@@ -86,10 +97,12 @@ body{
 
 .arrowLeft{ 
     left: 0px;
+    z-index: 100;
 }
 
 .arrowRight{
-    right: 0px;
+    right: -1px;
+    z-index: 100;
 }
 
 .arrowLeft:hover, .arrowRight:hover{
@@ -98,13 +111,36 @@ body{
 }
 
 .movieCard:hover{
-    height: 250px;
+    /* transform: scale(1.9);  */
+    /* height: 250px; */
+    /* translateY */
+    transform: scale(1.1);
+    cursor: pointer;
+    z-index: 98;
+    padding-top: 2px;
+    /* padding-bottom: 37px; */
+
 }
 
 
 .movieCard:hover ~ .arrowRight, .arrowLeft{
     animation: fade-out 1s ease-in-out both;
 }
+
+/* .movieCard:hover ~ .movieDiv{
+    z-index: 96;
+    overflow-y: visible;
+
+}
+
+.movieCard:hover .movieDiv{
+    z-index: 96;
+    overflow-y: visible;
+} */
+
+/* .movieCard:hover::after{
+    content: "Hola";
+} */
 
 
 
@@ -117,6 +153,8 @@ body{
       opacity: 0;
     }
 }
+
+
 
 
 
