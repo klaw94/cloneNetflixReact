@@ -6,9 +6,16 @@ import instance from '../axios'
 
 export default function MovieCard(props){
     const [detailedInfo, setDetailInfo] = useState([])
+
+    let contentRatingFetch
+    if (props.mediaType && props.mediaType === "tv"){
+      contentRatingFetch = `&append_to_response=content_ratings`
+    } else {      
+      contentRatingFetch = `&append_to_response=release_dates`
+    }
     
     useEffect(()=>{
-        fetch(`${instance}/${props.mediaType ? props.mediaType : "movie"}/${props.fetchId}?api_key=${requests.apiKey}`)
+        fetch(`${instance}/${props.mediaType ? props.mediaType : "movie"}/${props.fetchId}?api_key=${requests.apiKey}&language=en-US${contentRatingFetch}`)
             .then(res => res.json())
             .then(data => setDetailInfo(data))
       }, [])
@@ -22,9 +29,39 @@ export default function MovieCard(props){
         runtime = `${Math.floor(detailedInfo.runtime/60)}h ${detailedInfo.runtime%60}mins`
       }
       
-      // console.log(`${instance}/${props.mediaType ? props.mediaType : "movie"}/${props.fetchId}?api_key=${requests.apiKey}`)
+      //console.log(detailedInfo)
 
-        //"number_of_episodes":8,"number_of_seasons":1
+      let contentRating;
+      let contentRatingClass;
+      if (props.mediaType && props.mediaType === "tv" && detailedInfo.content_ratings){
+        let UsRating
+        //I look for US in the array of age ratings
+        for (let i = 0; i < detailedInfo.content_ratings.results.length; i++){
+          if (detailedInfo.content_ratings.results[i].iso_3166_1 === "US"){
+            UsRating = detailedInfo.content_ratings.results[i].rating
+            return
+          }
+        }
+        switch(UsRating) {
+          case "TV-Y7":
+            contentRating = "+7";
+            contentRatingClass = "contentSeven"
+            break;
+          case "TV-14":
+            contentRating = "+13";
+            contentRatingClass = "contentThirteen"
+            break;
+          case "TV-MA":
+            contentRating = "+16";
+            contentRatingClass = "contentSixteen"
+            break;
+          default:
+            contentRating = "+0";
+            contentRatingClass = "contentZero"
+        }
+      } else {      
+        //runtime = `${Math.floor(detailedInfo.runtime/60)}h ${detailedInfo.runtime%60}mins`
+      }
 
     return(
     <div className="card">
@@ -36,6 +73,7 @@ export default function MovieCard(props){
             <div>👍</div>
             <div>˅</div>
         </div>
+        <div className={`contentRating ${contentRatingClass}`}>{contentRating}</div>
         <div className="runtime">{runtime}</div>
       </div>
     </div>

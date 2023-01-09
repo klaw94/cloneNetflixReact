@@ -27,20 +27,18 @@ export default function Row(props){
 
   const scroll = (scrollOffset) => {
     ref.current.scrollLeft += scrollOffset;
-    if (ref.current.scrollLeft > 3700 && scrollOffset > 0){
-
+    if (Math.abs(ref.current.scrollWidth - ref.current.scrollLeft - ref.current.clientWidth) < 1){
       ref.current.scrollLeft = 0;
-
     }
     if(ref.current.scrollLeft === 0 && scrollOffset < 0){
       ref.current.scrollLeft = 4500;
       
     }
     console.log(ref.current.scrollLeft)
-
+    console.log(movieData)
     setMargin(false)
   };
-
+//(window.innerWidth - 300 * (movieData.length * 260 / window.innerWidth - 300))
 
     return (
         <div className="row">
@@ -48,7 +46,7 @@ export default function Row(props){
             <div className="movieDiv" ref={ref} style={!margin ? styles : {}}>
               <div className="overflowY">
                 {visualMovies}
-                {!margin && <div className="arrowLeft arrow" onClick={()=>scroll(-1 * window.innerWidth - 300)} >{"<"}</div>}
+                {!margin && <div className="arrowLeft arrow" onClick={()=>scroll(-1 * window.innerWidth + 300)} >{"<"}</div>}
               <div className="arrowRight arrow" onClick={()=>scroll(window.innerWidth -300)}>{">"}</div>
               </div>
             </div>
