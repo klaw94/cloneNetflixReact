@@ -113,6 +113,11 @@ body::-webkit-scrollbar {
     font-size: 50px;
 }
 
+.card:hover{
+    transform: scale(1.1);
+}
+
+
 .movieCard:hover{
     /* transform: scale(1.9);  */
     /* height: 250px; */
@@ -128,7 +133,6 @@ body::-webkit-scrollbar {
 
 }
 
-
 .card:hover ~ .arrow{
     animation: fade-out 1s ease-in-out both;
 }
@@ -141,24 +145,103 @@ body::-webkit-scrollbar {
     border-bottom-right-radius: 6px;
     transition-timing-function: ease-in-out;
     transition: 0.7s;
+    background-color: rgb(27, 27, 27);
     display:none;
 }
 
 
-.movieEmojisDiv{
-    display: flex;
-}
-
 .movieCard:hover ~ .movieInfo{
     display: block;
     transform: scale(1.1);
-    /* z-index: 96; */
+    box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+    margin-bottom: 20px;
+}
+
+.movieInfo:hover{
+    display: block;
+    transform: scale(1.1);
     box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
     margin-bottom: 20px;
 }
 
 .movieCard:hover .card{
     transform: scale(1.1); 
+}
+
+.movieEmojisDiv{
+    padding-top: 10px;
+    display: flex;
+    padding-left: 5px;
+    padding-right: 5px ;
+    justify-content: space-between;
+}
+
+.movieEmojisLeft{
+    display: flex;
+    justify-content: left;
+    flex: row;
+}
+
+.emoji{
+    margin: 5px;
+    height: 25px;
+    width: 25px;
+    border: 2px solid rgb(218, 216, 216);
+    border-radius: 100%;
+    cursor: pointer;
+    align-items: center;
+    text-align: center;
+}
+
+.emoji:hover{
+    border: 2px solid white;
+
+}
+
+.likeButton{
+    height: 18px;
+    padding-top: 2px;
+}
+
+.ratingTimeDiv{
+    display: flex;
+    margin-top: 10px;
+    margin-left: 5px;
+    padding-bottom: 20px;
+}
+
+.contentRating{
+    font-size: 12px;
+    margin-left: 5px;
+    margin-right: 10px;
+    padding-left: 3px;
+    padding-top: 3px;
+    padding-right: 3px;
+    color: black;
+    font-weight: bold;
+    border-radius: 5px;
+}
+
+.contentSeven{
+    background-color: rgb(96, 96, 234);
+}
+
+.contentThirteen{
+    background-color: yellow;
+}
+
+.contentSixteen{
+    background-color: red;
+}
+
+.conentZero{
+    color: white;
+    background-color: rgb(39, 196, 39);
+}
+
+.runtime{
+    font-size: 15px;
+
 }
 
 @keyframes fade-out {

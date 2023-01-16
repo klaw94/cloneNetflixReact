@@ -34,8 +34,8 @@ export default function Row(props){
       ref.current.scrollLeft = 4500;
       
     }
-    console.log(ref.current.scrollLeft)
-    console.log(movieData)
+    // console.log(ref.current.scrollLeft)
+    // console.log(movieData)
     setMargin(false)
   };
 //(window.innerWidth - 300 * (movieData.length * 260 / window.innerWidth - 300))
