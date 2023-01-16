@@ -113,15 +113,8 @@ body::-webkit-scrollbar {
     font-size: 50px;
 }
 
-.card:hover{
+.card:hover > .movieCard{
     transform: scale(1.1);
-}
-
-
-.movieCard:hover{
-    /* transform: scale(1.9);  */
-    /* height: 250px; */
-    /* translateY */
     transform: scale(1.1);
     cursor: pointer;
     z-index: 90;
@@ -129,6 +122,14 @@ body::-webkit-scrollbar {
     border-bottom-right-radius: 0px;
     padding-top: 2px;
     box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+
+}
+
+.movieCard:hover{
+    /* transform: scale(1.9);  */
+    /* height: 250px; */
+    /* translateY */
+
     /* padding-bottom: 37px; */
 
 }
