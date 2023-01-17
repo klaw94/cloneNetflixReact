@@ -63,8 +63,8 @@ body::-webkit-scrollbar {
 }
 
 .card{
-    /* width: 260px; */
     margin-left: 4px;
+    transition: 2s;
 }
 
 .movieCard{
@@ -125,14 +125,14 @@ body::-webkit-scrollbar {
 
 }
 
-.movieCard:hover{
+/* .movieCard:hover{ */
     /* transform: scale(1.9);  */
     /* height: 250px; */
     /* translateY */
 
     /* padding-bottom: 37px; */
 
-}
+/* } */
 
 .card:hover ~ .arrow{
     animation: fade-out 1s ease-in-out both;
@@ -145,7 +145,7 @@ body::-webkit-scrollbar {
     border-bottom-left-radius: 6px;
     border-bottom-right-radius: 6px;
     transition-timing-function: ease-in-out;
-    transition: 0.7s;
+    transition: 2s;
     background-color: rgb(27, 27, 27);
     display:none;
 }
@@ -155,7 +155,7 @@ body::-webkit-scrollbar {
     display: block;
     transform: scale(1.1);
     box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 
 .movieInfo:hover{

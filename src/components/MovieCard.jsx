@@ -6,6 +6,7 @@ import likeblack from '../assets/like-white.png';
 
 export default function MovieCard(props){
     const [detailedInfo, setDetailInfo] = useState([])
+    const [keywords, setKeywords] = useState([])
 
     let contentRatingFetch
     if (props.mediaType && props.mediaType === "tv"){
@@ -19,6 +20,14 @@ export default function MovieCard(props){
             .then(res => res.json())
             .then(data => setDetailInfo(data))
       }, [])
+//http://api.themoviedb.org/3/movie/35/keywords?api_key=
+      useEffect(()=>{
+        fetch(`${instance}/${props.mediaType ? props.mediaType : "movie"}/${props.fetchId}/keywords?api_key=${requests.apiKey}`)
+          .then(res=> res.json())
+          .then(data => setKeywords(data))
+      }, [detailedInfo])
+
+      console.log(`${props.mediaType ? props.mediaType : "movie"} ${props.fetchId}`)
 
       let runtime;
       if (props.mediaType && props.mediaType === "tv" && detailedInfo.number_of_seasons > 1){
@@ -38,7 +47,6 @@ export default function MovieCard(props){
         for (let i = 0; i < detailedInfo.content_ratings.results.length; i++){
           if (detailedInfo.content_ratings.results[i].iso_3166_1 === "US"){
             UsRating = detailedInfo.content_ratings.results[i].rating
-         //   console.log(UsRating)
             break
           }
         }
@@ -92,6 +100,8 @@ export default function MovieCard(props){
         }
     }
 
+
+
     return(
     <div className="card">
       <img className="movieCard" src={props.link}/>
@@ -108,6 +118,9 @@ export default function MovieCard(props){
           <div className={`contentRating ${contentRatingClass}`}>{contentRating}</div>
           <div className="runtime">{runtime}</div>
         </div>
+        {props.mediaType === "tv" ? 
+        keywords.results && keywords.results.length > 0 && <div className="keywords">{`${keywords.results.length > 0 && keywords.results[0].name} · ${keywords.results.length > 1 && keywords.results[1].name} · ${keywords.results.length > 2 && keywords.results[2].name} `}</div> :
+        keywords.keywords && keywords.keywords.length > 0 && <div className="keywords">{`${keywords.keywords.length > 0 && keywords.keywords[0].name} · ${keywords.keywords.length > 1 && keywords.keywords[1].name} · ${keywords.keywords.length > 2 && keywords.keywords[2].name} `}</div>}
       </div>
     </div>
     )
