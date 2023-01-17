@@ -1,12 +1,17 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import requests from '../request'
 import instance from '../axios'
 import likeblack from '../assets/like-white.png';
+import Popup from 'reactjs-popup';
+import 'reactjs-popup/dist/index.css';
+import MoviePopUp from "./MoviePopUp/MoviePopUp";
+
 
 
 export default function MovieCard(props){
     const [detailedInfo, setDetailInfo] = useState([])
     const [keywords, setKeywords] = useState([])
+    const ref = useRef();
 
     let contentRatingFetch
     if (props.mediaType && props.mediaType === "tv"){
@@ -15,6 +20,8 @@ export default function MovieCard(props){
       contentRatingFetch = `&append_to_response=release_dates`
     }
     
+    
+
     useEffect(()=>{
         fetch(`${instance}/${props.mediaType ? props.mediaType : "movie"}/${props.fetchId}?api_key=${requests.apiKey}&language=en-US${contentRatingFetch}`)
             .then(res => res.json())
@@ -26,8 +33,6 @@ export default function MovieCard(props){
           .then(res=> res.json())
           .then(data => setKeywords(data))
       }, [detailedInfo])
-
-      console.log(`${props.mediaType ? props.mediaType : "movie"} ${props.fetchId}`)
 
       let runtime;
       if (props.mediaType && props.mediaType === "tv" && detailedInfo.number_of_seasons > 1){
@@ -100,10 +105,16 @@ export default function MovieCard(props){
         }
     }
 
-
-
+    // useEffect(() => {
+    //   if (ref.current) {
+    //     ref.current.getBoundingClientRect();
+    //     console.log(ref.current.getBoundingClientRect().top);
+    //   }
+    //   console.log(ref.current);
+    // }, []);
+   
     return(
-    <div className="card">
+    <div className="card" ref={ref}>
       <img className="movieCard" src={props.link}/>
       <div className="movieInfo">
         <div className="movieEmojisDiv">
@@ -112,7 +123,10 @@ export default function MovieCard(props){
               <div className="emoji">+</div>
               <div className="emoji"><img src={likeblack} alt="" className="likeButton" /></div>
             </div>
-            <div className="emoji vEmoji">˅</div>
+            <Popup trigger={<div className="emoji vEmoji">˅</div>} modal>
+              <MoviePopUp data={detailedInfo}/>
+            </Popup>
+            
         </div>
         <div className="ratingTimeDiv">
           <div className={`contentRating ${contentRatingClass}`}>{contentRating}</div>

@@ -65,6 +65,8 @@ body::-webkit-scrollbar {
 .card{
     margin-left: 4px;
     transition: 2s;
+    font-size: 12px;
+
 }
 
 .movieCard{
@@ -170,6 +172,7 @@ body::-webkit-scrollbar {
 }
 
 .movieEmojisDiv{
+    font-size: 15px;
     padding-top: 10px;
     display: flex;
     padding-left: 5px;
@@ -208,7 +211,7 @@ body::-webkit-scrollbar {
     display: flex;
     margin-top: 10px;
     margin-left: 5px;
-    padding-bottom: 20px;
+    padding-bottom: 15px;
 }
 
 .contentRating{
@@ -241,9 +244,52 @@ body::-webkit-scrollbar {
 }
 
 .runtime{
-    font-size: 15px;
+    font-size: 14px;
 
 }
+
+.keywords{
+    padding-bottom: 10px;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.popup-content {
+    margin: 0 auto;
+    padding: 0;
+    background: rgb(27, 27, 27);
+    width: 50%;
+    border: none;
+    border-radius: 8px;
+  }
+  /* .popup-arrow {
+    color: rgb(255, 255, 255);
+  }
+  [role='tooltip'].popup-content {
+    width: 200px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 0px 3px;
+    border-radius: 5px;
+  }
+  
+  .popup-overlay {
+    background: rgba(0, 0, 0, 0.5);
+  }
+  [data-popup='tooltip'].popup-overlay {
+    background: transparent;
+  }
+  
+  .popup-arrow {
+    filter: drop-shadow(0 -3px 3px rgba(0, 0, 0, 0.16));
+    color: #fff;
+    stroke-width: 2px;
+    stroke: #d7d7d7;
+    stroke-dasharray: 30px;
+    stroke-dashoffset: -54px;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+  } */
 
 @keyframes fade-out {
     from {

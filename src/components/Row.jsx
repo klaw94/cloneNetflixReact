@@ -7,6 +7,7 @@ export default function Row(props){
   const [movieData, setMovieData] = useState([])
   const ref = useRef(null);
   const [margin, setMargin] = useState(true)
+  
 
 
   useEffect(()=>{
