@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import requests from '../request'
 import instance from '../axios'
 import likeblack from '../assets/like-white.png';
@@ -11,7 +11,8 @@ import MoviePopUp from "./MoviePopUp/MoviePopUp";
 export default function MovieCard(props){
     const [detailedInfo, setDetailInfo] = useState([])
     const [keywords, setKeywords] = useState([])
-    const ref = useRef();
+    const ref = useRef()
+    // const [left, setLeft] = useState([])
 
     let contentRatingFetch
     if (props.mediaType && props.mediaType === "tv"){
@@ -20,20 +21,19 @@ export default function MovieCard(props){
       contentRatingFetch = `&append_to_response=release_dates`
     }
     
-    
-
     useEffect(()=>{
         fetch(`${instance}/${props.mediaType ? props.mediaType : "movie"}/${props.fetchId}?api_key=${requests.apiKey}&language=en-US${contentRatingFetch}`)
             .then(res => res.json())
             .then(data => setDetailInfo(data))
       }, [])
-//http://api.themoviedb.org/3/movie/35/keywords?api_key=
+
       useEffect(()=>{
         fetch(`${instance}/${props.mediaType ? props.mediaType : "movie"}/${props.fetchId}/keywords?api_key=${requests.apiKey}`)
           .then(res=> res.json())
           .then(data => setKeywords(data))
       }, [detailedInfo])
 
+    
       let runtime;
       if (props.mediaType && props.mediaType === "tv" && detailedInfo.number_of_seasons > 1){
         runtime = `${detailedInfo.number_of_seasons} Seasons`
@@ -105,14 +105,47 @@ export default function MovieCard(props){
         }
     }
 
-    // useEffect(() => {
-    //   if (ref.current) {
-    //     ref.current.getBoundingClientRect();
-    //     console.log(ref.current.getBoundingClientRect().top);
+
+  //   useEffect(() => {
+  //     function updateScrollPosition() {
+  //       console.log("hola")
+  //         setLeft(ref.current.getBoundingClientRect().left)
+  //     }
+
+  //     if (ref && ref.current) {
+  //         ref.current.addEventListener("scroll", updateScrollPosition, false);
+  //         // return function cleanup() {
+  //         //   if(ref && ref.current){
+  //         //      ref.current.removeEventListener("scroll", updateScrollPosition, false);
+  //         //   }
+  //         // };
+  //     }
+  // });
+    // const ref = useCallback(node => {
+    //   if (node !== null) {
+    //     setLeft(node.getBoundingClientRect().left);
     //   }
-    //   console.log(ref.current);
-    // }, []);
-   
+    // });
+
+
+  //   if(detailedInfo.title === "Troll"){
+  //     console.log(ref.current.offsetLeft)
+  //   }
+
+  // let className = "card"
+
+  //   if (ref.current != null){
+  //     if (ref.current.offsetLeft - window.innerWidth > window.innerWidth ){
+  //       if (ref.current.offsetLeft - 2 * window.innerWidth > window.innerWidth)
+  //       className = "noHover"
+  //     } else {
+  //       className = "card"
+  //     }
+  //   }
+
+
+    //if left - screensize > screensize { left - screensize - screensize} Menor que trescientos  o mayor que screensize -260. setAttribute nohover.
+
     return(
     <div className="card" ref={ref}>
       <img className="movieCard" src={props.link}/>
@@ -124,7 +157,7 @@ export default function MovieCard(props){
               <div className="emoji"><img src={likeblack} alt="" className="likeButton" /></div>
             </div>
             <Popup trigger={<div className="emoji vEmoji">˅</div>} modal>
-              <MoviePopUp data={detailedInfo}/>
+              <MoviePopUp data={detailedInfo} contentRating={contentRating} contentRatingClass={contentRatingClass} mediaType={props.mediaType} runtime={runtime} keywords={props.mediaType === "tv" ? keywords.results : keywords.keywords}/>
             </Popup>
             
         </div>

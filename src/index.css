@@ -190,6 +190,8 @@ body::-webkit-scrollbar {
     margin: 5px;
     height: 25px;
     width: 25px;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.481);
     border: 2px solid rgb(218, 216, 216);
     border-radius: 100%;
     cursor: pointer;
@@ -238,7 +240,7 @@ body::-webkit-scrollbar {
     background-color: red;
 }
 
-.conentZero{
+.contentZero{
     color: white;
     background-color: rgb(39, 196, 39);
 }
@@ -259,25 +261,42 @@ body::-webkit-scrollbar {
     padding: 0;
     background: rgb(27, 27, 27);
     width: 50%;
+    min-width: 700px;
     border: none;
     border-radius: 8px;
   }
-  /* .popup-arrow {
+
+  .noHover{
+    pointer-events: none;
+    margin-left: 4px;
+    transition: 2s;
+    font-size: 12px;
+  }
+
+
+   /* .popup-arrow {
     color: rgb(255, 255, 255);
   }
   [role='tooltip'].popup-content {
     width: 200px;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 0px 3px;
     border-radius: 5px;
-  }
+  } */
   
   .popup-overlay {
-    background: rgba(0, 0, 0, 0.5);
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    bottom: 0px;
+    right: 0px;
+    background-color: rgba(0,0,0, .8);
+    z-index: 1000;
+    overflow-y: auto;
   }
   [data-popup='tooltip'].popup-overlay {
     background: transparent;
-  }
-  
+  } 
+  /*
   .popup-arrow {
     filter: drop-shadow(0 -3px 3px rgba(0, 0, 0, 0.16));
     color: #fff;
@@ -289,7 +308,9 @@ body::-webkit-scrollbar {
     right: 0;
     top: 0;
     bottom: 0;
-  } */
+  }
+*/
+
 
 @keyframes fade-out {
     from {
@@ -300,10 +321,3 @@ body::-webkit-scrollbar {
       opacity: 0;
     }
 }
-
-
-
-
-
-
-
