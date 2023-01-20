@@ -53,7 +53,7 @@
 .popUpPlayButton{
     border: none;
     border-radius: 6px;
-    font-weight: 800;
+    font-weight: 600;
     width: 100px;
     font-size: 18px;
     margin-right: 10px;
@@ -136,4 +136,14 @@
 
 .castNames, .genresList, .popUpKeywordsList{
     color: white;
+}
+
+@media all and (min-width: 1700px) {
+    .title{
+        top: 300px;
+    }
+    .buttonsOnPicDiv{
+       top: 425px;
+    }
+
 }

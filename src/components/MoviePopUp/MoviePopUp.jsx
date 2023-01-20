@@ -3,6 +3,7 @@ import './MoviePopUp.css'
 import likeblack from '../../assets/like-white.png';
 import instance from "../../axios";
 import requests from "../../request";
+import SimilarMoviesList from "../SimilarMoviesList/SimilarMoviesList";
 
 
 export default function MoviePopUp(props){
@@ -57,8 +58,9 @@ export default function MoviePopUp(props){
           {props.keywords.length > 1 && <span className="popUpKeywordsList">, {props.keywords[1].name}</span>}
           {props.keywords.length > 2 && <span className="popUpKeywordsList">, {props.keywords[2].name}</span>}
         </div>}
-        </div>
       </div>
+    </div>
+    <SimilarMoviesList gender={props.data.genres[0].name} />
     </div>
   );
 }
