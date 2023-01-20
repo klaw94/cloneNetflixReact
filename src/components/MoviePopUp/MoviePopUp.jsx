@@ -18,8 +18,6 @@ export default function MoviePopUp(props){
         .then(data => setCast(data))
   }, [])
 
-
-
   return (
     <div className="moviePopUp">
       <div>
@@ -42,9 +40,23 @@ export default function MoviePopUp(props){
         </div>
         <div className="synopsis">{props.data.overview}</div>
         <div className="popUp-castGenreKeywordsDiv">
-          <div className="cast">Cast : <span className="castNames">{cast && `${cast.cast.length > 0 && cast.cast[0].name}, ${cast.cast.length > 1 && cast.cast[1].name}, ${cast.cast.length > 2 && cast.cast[2].name}, more`}</span></div>
-          <div className="genre">Genres: <span className="genresList">{`${props.data.genres[0].name}, ${props.data.genres[1].name}, ${props.data.genres[2].name}, more`}</span></div>
-          <div className="popUp-keywords">Belongs to: <span className="popUpKeywordsList">{`${props.keywords.length > 0 && props.keywords[0].name}, ${props.keywords.length > 1 && props.keywords[1].name}, ${props.keywords.length > 2 && props.keywords[2].name}`}</span></div>
+        {cast != null && cast.cast.length > 0 && <div className="cast">Cast : 
+          {cast != null && cast.cast.length > 0 && <span className="castNames"> {cast.cast[0].name}, </span>}
+          {cast != null && cast.cast.length > 1 && <span className="castNames"> {cast.cast[1].name}, </span>}
+          {cast != null && cast.cast.length > 2 && <span className="castNames"> {cast.cast[2].name}, </span>}
+          <span className="castNames">more</span>
+        </div>}
+        {props.data.genres.length > 0 && <div className="genre">Genres : 
+          {props.data.genres.length > 0 && <span className="genresList"> {props.data.genres[0].name}, </span>}
+          {props.data.genres.length > 1 && <span className="genresList"> {props.data.genres[1].name}, </span>}
+          {props.data.genres.length > 2 && <span className="genresList"> {props.data.genres[2].name}, </span>}
+          <span className="genresList">more</span>
+        </div>}
+        {props.keywords.length > 0 && <div className="popUp-keywords">Keywords : 
+          {props.keywords.length > 0 && <span className="popUpKeywordsList"> {props.keywords[0].name}</span>}
+          {props.keywords.length > 1 && <span className="popUpKeywordsList">, {props.keywords[1].name}</span>}
+          {props.keywords.length > 2 && <span className="popUpKeywordsList">, {props.keywords[2].name}</span>}
+        </div>}
         </div>
       </div>
     </div>
