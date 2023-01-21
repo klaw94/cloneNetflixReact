@@ -3,7 +3,11 @@
     width: 13em;
     padding: 0;
     cursor: pointer;
-    border-radius: 6px;
+    border-radius: 5px;
+    background-color: rgb(53, 53, 53);
+    margin-bottom: 5px;
+    margin-top: 5px;
+
 }
 
 .extraInfoCard--imageElements{
@@ -13,12 +17,12 @@
 
 
 .extraInfoCard--image{
-    width: 13em;
+    width: 100%;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
     margin-left: 0;
     margin-right: 0;
-    padding-left: 5px;
-    padding-right: 5px;
-    margin-top: 5px;
+
 }
 
 .extraInfoCard--runtime{
@@ -62,4 +66,12 @@
 
 .extraInfoCard:hover  .extraInfoCard--playButton{
     display: block;
+}
+
+.extraInfoCard--info{
+    background-color: rgb(53, 53, 53);
+}
+
+.extraInfoCard--contentYearListDiv{
+    display: flex;
 }

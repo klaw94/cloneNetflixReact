@@ -30,6 +30,11 @@ export default function ExtraInfoCard(props){
       }
       
 
+      let year = ""
+      if(detailedInfo.release_date){
+        year = detailedInfo.release_date ? detailedInfo.release_date.slice(0, 4) : detailedInfo.first_air_date.slice(0,4)
+      }
+
       let contentRating;
       let contentRatingClass;
       if (props.mediaType && props.mediaType === "tv" && detailedInfo.content_ratings){
@@ -103,7 +108,12 @@ export default function ExtraInfoCard(props){
             <div className="extraInfoCard--title">{detailedInfo.title ? detailedInfo.title : detailedInfo.original_name}</div>
 
           </div>
-            <div className="extraInfoCard--info"></div>
+          <div className="extraInfoCard--info"></div>
+            <div className="extraInfoCard--contentYearListDiv">
+              <div className={`contentRating ${contentRatingClass}`}>{contentRating}</div>
+              <div>{year}</div>
+              <div className="emoji">+</div>
+            </div>
         </div>
     )
 }
