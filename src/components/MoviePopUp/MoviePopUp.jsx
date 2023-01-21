@@ -61,7 +61,7 @@ export default function MoviePopUp(props){
         </div>}
       </div>
     </div>
-   <SimilarMoviesList mediaType={props.mediaType} keywords={props.keywords.length > 1 ? props.keywords : []} genre={props.data.genres.length > 1 ? props.data.genres : []}/>
+   <SimilarMoviesList mediaType={props.mediaType} parentTitle={props.data.title ? props.data.title : props.data.original_name} keywords={props.keywords.length > 1 ? props.keywords : []} genre={props.data.genres.length > 1 ? props.data.genres : []}/>
     </div>
   );
 }

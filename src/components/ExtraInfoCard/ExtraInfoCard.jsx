@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import requests from '../../request'
 import instance from '../../axios'
+import "./ExtraInfoCard.css"
 
 export default function ExtraInfoCard(props){
     const [detailedInfo, setDetailInfo] = useState([])
@@ -91,7 +92,7 @@ export default function ExtraInfoCard(props){
     }
 
 
-    console.log()
+    console.log(detailedInfo)
 
     return(
         <div className="ExtraInfoCard">

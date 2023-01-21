@@ -20,10 +20,19 @@ export default function SimilarMoviesList(props){
             .then(data => setSimilarMovies(data.results))
       }, [])
 
-   
-    const visualSimilarMovies = similarMovies.map(movie =>
-          (<ExtraInfoCard key={nanoid()} className="card" fetchId={movie.id} mediaType={movie.media_type} link={`https://image.tmdb.org/t/p/w500${movie.backdrop_path}`} />
-          ))
+      
+    let filteredSimilarMovies = [];
+    
+   for(let i = 0; i < similarMovies.length; i++){
+    if (similarMovies[i].title != props.parentTitle){
+        filteredSimilarMovies.push(similarMovies[i])
+    }
+   }
+
+
+    const visualSimilarMovies = filteredSimilarMovies.map(movie =>
+        (<ExtraInfoCard key={nanoid()} className="card" fetchId={movie.id} mediaType={movie.media_type} link={`https://image.tmdb.org/t/p/w500${movie.backdrop_path}`} />
+    ))
        
 
         //console.log(similarMovies)
