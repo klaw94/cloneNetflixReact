@@ -8,8 +8,8 @@ import SimilarMoviesList from "../SimilarMoviesList/SimilarMoviesList";
 
 export default function MoviePopUp(props){
   const [cast, setCast] = useState(null)
-  console.log(props.data)
-  cast && console.log(cast)
+  // console.log(props.data)
+  //console.log(props.data.genres)
 
   const year = props.data.release_date ? props.data.release_date.slice(0, 4) : props.data.first_air_date.slice(0,4)
   
@@ -19,6 +19,7 @@ export default function MoviePopUp(props){
         .then(data => setCast(data))
   }, [])
 
+ // console.log(props.keywords)
   return (
     <div className="moviePopUp">
       <div>
@@ -60,7 +61,7 @@ export default function MoviePopUp(props){
         </div>}
       </div>
     </div>
-    <SimilarMoviesList gender={props.data.genres[0].name} />
+   <SimilarMoviesList mediaType={props.mediaType} keywords={props.keywords.length > 1 ? props.keywords : []} genre={props.data.genres.length > 1 ? props.data.genres : []}/>
     </div>
   );
 }

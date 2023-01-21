@@ -1,4 +1,16 @@
+.similarMoviesList{
+    margin-left: 15px;
+}
+
 .similarMoviesList>h3{
-    font-size: 18px;
+    font-size: 20px;
     font-weight: 800;
+}
+
+.similarMoviesListDiv{
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: 15px;
+    margin-right: 15px;
+
 }
