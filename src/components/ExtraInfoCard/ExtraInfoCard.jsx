@@ -95,12 +95,15 @@ export default function ExtraInfoCard(props){
     console.log(detailedInfo)
 
     return(
-        <div className="ExtraInfoCard">
+        <div className="extraInfoCard">
+          <div className="extraInfoCard--imageElements">
+            <img className="extraInfoCard--image" src={props.link}/>
             <div className="extraInfoCard--runtime">{runtime}</div>
-                <img className="extraInfoCard--image" src={props.link}/>
-                <div className="extraInfoCard--info">
+            <div className="extraInfoCard--playButton">▶</div>
+            <div className="extraInfoCard--title">{detailedInfo.title ? detailedInfo.title : detailedInfo.original_name}</div>
 
-            </div>
+          </div>
+            <div className="extraInfoCard--info"></div>
         </div>
     )
 }
