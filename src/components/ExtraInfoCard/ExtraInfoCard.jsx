@@ -97,7 +97,7 @@ export default function ExtraInfoCard(props){
     }
 
 
-    console.log(detailedInfo)
+    //console.log(detailedInfo)
 
     return(
         <div className="extraInfoCard">
