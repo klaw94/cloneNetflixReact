@@ -110,10 +110,13 @@ export default function ExtraInfoCard(props){
           </div>
           <div className="extraInfoCard--info"></div>
             <div className="extraInfoCard--contentYearListDiv">
-              <div className={`contentRating ${contentRatingClass}`}>{contentRating}</div>
-              <div>{year}</div>
+              <div className="extraInfoCard--contentYearDiv">
+                <div className={`extraInfoCard--contentRating contentRating ${contentRatingClass}`}>{contentRating}</div>
+                <div>{year}</div>
+              </div>
               <div className="emoji">+</div>
             </div>
+            <div className="extraInfoCard--summary">{detailedInfo.overview}</div>
         </div>
     )
 }
