@@ -154,7 +154,10 @@ export default function MovieCard(props){
 
     return(
     <div className="card" ref={ref}>
-      <img className="movieCard" src={props.link}/>
+      <Popup trigger={<img className="movieCard" src={props.link}/>} modal>
+        <VideoPlayer apiCall={`${instance}/${props.mediaType ? props.mediaType : "movie"}/${props.fetchId}?api_key=${requests.apiKey}&language=en-US`}/>
+      </Popup> 
+      
       <div className="movieInfo">
         <div className="movieEmojisDiv">
           <div className="movieEmojisLeft">

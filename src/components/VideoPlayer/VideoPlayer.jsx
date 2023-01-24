@@ -37,7 +37,7 @@ export default function Player (props) {
 
    return (
     <div className="videoPlayer">
-        <button className="videoPlayer--exit" onClick={closeVideo}>Click Me</button>
+        {fullScreen && <button className="videoPlayer--exit" onClick={closeVideo}>x</button>}
         {video.key && fullScreen && <iframe width={800} height={500}
             src={`https://www.youtube.com/embed/${video.key}`}>
         </iframe>}

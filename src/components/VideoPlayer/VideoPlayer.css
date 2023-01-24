@@ -30,8 +30,8 @@
 
   .videoPlayer--exit{
     position:fixed;
-    bottom:2%;
-    right:2%;
+    top:2%;
+    left:2%;
     padding:15px;
     background-color:#4c63c1;
     border:none;border-radius:25px;
@@ -40,4 +40,5 @@
     color:#fff;
     box-shadow:0px 0px 10px gray;
     z-index: 2384092384029384;
+    cursor: pointer;
   }

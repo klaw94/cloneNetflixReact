@@ -2,6 +2,9 @@ import React, { useState, useEffect, useRef, useCallback } from "react";
 import requests from '../../request'
 import instance from '../../axios'
 import "./ExtraInfoCard.css"
+import Popup from 'reactjs-popup';
+import 'reactjs-popup/dist/index.css';
+import VideoPlayer from "../VideoPlayer/VideoPlayer"
 
 export default function ExtraInfoCard(props){
     const [detailedInfo, setDetailInfo] = useState([])
@@ -100,23 +103,26 @@ export default function ExtraInfoCard(props){
     //console.log(detailedInfo)
 
     return(
-        <div className="extraInfoCard">
-          <div className="extraInfoCard--imageElements">
-            <img className="extraInfoCard--image" src={props.link}/>
-            <div className="extraInfoCard--runtime">{runtime}</div>
-            <div className="extraInfoCard--playButton">▶</div>
-            <div className="extraInfoCard--title">{detailedInfo.title ? detailedInfo.title : detailedInfo.original_name}</div>
+      <Popup trigger={<div className="extraInfoCard">
+      <div className="extraInfoCard--imageElements">
+        <img className="extraInfoCard--image" src={props.link}/>
+        <div className="extraInfoCard--runtime">{runtime}</div>
+        <div className="extraInfoCard--playButton">▶</div>
+        <div className="extraInfoCard--title">{detailedInfo.title ? detailedInfo.title : detailedInfo.original_name}</div>
 
+      </div>
+      <div className="extraInfoCard--info"></div>
+        <div className="extraInfoCard--contentYearListDiv">
+          <div className="extraInfoCard--contentYearDiv">
+            <div className={`extraInfoCard--contentRating contentRating ${contentRatingClass}`}>{contentRating}</div>
+            <div>{year}</div>
           </div>
-          <div className="extraInfoCard--info"></div>
-            <div className="extraInfoCard--contentYearListDiv">
-              <div className="extraInfoCard--contentYearDiv">
-                <div className={`extraInfoCard--contentRating contentRating ${contentRatingClass}`}>{contentRating}</div>
-                <div>{year}</div>
-              </div>
-              <div className="emoji">+</div>
-            </div>
-            <div className="extraInfoCard--summary">{detailedInfo.overview}</div>
+          <div className="emoji">+</div>
         </div>
+        <div className="extraInfoCard--summary">{detailedInfo.overview}</div>
+    </div>} modal>
+      <VideoPlayer apiCall={`${instance}/${props.mediaType ? props.mediaType : "movie"}/${props.fetchId}?api_key=${requests.apiKey}&language=en-US`}/>
+    </Popup> 
+        
     )
 }
