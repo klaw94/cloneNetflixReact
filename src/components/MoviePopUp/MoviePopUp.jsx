@@ -4,6 +4,9 @@ import likeblack from '../../assets/like-white.png';
 import instance from "../../axios";
 import requests from "../../request";
 import SimilarMoviesList from "../SimilarMoviesList/SimilarMoviesList";
+import Popup from 'reactjs-popup';
+import 'reactjs-popup/dist/index.css';
+import VideoPlayer from "../VideoPlayer/VideoPlayer"
 
 
 export default function MoviePopUp(props){
@@ -30,7 +33,9 @@ export default function MoviePopUp(props){
       <h3 className="title">{props.data.title ? props.data.title : props.data.original_name}</h3>
       
       <div className="buttonsOnPicDiv">
-        <button className="popUpPlayButton">▶ Play</button>
+        <Popup trigger={<button className="popUpPlayButton">▶ Play</button>} modal>
+          <VideoPlayer apiCall={`${instance}/${props.mediaType ? props.mediaType : "movie"}/${props.data.id}?api_key=${requests.apiKey}&language=en-US`}/>
+        </Popup> 
         <div className="emojiPopUp">+</div>
         <div className="emojiPopUp"><img src={likeblack} alt="" className="likeButton likeButtonPopUp" /></div>
       </div>

@@ -9,6 +9,7 @@ function App() {
   return (
     <div className="App">
       <Navbar />
+      <Row title="My List" fetch={requests.myList}></Row>
       <Row title="Trend Now" fetch={requests.fetchTrending}/>
       <Row title="Action Movies" fetch={requests.fetchActionMovies}/>
       <Row title="Comedy Movies" fetch={requests.fetchComedyMovies}/>

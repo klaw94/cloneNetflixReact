@@ -152,6 +152,21 @@ export default function MovieCard(props){
     //   setVideoIsPlaying(prevValue => !prevValue)
     // }
 
+    function addToMyList (id, employeeid, media_type, backdrop_path) {
+   
+        
+           fetch(`http://localhost:8080/api/v1/movie`, {
+                method: 'post',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    id,
+                    employeeid,
+                    media_type,
+                    backdrop_path,
+                }),
+            })
+    }
+
     return(
     <div className="card" ref={ref}>
       <Popup trigger={<img className="movieCard" src={props.link}/>} modal>
@@ -165,7 +180,7 @@ export default function MovieCard(props){
               <VideoPlayer apiCall={`${instance}/${props.mediaType ? props.mediaType : "movie"}/${props.fetchId}?api_key=${requests.apiKey}&language=en-US`}/>
             </Popup> 
              
-              <div className="emoji">+</div>
+              <div className="emoji" onClick={() => addToMyList(detailedInfo.id, 0, props.mediaType, detailedInfo.backdrop_path)}>+</div>
               <div className="emoji"><img src={likeblack} alt="" className="likeButton" /></div>
             </div>
             <Popup trigger={<div className="emoji vEmoji">˅</div>} modal>

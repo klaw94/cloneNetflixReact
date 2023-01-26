@@ -9,15 +9,35 @@ export default function Row(props){
   const [margin, setMargin] = useState(true)
   const [letsRefresh, setLetsRefresh] = useState(true)
   
-
+//console.log(movieData)
 
   useEffect(()=>{
+
+
+    var requestOptions = {
+      method: 'GET',
+      redirect: 'follow',
+      crossDomain: true,
+      headers: {
+        accept: "application/json",
+        ContentType: "application/json",
+        AccessControlAllowOrigin: "*"
+      },
+    };
+    
+
+    props.title != "My List" ?
     fetch(`${instance}${props.fetch}`)
         .then(res => res.json())
-        .then(data => setMovieData(data.results))
+        .then(data => setMovieData(data.results)) :
+    
+    fetch(`${props.fetch}`, requestOptions)
+        .then(res => res.json())
+        .then(data => setMovieData(data))        
   }, [])
 
-  //console.log(movieData)
+  if (props.title === "My List"){
+  console.log(movieData)}
 
 
   const visualMovies = movieData.map(movie =>

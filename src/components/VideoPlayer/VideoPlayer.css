@@ -42,3 +42,13 @@
     z-index: 2384092384029384;
     cursor: pointer;
   }
+
+  .videoPlayer--errorMessage{
+    display: block;
+    margin: 0 auto;
+    margin-top: 300px;
+    z-index: 2384092384029384;
+    color: white;
+    width:300px;
+    height: 400px;
+  }

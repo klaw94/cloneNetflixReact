@@ -25,6 +25,12 @@ export default function Player (props) {
                         break;
                     }
                 }
+                if (trailer === null){
+                    for (let i = 0; i < data.videos.results.length; i++){
+                        trailer = data.videos.results[i];
+                        break;
+                    }
+                }
                 setVideo(trailer)
             })
       }, [])
@@ -38,9 +44,11 @@ export default function Player (props) {
    return (
     <div className="videoPlayer">
         {fullScreen && <button className="videoPlayer--exit" onClick={closeVideo}>x</button>}
-        {video.key && fullScreen && <iframe width={800} height={500}
+        {video != null && fullScreen ? 
+        <iframe width={800} height={500}
             src={`https://www.youtube.com/embed/${video.key}`}>
-        </iframe>}
+        </iframe> : 
+        fullScreen && <div className="videoPlayer--errorMessage">Sorry, there is no trailer available</div>} 
     </div>
 )
 }
