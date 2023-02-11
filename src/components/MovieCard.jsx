@@ -46,7 +46,7 @@ export default function MovieCard(props){
         }
       }, [])
 
-    console.log(detailedInfo)
+    //console.log(detailedInfo)
 
       let runtime;
       if (props.mediaType && props.mediaType === "tv" && detailedInfo.number_of_seasons > 1){
@@ -137,11 +137,6 @@ export default function MovieCard(props){
           </div>)
       }
     }
-
-    // {props.keywords.length > 0 && <span className="popUpKeywordsList"> {props.keywords[0].name}</span>}
-    //       {props.keywords.length > 1 && <span className="popUpKeywordsList">, {props.keywords[1].name}</span>}
-    //       {props.keywords.length > 2 && <span className="popUpKeywordsList">, {props.keywords[2].name}</span>}
-
 
     return(
     <div className="card" ref={ref}>

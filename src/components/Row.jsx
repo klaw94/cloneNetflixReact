@@ -22,8 +22,8 @@ export default function Row(props){
         .then(data => setMovieData(data))        
   }, [])
 
-  // if (props.title === "My List"){
-  // console.log(movieData)}
+  if (props.title === "My List"){
+  console.log(movieData)}
 
 
   const visualMovies = movieData.map(movie =>
@@ -31,7 +31,7 @@ export default function Row(props){
       className="card" 
       myList={props.myList} 
       fetchId={movie.id} 
-      mediaType={movie.media_type} 
+      mediaType={movie.media_type ? movie.media_type : movie.mediaType} 
       myListFunction={props.myListFunction} 
       removeListFunction={props.removeListFunction}
       link={`https://image.tmdb.org/t/p/w500${movie.backdrop_path}`} />

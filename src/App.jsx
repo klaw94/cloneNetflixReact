@@ -19,7 +19,7 @@ function App() {
 
  // console.log(myList)
   function addToMyList (id, employeeid, media_type, backdrop_path) {
-         
+    let realMediaType = media_type ? media_type : "movie"   
     fetch(`http://localhost:8080/api/v1/movie`, {
          method: 'post',
          headers: { 'Content-Type': 'application/json' },
