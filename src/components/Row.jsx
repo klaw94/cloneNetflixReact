@@ -1,7 +1,8 @@
-import React, {useState, useEffect, useRef} from "react"
+import React, {useState, useEffect, useRef, useContext} from "react"
 import instance from '../axios'
 import {nanoid} from 'nanoid'
 import MovieCard from "./MovieCard";
+
 
 export default function Row(props){
   const [movieData, setMovieData] = useState([])
@@ -17,13 +18,11 @@ export default function Row(props){
         .then(res => res.json())
         .then(data => setMovieData(data.results)) :
     
-    fetch(`${props.fetch}`)
-        .then(res => res.json())
-        .then(data => setMovieData(data))        
+    setMovieData(props.myList)       
   }, [])
 
-  if (props.title === "My List"){
-  console.log(movieData)}
+  // if (props.title === "My List"){
+  // console.log(movieData)}
 
 
   const visualMovies = movieData.map(movie =>

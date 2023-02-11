@@ -1,8 +1,9 @@
-import { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import requests from './request'
 import Navbar from './components/Navbar'
 import './App.css'
 import Row from './components/Row'
+
 
 function App() {
   const[myList, setMyList] = useState([])
@@ -19,7 +20,6 @@ function App() {
 
  // console.log(myList)
   function addToMyList (id, employeeid, media_type, backdrop_path) {
-    let realMediaType = media_type ? media_type : "movie"   
     fetch(`http://localhost:8080/api/v1/movie`, {
          method: 'post',
          headers: { 'Content-Type': 'application/json' },
@@ -47,11 +47,10 @@ function removeFromMyList(movieId, employeeId){
   return (
     <div className="App">
       <Navbar />
-      <Row title="My List" fetch={requests.myList} myList={myList} myListFunction={addToMyList} removeListFunction={removeFromMyList}/>
+      {myList.length > 0 && <Row title="My List" fetch={requests.myList} myList={myList} myListFunction={addToMyList} removeListFunction={removeFromMyList}/>}
       <Row title="Trend Now" fetch={requests.fetchTrending}  myList={myList} myListFunction={addToMyList} removeListFunction={removeFromMyList}/>
       <Row title="Action Movies" fetch={requests.fetchActionMovies}  myList={myList} myListFunction={addToMyList} removeListFunction={removeFromMyList}/>
       <Row title="Comedy Movies" fetch={requests.fetchComedyMovies}  myList={myList} myListFunction={addToMyList} removeListFunction={removeFromMyList}/>
-     
     </div>
   )
 }
