@@ -44,8 +44,13 @@ function App() {
         .then(data => setMyList(data)))
 }
 
-function removeFromMyList(){
-  console.log("We remove")
+function removeFromMyList(movieId, employeeId){
+  fetch(`http://localhost:8080/api/v1/movie/${movieId}/${employeeId}`,{
+    method: 'delete'
+  })     
+  .then(fetch(requests.myList, requestOptions)
+  .then(res => res.json())
+  .then(data => setMyList(data)))
 }
 
   return (
