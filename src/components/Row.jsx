@@ -12,8 +12,6 @@ export default function Row(props){
 //console.log(movieData)
 
   useEffect(()=>{
-
-
     var requestOptions = {
       method: 'GET',
       redirect: 'follow',
@@ -24,8 +22,6 @@ export default function Row(props){
         AccessControlAllowOrigin: "*"
       },
     };
-    
-
     props.title != "My List" ?
     fetch(`${instance}${props.fetch}`)
         .then(res => res.json())
@@ -36,12 +32,19 @@ export default function Row(props){
         .then(data => setMovieData(data))        
   }, [])
 
-  if (props.title === "My List"){
-  console.log(movieData)}
+  // if (props.title === "My List"){
+  // console.log(movieData)}
 
 
   const visualMovies = movieData.map(movie =>
-    (<MovieCard key={nanoid()} className="card" fetchId={movie.id} mediaType={movie.media_type} link={`https://image.tmdb.org/t/p/w500${movie.backdrop_path}`} />
+    (<MovieCard key={nanoid()} 
+      className="card" 
+      myList={props.myList} 
+      fetchId={movie.id} 
+      mediaType={movie.media_type} 
+      myListFunction={props.myListFunction} 
+      removeListFunction={props.removeListFunction}
+      link={`https://image.tmdb.org/t/p/w500${movie.backdrop_path}`} />
     )
   )
 

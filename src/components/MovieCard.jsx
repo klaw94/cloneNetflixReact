@@ -13,6 +13,7 @@ export default function MovieCard(props){
     const [keywords, setKeywords] = useState([])
     const ref = useRef()
     const [videoIsPlaying, setVideoIsPlaying] = useState(false)
+    const [isInMyList, setIsInMyList] = useState(false)
     // const [left, setLeft] = useState([])
 
     let contentRatingFetch
@@ -33,6 +34,17 @@ export default function MovieCard(props){
           .then(res=> res.json())
           .then(data => setKeywords(data))
       }, [detailedInfo])
+
+      useEffect(()=>{
+        if (props.myList){
+          for(let i = 0; i < props.myList.length; i++){
+            if(props.fetchId === props.myList[i].id){
+              setIsInMyList(true);
+              return;
+            }
+          }
+        }
+      }, [])
 
     //console.log(detailedInfo)
 
@@ -152,20 +164,6 @@ export default function MovieCard(props){
     //   setVideoIsPlaying(prevValue => !prevValue)
     // }
 
-    function addToMyList (id, employeeid, media_type, backdrop_path) {
-   
-        
-           fetch(`http://localhost:8080/api/v1/movie`, {
-                method: 'post',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    id,
-                    employeeid,
-                    media_type,
-                    backdrop_path,
-                }),
-            })
-    }
 
     return(
     <div className="card" ref={ref}>
@@ -179,8 +177,9 @@ export default function MovieCard(props){
           <Popup trigger={<div className="emoji">▶</div>} modal>
               <VideoPlayer apiCall={`${instance}/${props.mediaType ? props.mediaType : "movie"}/${props.fetchId}?api_key=${requests.apiKey}&language=en-US`}/>
             </Popup> 
-             
-              <div className="emoji" onClick={() => addToMyList(detailedInfo.id, 0, props.mediaType, detailedInfo.backdrop_path)}>+</div>
+             {isInMyList ?
+              <div className="emoji" onClick={() => props.removeListFunction()}>✔</div> :
+              <div className="emoji" onClick={() => props.myListFunction(detailedInfo.id, 0, props.mediaType, detailedInfo.backdrop_path)}>+</div>}
               <div className="emoji"><img src={likeblack} alt="" className="likeButton" /></div>
             </div>
             <Popup trigger={<div className="emoji vEmoji">˅</div>} modal>
