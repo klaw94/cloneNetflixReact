@@ -12,22 +12,12 @@ export default function Row(props){
 //console.log(movieData)
 
   useEffect(()=>{
-    var requestOptions = {
-      method: 'GET',
-      redirect: 'follow',
-      crossDomain: true,
-      headers: {
-        accept: "application/json",
-        ContentType: "application/json",
-        AccessControlAllowOrigin: "*"
-      },
-    };
     props.title != "My List" ?
     fetch(`${instance}${props.fetch}`)
         .then(res => res.json())
         .then(data => setMovieData(data.results)) :
     
-    fetch(`${props.fetch}`, requestOptions)
+    fetch(`${props.fetch}`)
         .then(res => res.json())
         .then(data => setMovieData(data))        
   }, [])

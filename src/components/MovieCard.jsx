@@ -46,7 +46,7 @@ export default function MovieCard(props){
         }
       }, [])
 
-    //console.log(detailedInfo)
+    console.log(detailedInfo)
 
       let runtime;
       if (props.mediaType && props.mediaType === "tv" && detailedInfo.number_of_seasons > 1){
@@ -119,50 +119,28 @@ export default function MovieCard(props){
         }
     }
 
+    let visualKeywords;
+    if(props.mediaType === "tv"){
+      if(keywords.results){
+        visualKeywords = (<div className="keywords">
+        {keywords.results.length > 0 && <span> {keywords.results[0].name} </span> }
+        {keywords.results.length > 1 && <span>{` · ${keywords.results[1].name}`}</span> }
+        {keywords.results.length > 2 && <span>{` · ${keywords.results[2].name}`}</span> }
+        </div>)
+      }
+    } else {
+      if(keywords.keywords) {
+        visualKeywords = (<div className="keywords">
+          {keywords.keywords.length > 0 && <span> {keywords.keywords[0].name} </span> }
+          {keywords.keywords.length > 1 && <span>{` · ${keywords.keywords[1].name}`}</span> }
+          {keywords.keywords.length > 2 && <span>{` · ${keywords.keywords[2].name}`}</span> }
+          </div>)
+      }
+    }
 
-  //   useEffect(() => {
-  //     function updateScrollPosition() {
-  //       console.log("hola")
-  //         setLeft(ref.current.getBoundingClientRect().left)
-  //     }
-
-  //     if (ref && ref.current) {
-  //         ref.current.addEventListener("scroll", updateScrollPosition, false);
-  //         // return function cleanup() {
-  //         //   if(ref && ref.current){
-  //         //      ref.current.removeEventListener("scroll", updateScrollPosition, false);
-  //         //   }
-  //         // };
-  //     }
-  // });
-    // const ref = useCallback(node => {
-    //   if (node !== null) {
-    //     setLeft(node.getBoundingClientRect().left);
-    //   }
-    // });
-
-
-  //   if(detailedInfo.title === "Troll"){
-  //     console.log(ref.current.offsetLeft)
-  //   }
-
-  // let className = "card"
-
-  //   if (ref.current != null){
-  //     if (ref.current.offsetLeft - window.innerWidth > window.innerWidth ){
-  //       if (ref.current.offsetLeft - 2 * window.innerWidth > window.innerWidth)
-  //       className = "noHover"
-  //     } else {
-  //       className = "card"
-  //     }
-  //   }
-
-
-    //if left - screensize > screensize { left - screensize - screensize} Menor que trescientos  o mayor que screensize -260. setAttribute nohover.
-
-    // function createVideoPlayer(){
-    //   setVideoIsPlaying(prevValue => !prevValue)
-    // }
+    // {props.keywords.length > 0 && <span className="popUpKeywordsList"> {props.keywords[0].name}</span>}
+    //       {props.keywords.length > 1 && <span className="popUpKeywordsList">, {props.keywords[1].name}</span>}
+    //       {props.keywords.length > 2 && <span className="popUpKeywordsList">, {props.keywords[2].name}</span>}
 
 
     return(
@@ -190,10 +168,8 @@ export default function MovieCard(props){
           <div className={`contentRating ${contentRatingClass}`}>{contentRating}</div>
           <div className="runtime">{runtime}</div>
         </div>
-        {props.mediaType === "tv" ? 
-        keywords.results && keywords.results.length > 0 && <div className="keywords">{`${keywords.results.length > 0 && keywords.results[0].name} · ${keywords.results.length > 1 && keywords.results[1].name} · ${keywords.results.length > 2 && keywords.results[2].name} `}</div> :
-        keywords.keywords && keywords.keywords.length > 0 && <div className="keywords">{`${keywords.keywords.length > 0 && keywords.keywords[0].name} · ${keywords.keywords.length > 1 && keywords.keywords[1].name} · ${keywords.keywords.length > 2 && keywords.keywords[2].name} `}</div>}
-      </div>
+          {visualKeywords}
+        </div>
       {/* {videoIsPlaying && <VideoPlayer video/>} */}
     </div>
     )
