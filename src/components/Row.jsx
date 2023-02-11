@@ -8,7 +8,6 @@ export default function Row(props){
   const [movieData, setMovieData] = useState([])
   const ref = useRef(null);
   const [margin, setMargin] = useState(true)
-  const [letsRefresh, setLetsRefresh] = useState(true)
   
 //console.log(movieData)
 
@@ -24,8 +23,9 @@ export default function Row(props){
   // if (props.title === "My List"){
   // console.log(movieData)}
 
-
-  const visualMovies = movieData.map(movie =>
+  let visualMovies
+  if (props.title === "My List"){
+  visualMovies = props.myList.map(movie =>
     (<MovieCard key={nanoid()} 
       className="card" 
       myList={props.myList} 
@@ -36,6 +36,19 @@ export default function Row(props){
       link={`https://image.tmdb.org/t/p/w500${movie.backdrop_path}`} />
     )
   )
+  } else {
+    visualMovies = movieData.map(movie =>
+      (<MovieCard key={nanoid()} 
+        className="card" 
+        myList={props.myList} 
+        fetchId={movie.id} 
+        mediaType={movie.media_type ? movie.media_type : movie.mediaType} 
+        myListFunction={props.myListFunction} 
+        removeListFunction={props.removeListFunction}
+        link={`https://image.tmdb.org/t/p/w500${movie.backdrop_path}`} />
+      )
+    )
+  }
 
   let styles = {marginLeft : -40}
 

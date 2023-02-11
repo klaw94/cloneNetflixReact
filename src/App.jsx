@@ -7,16 +7,22 @@ import Row from './components/Row'
 
 function App() {
   const[myList, setMyList] = useState([])
+  const [letsRefresh, setLetsRefresh] = useState(true)
 
-//console.log(myList)
+
+console.log(myList)
 
   useEffect(()=>{
-  
-     
-    fetch(requests.myList)
-        .then(res => res.json())
-        .then(data => setMyList(data))        
+
+     fetchData()
+           
   }, [])
+
+function fetchData(){
+  fetch(requests.myList)
+  .then(res => res.json())
+  .then(data => setMyList(data)) 
+}
 
  // console.log(myList)
   function addToMyList (id, employeeid, media_type, backdrop_path) {
@@ -30,18 +36,17 @@ function App() {
              backdrop_path,
          }),
      })
-     .then(fetch(requests.myList)
-        .then(res => res.json())
-        .then(data => setMyList(data)))
+     .then(fetchData())
 }
 
 function removeFromMyList(movieId, employeeId){
   fetch(`http://localhost:8080/api/v1/movie/${movieId}/${employeeId}`,{
     method: 'delete'
   })     
-  .then(fetch(requests.myList)
-  .then(res => res.json())
-  .then(data => setMyList(data)))
+  .then(fetchData())
+
+
+
 }
 
   return (
