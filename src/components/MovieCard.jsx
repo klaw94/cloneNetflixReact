@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useCallback } from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
 import requests from '../request'
 import instance from '../axios'
 import likeblack from '../assets/like-white.png';
@@ -6,6 +6,7 @@ import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
 import MoviePopUp from "./MoviePopUp/MoviePopUp";
 import VideoPlayer from "./VideoPlayer/VideoPlayer"
+//import { ListContext } from "../App";
 
 
 export default function MovieCard(props){
@@ -14,7 +15,11 @@ export default function MovieCard(props){
     const ref = useRef()
     const [videoIsPlaying, setVideoIsPlaying] = useState(false)
     const [isInMyList, setIsInMyList] = useState(false)
+    //const myList = useContext(ListContext)
+
     // const [left, setLeft] = useState([])
+
+   // console.log(myList)
 
     let contentRatingFetch
     if (props.mediaType && props.mediaType === "tv"){

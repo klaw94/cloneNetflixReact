@@ -2,15 +2,21 @@ import React, {useState, useEffect, useRef, useContext} from "react"
 import instance from '../axios'
 import {nanoid} from 'nanoid'
 import MovieCard from "./MovieCard";
+//import { ListContext } from "../App";
 
 
 export default function Row(props){
   const [movieData, setMovieData] = useState([])
   const ref = useRef(null);
   const [margin, setMargin] = useState(true)
+ // const myList = useContext(ListContext)
   
-//console.log(movieData)
+//console.log(myList)
 
+  // if (props.title === "My List"){
+  // console.log(movieData)}
+
+  let visualMovies
   useEffect(()=>{
     props.title != "My List" ?
     fetch(`${instance}${props.fetch}`)
@@ -18,18 +24,14 @@ export default function Row(props){
         .then(data => setMovieData(data.results)) :
     
     setMovieData(props.myList)       
-  }, [])
+  }, [props.myList])
 
-  // if (props.title === "My List"){
-  // console.log(movieData)}
-
-  let visualMovies
   if (props.title === "My List"){
   visualMovies = props.myList.map(movie =>
     (<MovieCard key={nanoid()} 
       className="card" 
-      myList={props.myList} 
       fetchId={movie.id} 
+      myList={props.myList}
       mediaType={movie.media_type ? movie.media_type : movie.mediaType} 
       myListFunction={props.myListFunction} 
       removeListFunction={props.removeListFunction}
@@ -40,8 +42,8 @@ export default function Row(props){
     visualMovies = movieData.map(movie =>
       (<MovieCard key={nanoid()} 
         className="card" 
-        myList={props.myList} 
         fetchId={movie.id} 
+        myList={props.myList}
         mediaType={movie.media_type ? movie.media_type : movie.mediaType} 
         myListFunction={props.myListFunction} 
         removeListFunction={props.removeListFunction}

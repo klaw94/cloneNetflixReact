@@ -10,7 +10,6 @@ function App() {
   const [letsRefresh, setLetsRefresh] = useState(true)
 
 
-console.log(myList)
 
   useEffect(()=>{
 
@@ -21,7 +20,9 @@ console.log(myList)
 function fetchData(){
   fetch(requests.myList)
   .then(res => res.json())
-  .then(data => setMyList(data)) 
+  .then(data => {
+    setMyList(data)
+    }) 
 }
 
  // console.log(myList)
@@ -36,17 +37,31 @@ function fetchData(){
              backdrop_path,
          }),
      })
-     .then(fetchData())
+     .then((res)=>{
+      setMyList((prevData => [
+        {
+          id : id,
+          employeeid : employeeid,
+          mediaType : media_type,
+          backdrop_path : backdrop_path,      
+        }, ...prevData
+      ]))
+     }
+      )
 }
+
+console.log(myList)
 
 function removeFromMyList(movieId, employeeId){
   fetch(`http://localhost:8080/api/v1/movie/${movieId}/${employeeId}`,{
     method: 'delete'
   })     
-  .then(fetchData())
-
-
-
+  .then(
+    setMyList((prevData =>{
+      const newData = prevData.filter(data => data.id != movieId)
+      return newData
+    }))
+  )
 }
 
   return (
