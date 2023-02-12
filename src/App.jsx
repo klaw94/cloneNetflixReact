@@ -7,23 +7,16 @@ import Row from './components/Row'
 
 function App() {
   const[myList, setMyList] = useState([])
-  const [letsRefresh, setLetsRefresh] = useState(true)
-
 
 
   useEffect(()=>{
-
-     fetchData()
-           
+    fetch(requests.myList)
+    .then(res => res.json())
+    .then(data => {
+      setMyList(data)
+      }) 
   }, [])
 
-function fetchData(){
-  fetch(requests.myList)
-  .then(res => res.json())
-  .then(data => {
-    setMyList(data)
-    }) 
-}
 
  // console.log(myList)
   function addToMyList (id, employeeid, media_type, backdrop_path) {
@@ -50,7 +43,6 @@ function fetchData(){
       )
 }
 
-console.log(myList)
 
 function removeFromMyList(movieId, employeeId){
   fetch(`http://localhost:8080/api/v1/movie/${movieId}/${employeeId}`,{
