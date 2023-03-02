@@ -6,7 +6,6 @@ import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
 import MoviePopUp from "./MoviePopUp/MoviePopUp";
 import VideoPlayer from "./VideoPlayer/VideoPlayer"
-//import { ListContext } from "../App";
 
 
 export default function MovieCard(props){
@@ -15,11 +14,7 @@ export default function MovieCard(props){
     const ref = useRef()
     const [videoIsPlaying, setVideoIsPlaying] = useState(false)
     const [isInMyList, setIsInMyList] = useState(false)
-    //const myList = useContext(ListContext)
-
-    // const [left, setLeft] = useState([])
-
-   // console.log(myList)
+  
 
     let contentRatingFetch
     if (props.mediaType && props.mediaType === "tv"){
@@ -127,21 +122,32 @@ export default function MovieCard(props){
     let visualKeywords;
     if(props.mediaType === "tv"){
       if(keywords.results){
-        visualKeywords = (<div className="keywords">
-        {keywords.results.length > 0 && <span> {keywords.results[0].name} </span> }
-        {keywords.results.length > 1 && <span>{` · ${keywords.results[1].name}`}</span> }
-        {keywords.results.length > 2 && <span>{` · ${keywords.results[2].name}`}</span> }
-        </div>)
+        visualKeywords = keywords.results.map((keyword, index) => {
+          if (index < 3){
+            return(
+              <span key={keyword.id}>{keyword.name} {index < keyword.length - 1 || index !== 2 ? " · " : ""}</span>
+          );
+          } else{
+            return
+          }
+       
+        }) 
       }
     } else {
       if(keywords.keywords) {
-        visualKeywords = (<div className="keywords">
-          {keywords.keywords.length > 0 && <span> {keywords.keywords[0].name} </span> }
-          {keywords.keywords.length > 1 && <span>{` · ${keywords.keywords[1].name}`}</span> }
-          {keywords.keywords.length > 2 && <span>{` · ${keywords.keywords[2].name}`}</span> }
-          </div>)
+        visualKeywords = keywords.keywords.map((keyword, index) => {
+          if (index < 3){
+            return(
+              <span key={keyword.id}>{keyword.name} {index < keyword.length - 1 || index !== 2 ? " · " : ""}</span>
+          );
+          } else{
+            return
+          }
+       
+        }) 
       }
     }
+    
 
     return(
     <div className="card" ref={ref}>
@@ -168,7 +174,9 @@ export default function MovieCard(props){
           <div className={`contentRating ${contentRatingClass}`}>{contentRating}</div>
           <div className="runtime">{runtime}</div>
         </div>
+        <div className="keywords">
           {visualKeywords}
+          </div>
         </div>
       {/* {videoIsPlaying && <VideoPlayer video/>} */}
     </div>

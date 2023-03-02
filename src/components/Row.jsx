@@ -2,19 +2,13 @@ import React, {useState, useEffect, useRef, useContext} from "react"
 import instance from '../axios'
 import {nanoid} from 'nanoid'
 import MovieCard from "./MovieCard";
-//import { ListContext } from "../App";
 
 
 export default function Row(props){
   const [movieData, setMovieData] = useState([])
   const ref = useRef(null);
   const [margin, setMargin] = useState(true)
- // const myList = useContext(ListContext)
-  
-//console.log(myList)
 
-  // if (props.title === "My List"){
-  // console.log(movieData)}
 
   let visualMovies
   useEffect(()=>{
