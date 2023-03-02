@@ -27,7 +27,7 @@ export default function MoviePopUp(props){
     visualCast = cast.cast.map((actor, index) => {
       if (index < 3){
         return(
-          <span className="castNames" key={actor.id}>{actor.name}{index < cast.length - 1 || index !== 2 ? ", " : ""}</span>
+          <span className="castNames" key={actor.id}>{actor.name}{index < cast.length - 1 || index !== 3 ? ", " : ""}</span>
       );
       } else{
         return
@@ -39,7 +39,7 @@ export default function MoviePopUp(props){
 const visualGenres = props.data.genres.map((genre, index) => {
   if (index < 3){
     return(
-      <span className="genresList" key={genre.id}>{genre.name}{index < props.data.genres.length - 1 || index !== 2 ? ", " : ""}</span>
+      <span className="genresList" key={genre.id}>{genre.name}{index < props.data.genres.length - 1 || index !== 3 ? ", " : ""}</span>
   );
   } else{
     return
@@ -50,7 +50,7 @@ const visualGenres = props.data.genres.map((genre, index) => {
 const visualKeywords = props.keywords.map((keyword, index) => {
   if (index < 3){
     return(
-      <span className="popUpKeywordsList" key={keyword.id}>{keyword.name}{index <  props.keywords.length - 1 || index !== 2 ? ", " : ""}</span>
+      <span className="popUpKeywordsList" key={keyword.id}>{keyword.name}{index <  props.keywords.length - 1 || index !== 3 ? ", " : ""}</span>
   );
   } else{
     return
@@ -97,6 +97,7 @@ const visualKeywords = props.keywords.map((keyword, index) => {
         </div>}
         {props.keywords.length > 0 && <div className="popUp-keywords">Keywords: {" "}
         {visualKeywords}
+        <span className="popUpKeywordsList">more</span>
         </div>}
       </div>
     </div>
