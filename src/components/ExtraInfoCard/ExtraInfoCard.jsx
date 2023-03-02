@@ -8,7 +8,20 @@ import VideoPlayer from "../VideoPlayer/VideoPlayer"
 
 export default function ExtraInfoCard(props){
     const [detailedInfo, setDetailInfo] = useState([])
+    const [isInMyList, setIsInMyList] = useState(false)
 
+
+    
+    useEffect(()=>{
+      if (props.myList){
+        for(let i = 0; i < props.myList.length; i++){
+          if(props.fetchId === props.myList[i].id){
+            setIsInMyList(true);
+            return;
+          }
+        }
+      }
+    }, [])
 
     let contentRatingFetch
     if (props.mediaType && props.mediaType === "tv"){
@@ -117,7 +130,10 @@ export default function ExtraInfoCard(props){
             <div className={`extraInfoCard--contentRating contentRating ${contentRatingClass}`}>{contentRating}</div>
             <div>{year}</div>
           </div>
-          <div className="emoji">+</div>
+          {isInMyList ?
+              <div className="emoji" onClick={() => props.removeListFunction(detailedInfo.id, 0)}>✔</div> :
+              <div className="emoji" onClick={() => props.myListFunction(detailedInfo.id, 0, props.mediaType, detailedInfo.backdrop_path)}>+</div>}
+
         </div>
         <div className="extraInfoCard--summary">{detailedInfo.overview}</div>
     </div>} modal>

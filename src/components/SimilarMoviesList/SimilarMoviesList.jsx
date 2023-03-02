@@ -31,7 +31,15 @@ export default function SimilarMoviesList(props){
 
 
     const visualSimilarMovies = filteredSimilarMovies.map(movie =>
-        (<ExtraInfoCard key={nanoid()} className="card" fetchId={movie.id} mediaType={movie.media_type} link={`https://image.tmdb.org/t/p/w500${movie.backdrop_path}`} />
+        (<ExtraInfoCard 
+            key={nanoid()} 
+            className="card" 
+            fetchId={movie.id} 
+            mediaType={movie.media_type} 
+            link={`https://image.tmdb.org/t/p/w500${movie.backdrop_path}`} 
+            myList={props.myList}
+            myListFunction={props.myListFunction}
+            removeListFunction={props.removeListFunction}/>
     ))
        
 

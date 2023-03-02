@@ -73,7 +73,10 @@ const visualKeywords = props.keywords.map((keyword, index) => {
         <Popup trigger={<button className="popUpPlayButton">▶ Play</button>} modal>
           <VideoPlayer apiCall={`${instance}/${props.mediaType ? props.mediaType : "movie"}/${props.data.id}?api_key=${requests.apiKey}&language=en-US`}/>
         </Popup> 
-        <div className="emojiPopUp">+</div>
+        {props.isInMyList ?
+              <div className="emojiPopUp" onClick={() => props.removeListFunction(props.data.id, 0)}>✔</div> :
+              <div className="emojiPopUp" onClick={() => props.myListFunction(props.data.id, 0, props.mediaType, props.data.backdrop_path)}>+</div>}
+
         <div className="emojiPopUp"><img src={likeblack} alt="" className="likeButton likeButtonPopUp" /></div>
       </div>
       <div className="popUpInfoGrid">
@@ -97,7 +100,15 @@ const visualKeywords = props.keywords.map((keyword, index) => {
         </div>}
       </div>
     </div>
-   <SimilarMoviesList mediaType={props.mediaType} parentTitle={props.data.title ? props.data.title : props.data.original_name} keywords={props.keywords.length > 1 ? props.keywords : []} genre={props.data.genres.length > 1 ? props.data.genres : []}/>
+   <SimilarMoviesList 
+    mediaType={props.mediaType} 
+    parentTitle={props.data.title ? props.data.title : props.data.original_name} 
+    keywords={props.keywords.length > 1 ? props.keywords : []} 
+    genre={props.data.genres.length > 1 ? props.data.genres : []}
+    myList={props.myList}
+    myListFunction={props.myListFunction}
+    removeListFunction={props.removeListFunction}
+    />
     </div>
   );
 }

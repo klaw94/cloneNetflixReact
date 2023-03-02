@@ -12,7 +12,7 @@ export default function MovieCard(props){
     const [detailedInfo, setDetailInfo] = useState([])
     const [keywords, setKeywords] = useState([])
     const ref = useRef()
-    const [videoIsPlaying, setVideoIsPlaying] = useState(false)
+    // const [videoIsPlaying, setVideoIsPlaying] = useState(false)
     const [isInMyList, setIsInMyList] = useState(false)
   
 
@@ -167,7 +167,16 @@ export default function MovieCard(props){
               <div className="emoji"><img src={likeblack} alt="" className="likeButton" /></div>
             </div>
             <Popup trigger={<div className="emoji vEmoji">˅</div>} modal>
-              <MoviePopUp data={detailedInfo} contentRating={contentRating} contentRatingClass={contentRatingClass} mediaType={props.mediaType} runtime={runtime} keywords={props.mediaType === "tv" ? keywords.results : keywords.keywords}/>
+              <MoviePopUp data={detailedInfo} 
+                contentRating={contentRating} 
+                contentRatingClass={contentRatingClass} 
+                mediaType={props.mediaType} 
+                runtime={runtime} 
+                keywords={props.mediaType === "tv" ? keywords.results : keywords.keywords}
+                myListFunction={props.myListFunction}
+                removeListFunction={props.removeListFunction}
+                myList={props.myList}
+                isInMyList={isInMyList}/>
             </Popup>  
         </div>
         <div className="ratingTimeDiv">
