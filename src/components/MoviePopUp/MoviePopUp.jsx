@@ -22,7 +22,44 @@ export default function MoviePopUp(props){
         .then(data => setCast(data))
   }, [])
 
- // console.log(props.keywords)
+  let visualCast
+  if(cast != null){
+    visualCast = cast.cast.map((actor, index) => {
+      if (index < 3){
+        return(
+          <span className="castNames" key={actor.id}>{actor.name}{index < cast.length - 1 || index !== 2 ? ", " : ""}</span>
+      );
+      } else{
+        return
+      }
+   
+    }) 
+  }
+
+const visualGenres = props.data.genres.map((genre, index) => {
+  if (index < 3){
+    return(
+      <span className="genresList" key={genre.id}>{genre.name}{index < props.data.genres.length - 1 || index !== 2 ? ", " : ""}</span>
+  );
+  } else{
+    return
+  }
+
+})
+
+const visualKeywords = props.keywords.map((keyword, index) => {
+  if (index < 3){
+    return(
+      <span className="popUpKeywordsList" key={keyword.id}>{keyword.name}{index <  props.keywords.length - 1 || index !== 2 ? ", " : ""}</span>
+  );
+  } else{
+    return
+  }
+
+})
+
+
+ 
   return (
     <div className="moviePopUp">
       <div>
@@ -47,22 +84,16 @@ export default function MoviePopUp(props){
         </div>
         <div className="synopsis">{props.data.overview}</div>
         <div className="popUp-castGenreKeywordsDiv">
-        {cast != null && cast.cast.length > 0 && <div className="cast">Cast : 
-          {cast != null && cast.cast.length > 0 && <span className="castNames"> {cast.cast[0].name}, </span>}
-          {cast != null && cast.cast.length > 1 && <span className="castNames"> {cast.cast[1].name}, </span>}
-          {cast != null && cast.cast.length > 2 && <span className="castNames"> {cast.cast[2].name}, </span>}
+        {cast != null && cast.cast.length > 0 && <div className="cast">Cast: {" "}
+          {visualCast}
           <span className="castNames">more</span>
         </div>}
-        {props.data.genres.length > 0 && <div className="genre">Genres : 
-          {props.data.genres.length > 0 && <span className="genresList"> {props.data.genres[0].name}, </span>}
-          {props.data.genres.length > 1 && <span className="genresList"> {props.data.genres[1].name}, </span>}
-          {props.data.genres.length > 2 && <span className="genresList"> {props.data.genres[2].name}, </span>}
+        {props.data.genres.length > 0 && <div className="genre">Genres:  {" "}
+          {visualGenres}
           <span className="genresList">more</span>
         </div>}
-        {props.keywords.length > 0 && <div className="popUp-keywords">Keywords : 
-          {props.keywords.length > 0 && <span className="popUpKeywordsList"> {props.keywords[0].name}</span>}
-          {props.keywords.length > 1 && <span className="popUpKeywordsList">, {props.keywords[1].name}</span>}
-          {props.keywords.length > 2 && <span className="popUpKeywordsList">, {props.keywords[2].name}</span>}
+        {props.keywords.length > 0 && <div className="popUp-keywords">Keywords: {" "}
+        {visualKeywords}
         </div>}
       </div>
     </div>
