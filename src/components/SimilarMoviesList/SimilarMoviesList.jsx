@@ -9,6 +9,7 @@ import ExtraInfoCard from "../ExtraInfoCard/ExtraInfoCard";
 export default function SimilarMoviesList(props){
     const [similarMovies, setSimilarMovies] = useState([])
 
+
     useEffect(()=>{
         props.keywords.length > 0 ? 
         fetch(`${instance}/discover/movie?api_key=${requests.apiKey}&language=en-US&sort_by=popularity.desc&page=1&with_keywords=${props.keywords[0].id}|${props.keywords[1].id}`)
@@ -32,14 +33,14 @@ export default function SimilarMoviesList(props){
 
     const visualSimilarMovies = filteredSimilarMovies.map(movie =>
         (<ExtraInfoCard 
-            key={nanoid()} 
+            key={movie.id} 
             className="card" 
             fetchId={movie.id} 
-            mediaType={movie.media_type} 
+            mediaType="movie"
             link={`https://image.tmdb.org/t/p/w500${movie.backdrop_path}`} 
-            myList={props.myList}
-            myListFunction={props.myListFunction}
-            removeListFunction={props.removeListFunction}/>
+            addFilmsToTheListOfSimilarMoviesToMyList={props.addFilmsToTheListOfSimilarMoviesToMyList}
+            removeListFunction={props.removeListFunction}
+            myList={props.myList}/>
     ))
        
 

@@ -12,9 +12,9 @@ export default function MovieCard(props){
     const [detailedInfo, setDetailInfo] = useState([])
     const [keywords, setKeywords] = useState([])
     const ref = useRef()
-    // const [videoIsPlaying, setVideoIsPlaying] = useState(false)
     const [isInMyList, setIsInMyList] = useState(false)
     const [needsToSendMyListRequest, setNeedsToSendMyListRequest] = useState(false)
+    const [similarMoviesToSendToMyList, setSimilarMoviesToSendToMyList] = useState([])
   
 
     let contentRatingFetch
@@ -47,14 +47,6 @@ export default function MovieCard(props){
           }
         }
       }, [])
-
-      // useEffect(()=>{
-      //   setIsInMyList(prevValue=> !prevValue)
-      // }, [needsToSendMyListRequest])
-
-    //console.log(detailedInfo)
-//console.log(isInMyList)
-
 
       let runtime;
       if (props.mediaType && props.mediaType === "tv" && detailedInfo.number_of_seasons > 1){
@@ -161,26 +153,58 @@ export default function MovieCard(props){
       setIsInMyList(prevValue => !prevValue)
     }
 
-    function handleMyListSubmission(){
-      console.log("I am here")
+    //I cant send the films to the api automatically, because then the pop up closes. So I need to do this function every time the pop up closes. 
+    function handleMyListSubmission(id, mediaType, image){
+      addOrRemoveMyFilm(id, mediaType, image)
+      addOrRemoveSimilarMovies()
+    }
+
+    function addFilmsToTheListOfSimilarMoviesToMyList(id, mediaType, image){
+      if(similarMoviesToSendToMyList.length === 0){
+        setSimilarMoviesToSendToMyList(prevValue=>[...prevValue, {id: id, mediaType : mediaType, backdrop_path: image}])
+      } else{
+      for(let i = 0; i < similarMoviesToSendToMyList.length; i++){
+        if(id === similarMoviesToSendToMyList[i].id){
+          setSimilarMoviesToSendToMyList(prevValue => prevValue.filter(film=> film.id != id))
+          return;
+        } else if (id !== similarMoviesToSendToMyList[i].id && i === similarMoviesToSendToMyList.length - 1){
+          setSimilarMoviesToSendToMyList(prevValue=>[...prevValue, {id: id, mediaType : mediaType, backdrop_path: image}])
+
+        }
+      }
+     }
+    }
+
+    function addOrRemoveMyFilm(id, mediaType, image){
       if(needsToSendMyListRequest){
-        console.log("this is true")
         for(let i = 0; i < props.myList.length; i++){
           if(isInMyList === false && props.fetchId === props.myList[i].id){
-            console.log("quito la peli")
             props.removeListFunction(props.fetchId, 0);
             return;
           } else if(isInMyList === true && props.fetchId === props.myList[i].id){
-            console.log("la peli ya estaba")
             return;
 
           } else if (isInMyList === true && i === props.myList.length -1){
-            console.log("añado la peli")
             props.myListFunction(props.fetchId, 0, props.mediaType, detailedInfo.backdrop_path)
           }
         }
       }
     }
+
+  function addOrRemoveSimilarMovies(){
+    console.log(similarMoviesToSendToMyList)
+    for(let i = 0; i < similarMoviesToSendToMyList.length; i++){
+      for(let x = 0; x < props.myList.length; x++){
+        if(similarMoviesToSendToMyList[i].id === props.myList[x].id){
+          props.removeListFunction(similarMoviesToSendToMyList[i].id, 0);
+          return;
+        } else if (x === props.myList.length -1){
+          props.myListFunction(similarMoviesToSendToMyList[i].id, 0, similarMoviesToSendToMyList[i].mediaType, similarMoviesToSendToMyList[i].backdrop_path)
+        }
+      }
+    }
+  }
+
 
     return(
     <div className="card" ref={ref}>
@@ -206,9 +230,8 @@ export default function MovieCard(props){
                 mediaType={props.mediaType} 
                 runtime={runtime} 
                 keywords={props.mediaType === "tv" ? keywords.results : keywords.keywords}
-                myListFunction={props.myListFunction}
-                removeListFunction={props.removeListFunction}
                 toggleFunction={toggleNeedsToBeSendToMyList}
+                addFilmsToTheListOfSimilarMoviesToMyList={addFilmsToTheListOfSimilarMoviesToMyList}
                 myList={props.myList}
                 isInMyList={isInMyList}/>
             </Popup>  

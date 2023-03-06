@@ -111,8 +111,8 @@ function handleClick(){
     keywords={props.keywords.length > 1 ? props.keywords : []} 
     genre={props.data.genres.length > 1 ? props.data.genres : []}
     myList={props.myList}
-    myListFunction={props.myListFunction}
-    removeListFunction={props.removeListFunction}
+    addFilmsToTheListOfSimilarMoviesToMyList={props.addFilmsToTheListOfSimilarMoviesToMyList}
+
     />
     </div>
   );

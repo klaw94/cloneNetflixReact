@@ -23,6 +23,10 @@ export default function ExtraInfoCard(props){
       }
     }, [])
 
+
+    //console.log(props)
+
+
     let contentRatingFetch
     if (props.mediaType && props.mediaType === "tv"){
       contentRatingFetch = `&append_to_response=content_ratings`
@@ -112,10 +116,16 @@ export default function ExtraInfoCard(props){
         }
     }
 
+    function handleMyListClick(){
+      setIsInMyList(prevValue=>!prevValue)
+      props.addFilmsToTheListOfSimilarMoviesToMyList(props.fetchId, props.mediaType, detailedInfo.backdrop_path)
 
-    //console.log(detailedInfo)
+    }
+
+  // console.log(detailedInfo)
 
     return(
+      <div className="extraInfoCard">
       <Popup trigger={<div className="extraInfoCard">
       <div className="extraInfoCard--imageElements">
         <img className="extraInfoCard--image" src={props.link}/>
@@ -124,21 +134,23 @@ export default function ExtraInfoCard(props){
         <div className="extraInfoCard--title">{detailedInfo.title ? detailedInfo.title : detailedInfo.original_name}</div>
 
       </div>
-      <div className="extraInfoCard--info"></div>
-        <div className="extraInfoCard--contentYearListDiv">
-          <div className="extraInfoCard--contentYearDiv">
-            <div className={`extraInfoCard--contentRating contentRating ${contentRatingClass}`}>{contentRating}</div>
-            <div>{year}</div>
-          </div>
-          {isInMyList ?
-              <div className="emoji" onClick={() => props.removeListFunction(event, detailedInfo.id, 0)}>✔</div> :
-              <div className="emoji" onClick={() => props.myListFunction(event, detailedInfo.id, 0, props.mediaType, detailedInfo.backdrop_path)}>+</div>}
+      </div>
 
-        </div>
-        <div className="extraInfoCard--summary">{detailedInfo.overview}</div>
-    </div>} modal>
+    } modal>
       <VideoPlayer apiCall={`${instance}/${props.mediaType ? props.mediaType : "movie"}/${props.fetchId}?api_key=${requests.apiKey}&language=en-US`}/>
     </Popup> 
-        
+          <div className="extraInfoCard--info"></div>
+          <div className="extraInfoCard--contentYearListDiv">
+            <div className="extraInfoCard--contentYearDiv">
+              <div className={`extraInfoCard--contentRating contentRating ${contentRatingClass}`}>{contentRating}</div>
+              <div>{year}</div>
+            </div>
+            {isInMyList ?
+                <div className="emoji" onClick={handleMyListClick}>✔</div> :
+                <div className="emoji" onClick={handleMyListClick}>+</div>}
+  
+          </div>
+          <div className="extraInfoCard--summary">{detailedInfo.overview}</div>
+      </div>
     )
 }
