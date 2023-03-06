@@ -14,6 +14,7 @@ export default function MovieCard(props){
     const ref = useRef()
     // const [videoIsPlaying, setVideoIsPlaying] = useState(false)
     const [isInMyList, setIsInMyList] = useState(false)
+    const [needsToSendMyListRequest, setNeedsToSendMyListRequest] = useState(false)
   
 
     let contentRatingFetch
@@ -24,6 +25,7 @@ export default function MovieCard(props){
     }
     
     useEffect(()=>{
+
         fetch(`${instance}/${props.mediaType ? props.mediaType : "movie"}/${props.fetchId}?api_key=${requests.apiKey}&language=en-US${contentRatingFetch}`)
             .then(res => res.json())
             .then(data => setDetailInfo(data))
@@ -46,7 +48,13 @@ export default function MovieCard(props){
         }
       }, [])
 
+      // useEffect(()=>{
+      //   setIsInMyList(prevValue=> !prevValue)
+      // }, [needsToSendMyListRequest])
+
     //console.log(detailedInfo)
+//console.log(isInMyList)
+
 
       let runtime;
       if (props.mediaType && props.mediaType === "tv" && detailedInfo.number_of_seasons > 1){
@@ -148,6 +156,31 @@ export default function MovieCard(props){
       }
     }
     
+    function toggleNeedsToBeSendToMyList(){
+      setNeedsToSendMyListRequest(true)
+      setIsInMyList(prevValue => !prevValue)
+    }
+
+    function handleMyListSubmission(){
+      console.log("I am here")
+      if(needsToSendMyListRequest){
+        console.log("this is true")
+        for(let i = 0; i < props.myList.length; i++){
+          if(isInMyList === false && props.fetchId === props.myList[i].id){
+            console.log("quito la peli")
+            props.removeListFunction(props.fetchId, 0);
+            return;
+          } else if(isInMyList === true && props.fetchId === props.myList[i].id){
+            console.log("la peli ya estaba")
+            return;
+
+          } else if (isInMyList === true && i === props.myList.length -1){
+            console.log("añado la peli")
+            props.myListFunction(props.fetchId, 0, props.mediaType, detailedInfo.backdrop_path)
+          }
+        }
+      }
+    }
 
     return(
     <div className="card" ref={ref}>
@@ -158,7 +191,7 @@ export default function MovieCard(props){
       <div className="movieInfo">
         <div className="movieEmojisDiv">
           <div className="movieEmojisLeft">
-          <Popup trigger={<div className="emoji">▶</div>} modal>
+          <Popup trigger={<div className="emoji">▶</div>}  modal>
               <VideoPlayer apiCall={`${instance}/${props.mediaType ? props.mediaType : "movie"}/${props.fetchId}?api_key=${requests.apiKey}&language=en-US`}/>
             </Popup> 
              {isInMyList ?
@@ -166,7 +199,7 @@ export default function MovieCard(props){
               <div className="emoji" onClick={() => props.myListFunction(detailedInfo.id, 0, props.mediaType, detailedInfo.backdrop_path)}>+</div>}
               <div className="emoji"><img src={likeblack} alt="" className="likeButton" /></div>
             </div>
-            <Popup trigger={<div className="emoji vEmoji">˅</div>} modal>
+            <Popup trigger={<div className="emoji vEmoji">˅</div>} onClose={handleMyListSubmission}  modal>
               <MoviePopUp data={detailedInfo} 
                 contentRating={contentRating} 
                 contentRatingClass={contentRatingClass} 
@@ -175,6 +208,7 @@ export default function MovieCard(props){
                 keywords={props.mediaType === "tv" ? keywords.results : keywords.keywords}
                 myListFunction={props.myListFunction}
                 removeListFunction={props.removeListFunction}
+                toggleFunction={toggleNeedsToBeSendToMyList}
                 myList={props.myList}
                 isInMyList={isInMyList}/>
             </Popup>  

@@ -131,8 +131,8 @@ export default function ExtraInfoCard(props){
             <div>{year}</div>
           </div>
           {isInMyList ?
-              <div className="emoji" onClick={() => props.removeListFunction(detailedInfo.id, 0)}>✔</div> :
-              <div className="emoji" onClick={() => props.myListFunction(detailedInfo.id, 0, props.mediaType, detailedInfo.backdrop_path)}>+</div>}
+              <div className="emoji" onClick={() => props.removeListFunction(event, detailedInfo.id, 0)}>✔</div> :
+              <div className="emoji" onClick={() => props.myListFunction(event, detailedInfo.id, 0, props.mediaType, detailedInfo.backdrop_path)}>+</div>}
 
         </div>
         <div className="extraInfoCard--summary">{detailedInfo.overview}</div>

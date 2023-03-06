@@ -30,7 +30,7 @@ function App() {
              backdrop_path,
          }),
      })
-     .then((res)=>{
+    
       setMyList((prevData => [
         {
           id : id,
@@ -39,20 +39,20 @@ function App() {
           backdrop_path : backdrop_path,      
         }, ...prevData
       ]))
-     }
-      )
+    
 }
 
 
 function removeFromMyList(movieId, employeeId){
+
   fetch(`http://localhost:8080/api/v1/movie/${movieId}/${employeeId}`,{
     method: 'delete'
   })     
-  .then(
+  
     setMyList((prevData =>{
       const newData = prevData.filter(data => data.id != movieId)
       return newData
-    }))
+    })
   )
 }
 

@@ -58,6 +58,10 @@ const visualKeywords = props.keywords.map((keyword, index) => {
 
 })
 
+function handleClick(){
+  props.toggleFunction()
+}
+
 
  
   return (
@@ -74,8 +78,8 @@ const visualKeywords = props.keywords.map((keyword, index) => {
           <VideoPlayer apiCall={`${instance}/${props.mediaType ? props.mediaType : "movie"}/${props.data.id}?api_key=${requests.apiKey}&language=en-US`}/>
         </Popup> 
         {props.isInMyList ?
-              <div className="emojiPopUp" onClick={() => props.removeListFunction(props.data.id, 0)}>✔</div> :
-              <div className="emojiPopUp" onClick={() => props.myListFunction(props.data.id, 0, props.mediaType, props.data.backdrop_path)}>+</div>}
+              <div className="emojiPopUp" onClick={handleClick}>✔</div> :
+              <div className="emojiPopUp" onClick={handleClick}>+</div>}
 
         <div className="emojiPopUp"><img src={likeblack} alt="" className="likeButton likeButtonPopUp" /></div>
       </div>
