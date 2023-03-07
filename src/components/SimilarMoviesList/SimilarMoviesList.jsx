@@ -11,14 +11,20 @@ export default function SimilarMoviesList(props){
 
 
     useEffect(()=>{
-        props.keywords.length > 0 ? 
+        console.log(props)
+        if(  props.keywords.length > 0){
         fetch(`${instance}/discover/movie?api_key=${requests.apiKey}&language=en-US&sort_by=popularity.desc&page=1&with_keywords=${props.keywords[0].id}|${props.keywords[1].id}`)
             .then(res => res.json())
             .then(data => setSimilarMovies(data.results))
-        :
+        } else if (props.genre.length > 1) {
         fetch(`${instance}/discover/movie?api_key=${requests.apiKey}&with_genres=${props.genre[0].id},${props.genre[1].id}`)
             .then(res => res.json())
             .then(data => setSimilarMovies(data.results))
+        } else if(props.genre.length === 1){
+            fetch(`${instance}/discover/movie?api_key=${requests.apiKey}&with_genres=${props.genre[0].id}`)
+            .then(res => res.json())
+            .then(data => setSimilarMovies(data.results))
+        }
       }, [])
 
       
@@ -31,8 +37,9 @@ export default function SimilarMoviesList(props){
    }
 
 
-    const visualSimilarMovies = filteredSimilarMovies.map(movie =>
-        (<ExtraInfoCard 
+    const visualSimilarMovies = filteredSimilarMovies.map(movie =>{
+        if(movie.id){
+        return (<ExtraInfoCard 
             key={movie.id} 
             className="card" 
             fetchId={movie.id} 
@@ -41,7 +48,8 @@ export default function SimilarMoviesList(props){
             addFilmsToTheListOfSimilarMoviesToMyList={props.addFilmsToTheListOfSimilarMoviesToMyList}
             removeListFunction={props.removeListFunction}
             myList={props.myList}/>
-    ))
+        
+    )}})
        
 
         //console.log(similarMovies)

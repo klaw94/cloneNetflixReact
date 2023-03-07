@@ -3,6 +3,8 @@ import requests from '../request'
 import instance from '../axios'
 import likeblack from '../assets/like-white.png';
 import likewhite from '../assets/like-black.png';
+import dislikeblack from "../assets/dislike-white.png"
+import loveblack from "../assets/heart-white.png"
 import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
 import MoviePopUp from "./MoviePopUp/MoviePopUp";
@@ -27,7 +29,7 @@ export default function MovieCard(props){
         event.preventDefault();
         event.returnValue = '';
       };
-      if (needsToSendMyListRequest || similarMoviesToSendToMyList.length > 0) {
+      if (needsToSendMyListRequest || similarMoviesToSendToMyList.length > 0 || needsToSendLikedRequest === true) {
         window.addEventListener('beforeunload', handler);
         // clean it up, if the dirty state changes
         return () => {
@@ -36,7 +38,7 @@ export default function MovieCard(props){
       }
       // since this is not dirty, don't do anything
       return () => {};
-    }, [needsToSendMyListRequest, similarMoviesToSendToMyList]);
+    }, [needsToSendMyListRequest, similarMoviesToSendToMyList, needsToSendLikedRequest]);
 
     let contentRatingFetch
     if (props.mediaType && props.mediaType === "tv"){
@@ -275,9 +277,13 @@ export default function MovieCard(props){
              {isInMyList ?
               <div className="emoji" onClick={() => props.removeListFunction(detailedInfo.id, 0)}>✔</div> :
               <div className="emoji" onClick={() => props.myListFunction(detailedInfo.id, 0, props.mediaType, detailedInfo.backdrop_path)}>+</div>}
-             { isLiked ? 
+             {isLiked ? 
               <div className="emoji" onClick={()=>props.stopLikingAFilm(detailedInfo.id, 0)}><img src={likewhite} alt="" className="likeButton" /></div> : 
-              <div className="emoji" onClick={()=>props.likeFilm(detailedInfo.id, 0, props.mediaType, "liked")}><img src={likeblack} alt="" className="likeButton" /></div>}
+              <div className="emojiDiv">
+                <div className="emoji invisible" onClick={()=>props.likeFilm(detailedInfo.id, 0, props.mediaType, "loved")}><img src={loveblack} alt="" className="likeButton" /></div>
+                <div className="emoji" onClick={()=>props.likeFilm(detailedInfo.id, 0, props.mediaType, "liked")}><img src={likeblack} alt="" className="likeButton" /></div>
+                <div className="emoji invisible" onClick={()=>props.likeFilm(detailedInfo.id, 0, props.mediaType, "disliked")}><img src={dislikeblack} alt="" className="likeButton" /></div>
+              </div>}
             </div>
             <Popup trigger={<div className="emoji vEmoji">˅</div>} onClose={handleMyListSubmission}  modal>
               <MoviePopUp data={detailedInfo} 
