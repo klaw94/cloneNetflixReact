@@ -315,6 +315,10 @@ body::-webkit-scrollbar {
     z-index: 1000000;
 }
 
+.list:hover{
+    z-index: 90000000000;
+}
+
 .emojiDiv{
     display: flex;
     position: absolute;
