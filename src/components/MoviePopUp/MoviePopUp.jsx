@@ -82,9 +82,9 @@ function handleClick(){
         {props.isInMyList ?
               <div className="emojiPopUp" onClick={handleClick}>✔</div> :
               <div className="emojiPopUp" onClick={handleClick}>+</div>}
-        { props.isLiked ? 
-           <div className="emojiPopUp" onClick={()=>props.stopLikingAFilm(props.data.id, 0)}><img src={likewhite} alt="" className="likeButton likeButtonPopUp" /></div> : 
-           <div className="emojiPopUp" onClick={()=>props.likeFilm(props.data.id, 0, props.mediaType, "liked")}><img src={likeblack} alt="" className="likeButton likeButtonPopUp" /></div>}
+        {props.isLiked ? 
+           <div className="emojiPopUp" onClick={props.toggleLikeFunction}><img src={likewhite} alt="" className="likeButton likeButtonPopUp" /></div> : 
+           <div className="emojiPopUp" onClick={props.toggleLikeFunction}><img src={likeblack} alt="" className="likeButton likeButtonPopUp" /></div>}
 
       </div>
       <div className="popUpInfoGrid">

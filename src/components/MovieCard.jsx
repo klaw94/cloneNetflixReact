@@ -15,6 +15,7 @@ export default function MovieCard(props){
     const ref = useRef()
     const [isInMyList, setIsInMyList] = useState(false)
     const [needsToSendMyListRequest, setNeedsToSendMyListRequest] = useState(false)
+    const [needsToSendLikedRequest, setNeedsToSendLikedRequest] = useState(false)
     const [similarMoviesToSendToMyList, setSimilarMoviesToSendToMyList] = useState([])
     const [isLiked, setIsLiked] = useState(false)
   
@@ -184,10 +185,16 @@ export default function MovieCard(props){
       setIsInMyList(prevValue => !prevValue)
     }
 
+    function toggleNeedsToBeSendToLikedFilms(){
+      setNeedsToSendLikedRequest(true)
+      setIsLiked(prevValue => !prevValue)
+    }
+
     //I cant send the films to the api automatically, because then the pop up closes. So I need to do this function every time the pop up closes. 
     function handleMyListSubmission(id, mediaType, image){
       addOrRemoveMyFilm(id, mediaType, image)
       addOrRemoveSimilarMovies()
+      addOrRemoveLikedMovies()
     }
 
     function addFilmsToTheListOfSimilarMoviesToMyList(id, mediaType, image){
@@ -236,6 +243,22 @@ export default function MovieCard(props){
     }
   }
 
+  function addOrRemoveLikedMovies(){
+    if(needsToSendLikedRequest){
+      for(let i = 0; i < props.likedFilms.length; i++){
+        if(isLiked === false && props.fetchId === props.likedFilms[i].id){
+          props.stopLikingAFilm(props.fetchId, 0);
+          return;
+        } else if(isLiked === true && props.fetchId === props.likedFilms[i].id){
+          return;
+
+        } else if (isLiked === true && i === props.likedFilms.length -1){
+          props.likeFilm(props.fetchId, 0, props.mediaType, "liked")
+        }
+      }
+    }
+  }
+
 
     return(
     <div className="card" ref={ref}>
@@ -267,8 +290,7 @@ export default function MovieCard(props){
                 addFilmsToTheListOfSimilarMoviesToMyList={addFilmsToTheListOfSimilarMoviesToMyList}
                 myList={props.myList}
                 isInMyList={isInMyList}
-                likeFilm={props.likeFilm}
-                stopLikingAFilm={props.stopLikingAFilm}
+                toggleLikeFunction={toggleNeedsToBeSendToLikedFilms}
                 likedFilms={props.likedFilms}
                 isLiked={isLiked}/>
             </Popup>  
