@@ -9,6 +9,7 @@ function App() {
   const[myList, setMyList] = useState([])
   const[likedFilms, setLikedFilms] = useState([])
 
+  //console.log(likedFilms)
 
   useEffect(()=>{
     fetch(requests.myList)
@@ -27,7 +28,7 @@ function App() {
   }, [])
 
 
-  console.log(likedFilms)
+//console.log(likedFilms)
   function addToMyList (id, employeeid, media_type, backdrop_path) {
     fetch(`http://localhost:8080/api/v1/movie`, {
          method: 'post',
@@ -93,11 +94,29 @@ function stopLikingAFilm (id, employeeid) {
        method: 'delete'
           })
   
-   setLikedFilms((prevData =>{
+  setLikedFilms(prevData =>{
     const newData = prevData.filter(data => data.id != id)
     return newData
-  }))
+  })
   
+}
+
+function updateStatusOfLikedFilm(id, employeeid, media_type, status){
+  fetch(`http://localhost:8080/api/v1/liked-movie/${id}/${employeeid}`, {
+    method: 'put',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+        id,
+        employeeid,
+        media_type,
+        status,
+    }),
+})
+  setLikedFilms(prevData=> prevData.map(movie=>{
+    console.log(movie)
+   return  movie.id === id ? ({...movie, status : status}) : movie
+  }))
+
 }
 
   return (
@@ -110,14 +129,16 @@ function stopLikingAFilm (id, employeeid) {
                               removeListFunction={removeFromMyList}
                               likeFilm={likeAFilm}
                               stopLikingAFilm={stopLikingAFilm}
-                              likedFilms={likedFilms}/>}
+                              likedFilms={likedFilms}
+                              updateStatusOfLikedFilm={updateStatusOfLikedFilm}/>}
       <Row title="Trend Now" 
         fetch={requests.fetchTrending}  
         myList={myList} myListFunction={addToMyList} 
         removeListFunction={removeFromMyList}
         likeFilm={likeAFilm}
         stopLikingAFilm={stopLikingAFilm}
-        likedFilms={likedFilms}/>
+        likedFilms={likedFilms}
+        updateStatusOfLikedFilm={updateStatusOfLikedFilm}/>
       <Row title="Action Movies" 
         fetch={requests.fetchActionMovies}  
         myList={myList} 
@@ -125,7 +146,8 @@ function stopLikingAFilm (id, employeeid) {
         removeListFunction={removeFromMyList}
         likeFilm={likeAFilm}
         stopLikingAFilm={stopLikingAFilm}
-        likedFilms={likedFilms}/>
+        likedFilms={likedFilms}
+        updateStatusOfLikedFilm={updateStatusOfLikedFilm}/>
       <Row title="Comedy Movies" 
         fetch={requests.fetchComedyMovies}  
         myList={myList} 
@@ -133,7 +155,8 @@ function stopLikingAFilm (id, employeeid) {
         removeListFunction={removeFromMyList}
         likeFilm={likeAFilm}
         stopLikingAFilm={stopLikingAFilm}
-        likedFilms={likedFilms}/>
+        likedFilms={likedFilms}
+        updateStatusOfLikedFilm={updateStatusOfLikedFilm}/>
     </div>
   )
 }

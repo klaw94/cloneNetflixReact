@@ -32,7 +32,8 @@ export default function Row(props){
       link={`https://image.tmdb.org/t/p/w500${movie.backdrop_path}`}
       likeFilm={props.likeFilm}
       stopLikingAFilm={props.stopLikingAFilm}
-      likedFilms={props.likedFilms} />
+      likedFilms={props.likedFilms}
+      updateStatusOfLikedFilm={props.updateStatusOfLikedFilm} />
     )
   )
   } else {
@@ -47,7 +48,8 @@ export default function Row(props){
         link={`https://image.tmdb.org/t/p/w500${movie.backdrop_path}`}
         likeFilm={props.likeFilm}
         stopLikingAFilm={props.stopLikingAFilm}
-        likedFilms={props.likedFilms} />
+        likedFilms={props.likedFilms}
+        updateStatusOfLikedFilm={props.updateStatusOfLikedFilm} />
       )
     )
   }

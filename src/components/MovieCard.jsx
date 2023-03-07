@@ -24,7 +24,6 @@ export default function MovieCard(props){
     const [isLiked, setIsLiked] = useState(false)
   
 
-    console.log(isLiked)
 
     useEffect(() => {
       // the handler for actually showing the prompt
@@ -236,7 +235,6 @@ export default function MovieCard(props){
     }
 
   function addOrRemoveSimilarMovies(){
-    console.log(similarMoviesToSendToMyList)
     for(let i = 0; i < similarMoviesToSendToMyList.length; i++){
       for(let x = 0; x < props.myList.length; x++){
         if(similarMoviesToSendToMyList[i].id === props.myList[x].id){
@@ -292,9 +290,9 @@ export default function MovieCard(props){
               <div className="emoji" onClick={() => props.myListFunction(detailedInfo.id, 0, props.mediaType, detailedInfo.backdrop_path)}>+</div>}
              {isLiked ? 
                 <div className="emojiDiv">
-                <div className="emoji invisible one" onClick={()=>{isLiked === "loved" ? props.stopLikingAFilm(detailedInfo.id, 0) : props.likeFilm(detailedInfo.id, 0, props.mediaType, "loved")}}><img src={isLiked === "loved" ? lovewhite : loveblack} alt="" className="likeButton" /></div>
-                <div className="emoji invisible three" onClick={()=>{isLiked === "liked" ? props.stopLikingAFilm(detailedInfo.id, 0) : props.likeFilm(detailedInfo.id, 0, props.mediaType, "liked") }}><img src={isLiked === "liked" ? likewhite : likeblack} alt="" className="likeButton" /></div>
-                <div className="emoji invisible two" onClick={()=>{isLiked === "disliked" ?  props.stopLikingAFilm(detailedInfo.id, 0) : props.likeFilm(detailedInfo.id, 0, props.mediaType, "disliked")}}><img src={isLiked === "disliked" ? dislikewhite : dislikeblack} alt="" className="likeButton" /></div>
+                <div className="emoji invisible one" onClick={()=>{isLiked === "loved" ? props.stopLikingAFilm(detailedInfo.id, 0) : props.updateStatusOfLikedFilm(detailedInfo.id, 0, props.mediaType, "loved")}}><img src={isLiked === "loved" ? lovewhite : loveblack} alt="" className="likeButton" /></div>
+                <div className="emoji invisible three" onClick={()=>{isLiked === "liked" ? props.stopLikingAFilm(detailedInfo.id, 0) : props.updateStatusOfLikedFilm(detailedInfo.id, 0, props.mediaType, "liked") }}><img src={isLiked === "liked" ? likewhite : likeblack} alt="" className="likeButton" /></div>
+                <div className="emoji invisible two" onClick={()=>{isLiked === "disliked" ?  props.stopLikingAFilm(detailedInfo.id, 0) : props.updateStatusOfLikedFilm(detailedInfo.id, 0, props.mediaType, "disliked")}}><img src={isLiked === "disliked" ? dislikewhite : dislikeblack} alt="" className="likeButton" /></div>
                 {visibleButton}
               </div> : 
               <div className="emojiDiv">
