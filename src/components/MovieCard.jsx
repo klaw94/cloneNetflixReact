@@ -17,6 +17,24 @@ export default function MovieCard(props){
     const [similarMoviesToSendToMyList, setSimilarMoviesToSendToMyList] = useState([])
   
 
+    useEffect(() => {
+      // the handler for actually showing the prompt
+      // https://developer.mozilla.org/en-US/docs/Web/API/WindowEventHandlers/onbeforeunload
+      const handler = event => {
+        event.preventDefault();
+        event.returnValue = '';
+      };
+      if (needsToSendMyListRequest || similarMoviesToSendToMyList.length > 0) {
+        window.addEventListener('beforeunload', handler);
+        // clean it up, if the dirty state changes
+        return () => {
+          window.removeEventListener('beforeunload', handler);
+        };
+      }
+      // since this is not dirty, don't do anything
+      return () => {};
+    }, [needsToSendMyListRequest, similarMoviesToSendToMyList]);
+
     let contentRatingFetch
     if (props.mediaType && props.mediaType === "tv"){
       contentRatingFetch = `&append_to_response=content_ratings`
