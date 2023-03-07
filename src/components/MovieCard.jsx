@@ -266,7 +266,11 @@ export default function MovieCard(props){
                 toggleFunction={toggleNeedsToBeSendToMyList}
                 addFilmsToTheListOfSimilarMoviesToMyList={addFilmsToTheListOfSimilarMoviesToMyList}
                 myList={props.myList}
-                isInMyList={isInMyList}/>
+                isInMyList={isInMyList}
+                likeFilm={props.likeFilm}
+                stopLikingAFilm={props.stopLikingAFilm}
+                likedFilms={props.likedFilms}
+                isLiked={isLiked}/>
             </Popup>  
         </div>
         <div className="ratingTimeDiv">

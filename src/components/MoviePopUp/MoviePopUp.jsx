@@ -7,6 +7,8 @@ import SimilarMoviesList from "../SimilarMoviesList/SimilarMoviesList";
 import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
 import VideoPlayer from "../VideoPlayer/VideoPlayer"
+import likewhite from '../../assets/like-black.png';
+
 
 
 export default function MoviePopUp(props){
@@ -80,8 +82,10 @@ function handleClick(){
         {props.isInMyList ?
               <div className="emojiPopUp" onClick={handleClick}>✔</div> :
               <div className="emojiPopUp" onClick={handleClick}>+</div>}
+        { props.isLiked ? 
+           <div className="emojiPopUp" onClick={()=>props.stopLikingAFilm(props.data.id, 0)}><img src={likewhite} alt="" className="likeButton likeButtonPopUp" /></div> : 
+           <div className="emojiPopUp" onClick={()=>props.likeFilm(props.data.id, 0, props.mediaType, "liked")}><img src={likeblack} alt="" className="likeButton likeButtonPopUp" /></div>}
 
-        <div className="emojiPopUp"><img src={likeblack} alt="" className="likeButton likeButtonPopUp" /></div>
       </div>
       <div className="popUpInfoGrid">
         <div className="yearRatingRuntimeDiv">

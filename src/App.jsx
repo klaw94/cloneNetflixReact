@@ -116,21 +116,24 @@ function stopLikingAFilm (id, employeeid) {
         myList={myList} myListFunction={addToMyList} 
         removeListFunction={removeFromMyList}
         likeFilm={likeAFilm}
-        stopLikingAFilm={stopLikingAFilm}/>
+        stopLikingAFilm={stopLikingAFilm}
+        likedFilms={likedFilms}/>
       <Row title="Action Movies" 
         fetch={requests.fetchActionMovies}  
         myList={myList} 
         myListFunction={addToMyList} 
         removeListFunction={removeFromMyList}
         likeFilm={likeAFilm}
-        stopLikingAFilm={stopLikingAFilm}/>
+        stopLikingAFilm={stopLikingAFilm}
+        likedFilms={likedFilms}/>
       <Row title="Comedy Movies" 
         fetch={requests.fetchComedyMovies}  
         myList={myList} 
         myListFunction={addToMyList} 
         removeListFunction={removeFromMyList}
         likeFilm={likeAFilm}
-        stopLikingAFilm={stopLikingAFilm}/>
+        stopLikingAFilm={stopLikingAFilm}
+        likedFilms={likedFilms}/>
     </div>
   )
 }
