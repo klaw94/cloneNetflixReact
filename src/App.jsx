@@ -7,6 +7,7 @@ import Row from './components/Row'
 
 function App() {
   const[myList, setMyList] = useState([])
+  const[likedFilms, setLikedFilms] = useState([])
 
 
   useEffect(()=>{
@@ -17,8 +18,16 @@ function App() {
       }) 
   }, [])
 
+  useEffect(()=>{
+    fetch(requests.likedFilms)
+    .then(res => res.json())
+    .then(data => {
+      setLikedFilms(data)
+      }) 
+  }, [])
 
- // console.log(myList)
+
+  console.log(likedFilms)
   function addToMyList (id, employeeid, media_type, backdrop_path) {
     fetch(`http://localhost:8080/api/v1/movie`, {
          method: 'post',
@@ -56,13 +65,72 @@ function removeFromMyList(movieId, employeeId){
   )
 }
 
+function likeAFilm (id, employeeid, media_type, status) {
+  fetch(`http://localhost:8080/api/v1/liked-movie`, {
+       method: 'post',
+       headers: { 'Content-Type': 'application/json' },
+       body: JSON.stringify({
+           id,
+           employeeid,
+           media_type,
+           status,
+       }),
+   })
+  
+    setLikedFilms((prevData => [
+      {
+        id : id,
+        employeeid : employeeid,
+        mediaType : media_type,
+        status : status,      
+      }, ...prevData
+    ]))
+  
+}
+
+function stopLikingAFilm (id, employeeid) {
+  fetch(`http://localhost:8080/api/v1/liked-movie/${id}/${employeeid}`, {
+       method: 'delete'
+          })
+  
+   setLikedFilms((prevData =>{
+    const newData = prevData.filter(data => data.id != id)
+    return newData
+  }))
+  
+}
+
   return (
     <div className="App">
       <Navbar />
-      {myList.length > 0 && <Row title="My List" fetch={requests.myList} myList={myList} myListFunction={addToMyList} removeListFunction={removeFromMyList}/>}
-      <Row title="Trend Now" fetch={requests.fetchTrending}  myList={myList} myListFunction={addToMyList} removeListFunction={removeFromMyList}/>
-      <Row title="Action Movies" fetch={requests.fetchActionMovies}  myList={myList} myListFunction={addToMyList} removeListFunction={removeFromMyList}/>
-      <Row title="Comedy Movies" fetch={requests.fetchComedyMovies}  myList={myList} myListFunction={addToMyList} removeListFunction={removeFromMyList}/>
+      {myList.length > 0 && <Row title="My List" 
+                              fetch={requests.myList} 
+                              myList={myList}
+                              myListFunction={addToMyList} 
+                              removeListFunction={removeFromMyList}
+                              likeFilm={likeAFilm}
+                              stopLikingAFilm={stopLikingAFilm}
+                              likedFilms={likedFilms}/>}
+      <Row title="Trend Now" 
+        fetch={requests.fetchTrending}  
+        myList={myList} myListFunction={addToMyList} 
+        removeListFunction={removeFromMyList}
+        likeFilm={likeAFilm}
+        stopLikingAFilm={stopLikingAFilm}/>
+      <Row title="Action Movies" 
+        fetch={requests.fetchActionMovies}  
+        myList={myList} 
+        myListFunction={addToMyList} 
+        removeListFunction={removeFromMyList}
+        likeFilm={likeAFilm}
+        stopLikingAFilm={stopLikingAFilm}/>
+      <Row title="Comedy Movies" 
+        fetch={requests.fetchComedyMovies}  
+        myList={myList} 
+        myListFunction={addToMyList} 
+        removeListFunction={removeFromMyList}
+        likeFilm={likeAFilm}
+        stopLikingAFilm={stopLikingAFilm}/>
     </div>
   )
 }

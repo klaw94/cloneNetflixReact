@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef, useContext } from "react";
 import requests from '../request'
 import instance from '../axios'
 import likeblack from '../assets/like-white.png';
+import likewhite from '../assets/like-black.png';
 import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
 import MoviePopUp from "./MoviePopUp/MoviePopUp";
@@ -15,6 +16,7 @@ export default function MovieCard(props){
     const [isInMyList, setIsInMyList] = useState(false)
     const [needsToSendMyListRequest, setNeedsToSendMyListRequest] = useState(false)
     const [similarMoviesToSendToMyList, setSimilarMoviesToSendToMyList] = useState([])
+    const [isLiked, setIsLiked] = useState(false)
   
 
     useEffect(() => {
@@ -60,6 +62,17 @@ export default function MovieCard(props){
           for(let i = 0; i < props.myList.length; i++){
             if(props.fetchId === props.myList[i].id){
               setIsInMyList(true);
+              return;
+            }
+          }
+        }
+      }, [])
+
+      useEffect(()=>{
+        if (props.likedFilms){
+          for(let i = 0; i < props.likedFilms.length; i++){
+            if(props.fetchId === props.likedFilms[i].id){
+              setIsLiked(true);
               return;
             }
           }
@@ -239,7 +252,9 @@ export default function MovieCard(props){
              {isInMyList ?
               <div className="emoji" onClick={() => props.removeListFunction(detailedInfo.id, 0)}>✔</div> :
               <div className="emoji" onClick={() => props.myListFunction(detailedInfo.id, 0, props.mediaType, detailedInfo.backdrop_path)}>+</div>}
-              <div className="emoji"><img src={likeblack} alt="" className="likeButton" /></div>
+             { isLiked ? 
+              <div className="emoji" onClick={()=>props.stopLikingAFilm(detailedInfo.id, 0)}><img src={likewhite} alt="" className="likeButton" /></div> : 
+              <div className="emoji" onClick={()=>props.likeFilm(detailedInfo.id, 0, props.mediaType, "liked")}><img src={likeblack} alt="" className="likeButton" /></div>}
             </div>
             <Popup trigger={<div className="emoji vEmoji">˅</div>} onClose={handleMyListSubmission}  modal>
               <MoviePopUp data={detailedInfo} 

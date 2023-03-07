@@ -29,7 +29,10 @@ export default function Row(props){
       mediaType={movie.media_type ? movie.media_type : movie.mediaType} 
       myListFunction={props.myListFunction} 
       removeListFunction={props.removeListFunction}
-      link={`https://image.tmdb.org/t/p/w500${movie.backdrop_path}`} />
+      link={`https://image.tmdb.org/t/p/w500${movie.backdrop_path}`}
+      likeFilm={props.likeFilm}
+      stopLikingAFilm={props.stopLikingAFilm}
+      likedFilms={props.likedFilms} />
     )
   )
   } else {
@@ -41,7 +44,10 @@ export default function Row(props){
         mediaType={movie.media_type ? movie.media_type : movie.mediaType} 
         myListFunction={props.myListFunction} 
         removeListFunction={props.removeListFunction}
-        link={`https://image.tmdb.org/t/p/w500${movie.backdrop_path}`} />
+        link={`https://image.tmdb.org/t/p/w500${movie.backdrop_path}`}
+        likeFilm={props.likeFilm}
+        stopLikingAFilm={props.stopLikingAFilm}
+        likedFilms={props.likedFilms} />
       )
     )
   }
