@@ -4,7 +4,9 @@ import instance from '../axios'
 import likeblack from '../assets/like-white.png';
 import likewhite from '../assets/like-black.png';
 import dislikeblack from "../assets/dislike-white.png"
+import dislikewhite from "../assets/dislike-black.png"
 import loveblack from "../assets/heart-white.png"
+import lovewhite from "../assets/heart-black.png"
 import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
 import MoviePopUp from "./MoviePopUp/MoviePopUp";
@@ -21,6 +23,8 @@ export default function MovieCard(props){
     const [similarMoviesToSendToMyList, setSimilarMoviesToSendToMyList] = useState([])
     const [isLiked, setIsLiked] = useState(false)
   
+
+    console.log(isLiked)
 
     useEffect(() => {
       // the handler for actually showing the prompt
@@ -75,7 +79,7 @@ export default function MovieCard(props){
         if (props.likedFilms){
           for(let i = 0; i < props.likedFilms.length; i++){
             if(props.fetchId === props.likedFilms[i].id){
-              setIsLiked(true);
+              setIsLiked(props.likedFilms[i].status);
               return;
             }
           }
@@ -244,6 +248,15 @@ export default function MovieCard(props){
       }
     }
   }
+  
+  let visibleButton
+  if(isLiked === "liked"){
+   visibleButton = (<div className="emoji selected" onClick={()=>props.stopLikingAFilm(detailedInfo.id, 0)}><img src={likewhite} alt="" className="likeButton" /></div>)
+  } else if(isLiked === "disliked"){
+    visibleButton = (<div className="emoji selected" onClick={()=>props.stopLikingAFilm(detailedInfo.id, 0)}><img src={dislikewhite} alt="" className="likeButton" /></div>)
+  } else if(isLiked === "loved"){
+    visibleButton =(<div className="emoji selected" onClick={()=>props.stopLikingAFilm(detailedInfo.id, 0)}><img src={lovewhite} alt="" className="likeButton" /></div>)
+  }
 
   function addOrRemoveLikedMovies(){
     if(needsToSendLikedRequest){
@@ -278,7 +291,12 @@ export default function MovieCard(props){
               <div className="emoji" onClick={() => props.removeListFunction(detailedInfo.id, 0)}>✔</div> :
               <div className="emoji" onClick={() => props.myListFunction(detailedInfo.id, 0, props.mediaType, detailedInfo.backdrop_path)}>+</div>}
              {isLiked ? 
-              <div className="emoji" onClick={()=>props.stopLikingAFilm(detailedInfo.id, 0)}><img src={likewhite} alt="" className="likeButton" /></div> : 
+                <div className="emojiDiv">
+                <div className="emoji invisible one" onClick={()=>{isLiked === "loved" ? props.stopLikingAFilm(detailedInfo.id, 0) : props.likeFilm(detailedInfo.id, 0, props.mediaType, "loved")}}><img src={isLiked === "loved" ? lovewhite : loveblack} alt="" className="likeButton" /></div>
+                <div className="emoji invisible three" onClick={()=>{isLiked === "liked" ? props.stopLikingAFilm(detailedInfo.id, 0) : props.likeFilm(detailedInfo.id, 0, props.mediaType, "liked") }}><img src={isLiked === "liked" ? likewhite : likeblack} alt="" className="likeButton" /></div>
+                <div className="emoji invisible two" onClick={()=>{isLiked === "disliked" ?  props.stopLikingAFilm(detailedInfo.id, 0) : props.likeFilm(detailedInfo.id, 0, props.mediaType, "disliked")}}><img src={isLiked === "disliked" ? dislikewhite : dislikeblack} alt="" className="likeButton" /></div>
+                {visibleButton}
+              </div> : 
               <div className="emojiDiv">
                 <div className="emoji invisible one" onClick={()=>props.likeFilm(detailedInfo.id, 0, props.mediaType, "loved")}><img src={loveblack} alt="" className="likeButton" /></div>
                 <div className="emoji main" onClick={()=>props.likeFilm(detailedInfo.id, 0, props.mediaType, "liked")}><img src={likeblack} alt="" className="likeButton" /></div>

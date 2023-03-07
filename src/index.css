@@ -330,13 +330,26 @@ body::-webkit-scrollbar {
     position: absolute;
     left: 40px;
     z-index: 100;
+}
 
+.selected{
+    position: absolute;
+    left: 40px;
 
 }
 
+
 .emojiDiv > .one{
     position: absolute;
-    left: 8px;
+    left: 7px;
+    z-index: 100;
+}
+
+.emojiDiv > .three{
+    position: absolute;
+    background-color: black;
+
+    left: 40px;
     z-index: 100;
 
 }
@@ -344,7 +357,7 @@ body::-webkit-scrollbar {
 
 .emojiDiv > .two{
     position: absolute;
-    left: 72px;
+    left: 74px;
     z-index: 100;
 
 }
@@ -357,14 +370,15 @@ body::-webkit-scrollbar {
 
 .emojiDiv:hover > .invisible{
     display: block;
-
     animation: fade-in 1s ease-in-out both;
-
 }
 
 .invisible{
     opacity: 0;
+
 }
+
+
 
 
 .emojiDiv:hover{
