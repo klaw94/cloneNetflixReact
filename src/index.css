@@ -330,7 +330,7 @@ body::-webkit-scrollbar {
     padding-right: 10px;
     height: 30px;
     border-radius: 7px;
-    transition: 2s ease-in-out;
+    transition: 1s ease-in-out 1s;
 
 }
 
@@ -380,12 +380,13 @@ body::-webkit-scrollbar {
 
 .emojiDiv:hover > .invisible{
     display: block;
-    animation: fade-in 1s ease-in-out both;
+    animation: fade-in 1s ease-in-out both 0.7s;
     z-index: 900000000000;
 }
 
 .invisible{
     opacity: 0;
+
 
 }
 
