@@ -280,9 +280,9 @@ export default function MovieCard(props){
              {isLiked ? 
               <div className="emoji" onClick={()=>props.stopLikingAFilm(detailedInfo.id, 0)}><img src={likewhite} alt="" className="likeButton" /></div> : 
               <div className="emojiDiv">
-                <div className="emoji invisible" onClick={()=>props.likeFilm(detailedInfo.id, 0, props.mediaType, "loved")}><img src={loveblack} alt="" className="likeButton" /></div>
-                <div className="emoji" onClick={()=>props.likeFilm(detailedInfo.id, 0, props.mediaType, "liked")}><img src={likeblack} alt="" className="likeButton" /></div>
-                <div className="emoji invisible" onClick={()=>props.likeFilm(detailedInfo.id, 0, props.mediaType, "disliked")}><img src={dislikeblack} alt="" className="likeButton" /></div>
+                <div className="emoji invisible one" onClick={()=>props.likeFilm(detailedInfo.id, 0, props.mediaType, "loved")}><img src={loveblack} alt="" className="likeButton" /></div>
+                <div className="emoji main" onClick={()=>props.likeFilm(detailedInfo.id, 0, props.mediaType, "liked")}><img src={likeblack} alt="" className="likeButton" /></div>
+                <div className="emoji invisible two" onClick={()=>props.likeFilm(detailedInfo.id, 0, props.mediaType, "disliked")}><img src={dislikeblack} alt="" className="likeButton" /></div>
               </div>}
             </div>
             <Popup trigger={<div className="emoji vEmoji">˅</div>} onClose={handleMyListSubmission}  modal>

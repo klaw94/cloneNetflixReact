@@ -311,6 +311,66 @@ body::-webkit-scrollbar {
   }
 */
 
+.emojiDiv{
+    display: flex;
+    position: absolute;
+    left: 40px;
+    z-index: 200;
+    margin-left: 5px;
+    width: 100px;
+    padding-left: 10px;
+    padding-right: 10px;
+    height: 30px;
+    border-radius: 7px;
+    transition: 2s ease-in-out;
+
+}
+
+.emojiDiv > .main{
+    position: absolute;
+    left: 40px;
+    z-index: 100;
+
+
+}
+
+.emojiDiv > .one{
+    position: absolute;
+    left: 8px;
+    z-index: 100;
+
+}
+
+
+.emojiDiv > .two{
+    position: absolute;
+    left: 72px;
+    z-index: 100;
+
+}
+
+.emojiDiv >  .invisible {
+    display: none;
+    animation: fade-in 1s ease-in-out both;
+
+}
+
+.emojiDiv:hover > .invisible{
+    display: block;
+
+    animation: fade-in 1s ease-in-out both;
+
+}
+
+.invisible{
+    opacity: 0;
+}
+
+
+.emojiDiv:hover{
+    background-color: black;
+    height: 40px;
+}
 
 @keyframes fade-out {
     from {
@@ -319,5 +379,15 @@ body::-webkit-scrollbar {
     }
     to {
       opacity: 0;
+    }
+}
+
+@keyframes fade-in {
+    from {
+        opacity: 0;
+
+    }
+    to {
+      opacity: 1;
     }
 }
