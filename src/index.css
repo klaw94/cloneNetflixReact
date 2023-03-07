@@ -311,6 +311,10 @@ body::-webkit-scrollbar {
   }
 */
 
+.list{
+    z-index: 1000000;
+}
+
 .emojiDiv{
     display: flex;
     position: absolute;
@@ -365,12 +369,15 @@ body::-webkit-scrollbar {
 .emojiDiv >  .invisible {
     display: none;
     animation: fade-in 1s ease-in-out both;
+    z-index: 900000000000;
+
 
 }
 
 .emojiDiv:hover > .invisible{
     display: block;
     animation: fade-in 1s ease-in-out both;
+    z-index: 900000000000;
 }
 
 .invisible{
@@ -384,6 +391,7 @@ body::-webkit-scrollbar {
 .emojiDiv:hover{
     background-color: black;
     height: 40px;
+    z-index: 900000000000;
 }
 
 @keyframes fade-out {

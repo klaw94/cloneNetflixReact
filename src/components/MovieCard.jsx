@@ -286,8 +286,8 @@ export default function MovieCard(props){
               <VideoPlayer apiCall={`${instance}/${props.mediaType ? props.mediaType : "movie"}/${props.fetchId}?api_key=${requests.apiKey}&language=en-US`}/>
             </Popup> 
              {isInMyList ?
-              <div className="emoji" onClick={() => props.removeListFunction(detailedInfo.id, 0)}>✔</div> :
-              <div className="emoji" onClick={() => props.myListFunction(detailedInfo.id, 0, props.mediaType, detailedInfo.backdrop_path)}>+</div>}
+              <div className="emoji list" onClick={() => props.removeListFunction(detailedInfo.id, 0)}>✔</div> :
+              <div className="emoji list" onClick={() => props.myListFunction(detailedInfo.id, 0, props.mediaType, detailedInfo.backdrop_path)}>+</div>}
              {isLiked ? 
                 <div className="emojiDiv">
                 <div className="emoji invisible one" onClick={()=>{isLiked === "loved" ? props.stopLikingAFilm(detailedInfo.id, 0) : props.updateStatusOfLikedFilm(detailedInfo.id, 0, props.mediaType, "loved")}}><img src={isLiked === "loved" ? lovewhite : loveblack} alt="" className="likeButton" /></div>
