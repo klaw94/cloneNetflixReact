@@ -96,13 +96,14 @@
     position: absolute;
     left: 40px;
     z-index: 900000000000000;
-    transition: 1s;
+    transition: 0.3s ease-in-out 0.7s;
+
 
 }
 
 
 .popUpSelected:hover {
-    transition-delay: 2s;
+    transition-delay: 0.3s;
     z-index: 0;
 }
 
