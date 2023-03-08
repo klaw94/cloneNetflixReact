@@ -407,6 +407,8 @@ body::-webkit-scrollbar {
     background-color: black;
     height: 40px;
     z-index: 900000000000;
+    transition-delay: 0.5s;
+
 }
 
 @keyframes fade-out {
