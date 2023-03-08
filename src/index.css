@@ -330,7 +330,7 @@ body::-webkit-scrollbar {
     padding-right: 10px;
     height: 30px;
     border-radius: 7px;
-    transition: 1s ease-in-out 1s;
+    transition: 1s ease-in-out;
 
 }
 
@@ -343,8 +343,21 @@ body::-webkit-scrollbar {
 .selected{
     position: absolute;
     left: 40px;
+    z-index: 900000000000000;
+    transition: 0.7s ease-in-out;
 
 }
+
+.selected:hover {
+    transition-delay: 2s;
+    z-index: 0;
+}
+
+.emoji:hover ~ .selected{
+    transition-delay: 0.5s;
+    z-index: 0;
+}
+
 
 
 .emojiDiv > .one{

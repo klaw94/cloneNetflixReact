@@ -79,6 +79,8 @@
     margin-right: 10px;
     padding: 5px;
     font-size: 25px;
+    transition: 1s ease-in-out;
+
 }
 
 .emojiPopUp:hover{
@@ -93,7 +95,20 @@
 .popUpSelected{
     position: absolute;
     left: 40px;
+    z-index: 900000000000000;
+    transition: 1s;
 
+}
+
+
+.popUpSelected:hover {
+    transition-delay: 2s;
+    z-index: 0;
+}
+
+.emojiPopUp:hover ~ .popUpSelected{
+    transition-delay: 0.5s;
+    z-index: 0;
 }
 
 
@@ -200,19 +215,19 @@
 
 .popUpEmojiDiv:hover > .invisible{
     display: block;
-    animation: fade-in 1s ease-in-out both 0.7s;
+    animation: fade-in 1s ease-in-out both;
     z-index: 900000000000;
-    transition-delay: 2s;
+    transition-delay: 1s;
 }
 
 
-
+/* 
 .invisible:hover{
     display: block;
     animation: fade-in 0.1s ease-in-out both;
     z-index: 900000000000;
     transition-delay: 0.1s;
-}
+} */
 
 
 .popUpEmojiDiv:hover{
