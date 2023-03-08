@@ -12,13 +12,14 @@ import dislikeblack from "../../assets/dislike-white.png"
 import dislikewhite from "../../assets/dislike-black.png"
 import loveblack from "../../assets/heart-white.png"
 import lovewhite from "../../assets/heart-black.png"
+import DetailedInfoSelectedMovie from "../DetailedInfoSelectedMovie/DetailedInfoSelectedMovie";
 
 
 
 export default function MoviePopUp(props){
   const [cast, setCast] = useState(null)
-   console.log(props)
-  //console.log(props.data.genres)
+  //console.log(props)
+  console.log(cast)
 
   const year = props.data.release_date ? props.data.release_date.slice(0, 4) : props.data.first_air_date.slice(0,4)
   
@@ -140,6 +141,13 @@ if(props.isLiked === "liked"){
     addFilmsToTheListOfSimilarMoviesToMyList={props.addFilmsToTheListOfSimilarMoviesToMyList}
 
     />
+
+    <DetailedInfoSelectedMovie 
+      cast={cast} 
+      genres={props.data.genres} 
+      keywords={props.keywords}
+      title={props.data.title} 
+      contentRating={props.contentRating}/>
     </div>
   );
 }

@@ -1,0 +1,8 @@
+.detailedInfoSelectedMovie {
+    margin-left: 15px;
+}
+
+.detailedInfoSelectedMovie> h3 {
+    font-size: 20px;
+    font-weight: 600;
+}
