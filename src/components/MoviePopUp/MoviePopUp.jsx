@@ -17,7 +17,7 @@ import lovewhite from "../../assets/heart-black.png"
 
 export default function MoviePopUp(props){
   const [cast, setCast] = useState(null)
-  // console.log(props.data)
+   console.log(props)
   //console.log(props.data.genres)
 
   const year = props.data.release_date ? props.data.release_date.slice(0, 4) : props.data.first_air_date.slice(0,4)
@@ -45,7 +45,7 @@ export default function MoviePopUp(props){
 const visualGenres = props.data.genres.map((genre, index) => {
   if (index < 3){
     return(
-      <span className="genresList" key={genre.id}>{genre.name}{index < props.data.genres.length - 1 || index !== 3 ? ", " : ""}</span>
+      <span className="genresList" key={genre.id}>{genre.name}{index === props.data.genres.length - 1 || index === 2 ? "" : ", "}</span>
   );
   } else{
     return
@@ -56,7 +56,7 @@ const visualGenres = props.data.genres.map((genre, index) => {
 const visualKeywords = props.keywords.map((keyword, index) => {
   if (index < 3){
     return(
-      <span className="popUpKeywordsList" key={keyword.id}>{keyword.name}{index <  props.keywords.length - 1 || index !== 3 ? ", " : ""}</span>
+      <span className="popUpKeywordsList" key={keyword.id}>{keyword.name}{index === props.keywords.length - 1 || index === 2 ? "" : ", "}</span>
   );
   } else{
     return
@@ -125,11 +125,9 @@ if(props.isLiked === "liked"){
         </div>}
         {props.data.genres.length > 0 && <div className="genre">Genres:  {" "}
           {visualGenres}
-          <span className="genresList">more</span>
         </div>}
         {props.keywords.length > 0 && <div className="popUp-keywords">Keywords: {" "}
         {visualKeywords}
-        <span className="popUpKeywordsList">more</span>
         </div>}
       </div>
     </div>
