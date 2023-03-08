@@ -106,9 +106,9 @@ if(props.isLiked === "liked"){
                 {visibleButton}
               </div> : 
               <div className="popUpEmojiDiv">
-                <div className="emojiPopUp invisible one" onClick={()=>props.toggleLikeFunction("loved")}><img src={loveblack} alt="" className="likeButton likeButtonPopUp" /></div>
+                <div className="emojiPopUp invisible popOne" onClick={()=>props.toggleLikeFunction("loved")}><img src={loveblack} alt="" className="likeButton likeButtonPopUp" /></div>
                 <div className="emojiPopUp popMain" onClick={()=>props.toggleLikeFunction("liked")}><img src={likeblack} alt="" className="likeButton likeButtonPopUp" /></div>
-                <div className="emojiPopUp invisible two" onClick={()=>props.toggleLikeFunction("disliked")}><img src={dislikeblack} alt="" className="likeButton likeButtonPopUp" /></div>
+                <div className="emojiPopUp invisible popTwo" onClick={()=>props.toggleLikeFunction("disliked")}><img src={dislikeblack} alt="" className="likeButton likeButtonPopUp" /></div>
               </div>}
       </div>
       <div className="popUpInfoGrid">
