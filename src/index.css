@@ -386,6 +386,8 @@ body::-webkit-scrollbar {
 
 .invisible{
     opacity: 0;
+    transition-delay: 2s;
+
 }
 
 .emojiDiv:hover{

@@ -93,8 +93,8 @@ if(props.isLiked === "liked"){
           <VideoPlayer apiCall={`${instance}/${props.mediaType ? props.mediaType : "movie"}/${props.data.id}?api_key=${requests.apiKey}&language=en-US`}/>
         </Popup> 
         {props.isInMyList ?
-              <div className="emojiPopUp" onClick={handleClick}>✔</div> :
-              <div className="emojiPopUp" onClick={handleClick}>+</div>}
+              <div className="emojiPopUp list" onClick={handleClick}>✔</div> :
+              <div className="emojiPopUp list" onClick={handleClick}>+</div>}
         {/* {props.isLiked ? 
            <div className="emojiPopUp" onClick={props.toggleLikeFunction}><img src={likewhite} alt="" className="likeButton likeButtonPopUp" /></div> : 
            <div className="emojiPopUp" onClick={props.toggleLikeFunction}><img src={likeblack} alt="" className="likeButton likeButtonPopUp" /></div>} */}

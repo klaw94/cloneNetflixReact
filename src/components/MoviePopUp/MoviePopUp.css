@@ -202,6 +202,16 @@
     display: block;
     animation: fade-in 1s ease-in-out both 0.7s;
     z-index: 900000000000;
+    transition-delay: 2s;
+}
+
+
+
+.invisible:hover{
+    display: block;
+    animation: fade-in 0.1s ease-in-out both;
+    z-index: 900000000000;
+    transition-delay: 0.1s;
 }
 
 
@@ -209,6 +219,8 @@
     background-color: black;
     height: 40px;
     z-index: 900000000000;
+    transition-delay: 2s;
+
 }
 
 @media all and (min-width: 1700px) {
