@@ -6,6 +6,8 @@
     
 }
 
+
+
 /* main::after {
     box-shadow: 
     inset 0px -40px 20px -10px rgba(0, 0, 0, 0.279),
@@ -88,6 +90,12 @@
     margin-top: -2px; 
 }
 
+.popUpSelected{
+    position: absolute;
+    left: 110px;
+
+}
+
 
 
 
@@ -136,6 +144,70 @@
 
 .castNames, .genresList, .popUpKeywordsList{
     color: white;
+}
+
+
+.popUpEmojiDiv{
+        display: flex;
+        position: absolute;
+        left: 40px;
+        z-index: 200;
+        margin-left: 5px;
+        width: 100px;
+        padding-left: 10px;
+        padding-right: 10px;
+        height: 30px;
+        border-radius: 7px;
+        transition: 1s ease-in-out 1s;
+       
+}
+
+.popUpEmojiDiv > .popMain{
+    position: absolute;
+    left: 110px;
+    z-index: 100;
+}
+
+.popUpEmojiDiv > .popOne{
+    position: absolute;
+    left: 77px;
+    z-index: 100;
+}
+
+.popUpEmojiDiv > .popThree{
+    position: absolute;
+    background-color: black;
+    left: 110px;
+    z-index: 100;
+
+}
+
+.popUpEmojiDiv >  .invisible {
+    display: none;
+    animation: fade-in 1s ease-in-out both;
+    z-index: 900000000000;
+
+
+}
+
+.popUpEmojiDiv > .popTwo{
+    position: absolute;
+    left: 150px;
+    z-index: 100;
+
+}
+
+.popUpEmojiDiv:hover > .invisible{
+    display: block;
+    animation: fade-in 1s ease-in-out both 0.7s;
+    z-index: 900000000000;
+}
+
+
+.popUpEmojiDiv:hover{
+    background-color: black;
+    height: 40px;
+    z-index: 900000000000;
 }
 
 @media all and (min-width: 1700px) {

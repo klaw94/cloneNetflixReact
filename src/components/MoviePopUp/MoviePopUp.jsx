@@ -70,11 +70,11 @@ function handleClick(){
 
 let visibleButton
 if(props.isLiked === "liked"){
- visibleButton = (<div className="emoji selected" onClick={()=>props.toggleLikeFunction(false)}><img src={likewhite} alt="" className="likeButton" /></div>)
+ visibleButton = (<div className="emojiPopUp popUpSelected" onClick={()=>props.toggleLikeFunction(false)}><img src={likewhite} alt="" className="likeButton likeButtonPopUp" /></div>)
 } else if(props.isLiked === "disliked"){
-  visibleButton = (<div className="emoji selected" onClick={()=>props.toggleLikeFunction(false)}><img src={dislikewhite} alt="" className="likeButton" /></div>)
+  visibleButton = (<div className="emojiPopUp popUpSelected" onClick={()=>props.toggleLikeFunction(false)}><img src={dislikewhite} alt="" className="likeButton likeButtonPopUp" /></div>)
 } else if(props.isLiked === "loved"){
-  visibleButton =(<div className="emoji selected" onClick={()=>props.toggleLikeFunction(false)}><img src={lovewhite} alt="" className="likeButton" /></div>)
+  visibleButton =(<div className="emojiPopUp popUpSelected" onClick={()=>props.toggleLikeFunction(false)}><img src={lovewhite} alt="" className="likeButton likeButtonPopUp" /></div>)
 }
 
 
@@ -99,15 +99,15 @@ if(props.isLiked === "liked"){
            <div className="emojiPopUp" onClick={props.toggleLikeFunction}><img src={likewhite} alt="" className="likeButton likeButtonPopUp" /></div> : 
            <div className="emojiPopUp" onClick={props.toggleLikeFunction}><img src={likeblack} alt="" className="likeButton likeButtonPopUp" /></div>} */}
         {props.isLiked ? 
-                <div className="emojiDiv">
-                <div className="emojiPopUp invisible one" onClick={()=>{props.isLiked === "loved" ? props.toggleLikeFunction(false) : props.toggleLikeFunction("loved")}}><img src={props.isLiked === "loved" ? lovewhite : loveblack} alt="" className="likeButton likeButtonPopUp" /></div>
-                <div className="emojiPopUp invisible three" onClick={()=>{props.isLiked === "liked" ? props.toggleLikeFunction(false) : props.toggleLikeFunction("liked")}}><img src={props.isLiked === "liked" ? likewhite : likeblack} alt="" className="likeButton likeButtonPopUp" /></div>
-                <div className="emojiPopUp invisible two" onClick={()=>{props.isLiked === "disliked" ?  props.toggleLikeFunction(false) : props.toggleLikeFunction("disliked")}}><img src={props.isLiked === "disliked" ? dislikewhite : dislikeblack} alt="" className="likeButton likeButtonPopUp" /></div>
+                <div className="popUpEmojiDiv">
+                <div className="emojiPopUp invisible popOne" onClick={()=>{props.isLiked === "loved" ? props.toggleLikeFunction(false) : props.toggleLikeFunction("loved")}}><img src={props.isLiked === "loved" ? lovewhite : loveblack} alt="" className="likeButton likeButtonPopUp" /></div>
+                <div className="emojiPopUp invisible popThree" onClick={()=>{props.isLiked === "liked" ? props.toggleLikeFunction(false) : props.toggleLikeFunction("liked")}}><img src={props.isLiked === "liked" ? likewhite : likeblack} alt="" className="likeButton likeButtonPopUp" /></div>
+                <div className="emojiPopUp invisible popTwo" onClick={()=>{props.isLiked === "disliked" ?  props.toggleLikeFunction(false) : props.toggleLikeFunction("disliked")}}><img src={props.isLiked === "disliked" ? dislikewhite : dislikeblack} alt="" className="likeButton likeButtonPopUp" /></div>
                 {visibleButton}
               </div> : 
-              <div className="emojiDiv">
+              <div className="popUpEmojiDiv">
                 <div className="emojiPopUp invisible one" onClick={()=>props.toggleLikeFunction("loved")}><img src={loveblack} alt="" className="likeButton likeButtonPopUp" /></div>
-                <div className="emojiPopUp main" onClick={()=>props.toggleLikeFunction("liked")}><img src={likeblack} alt="" className="likeButton likeButtonPopUp" /></div>
+                <div className="emojiPopUp popMain" onClick={()=>props.toggleLikeFunction("liked")}><img src={likeblack} alt="" className="likeButton likeButtonPopUp" /></div>
                 <div className="emojiPopUp invisible two" onClick={()=>props.toggleLikeFunction("disliked")}><img src={dislikeblack} alt="" className="likeButton likeButtonPopUp" /></div>
               </div>}
       </div>
