@@ -8,6 +8,10 @@ import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
 import VideoPlayer from "../VideoPlayer/VideoPlayer"
 import likewhite from '../../assets/like-black.png';
+import dislikeblack from "../../assets/dislike-white.png"
+import dislikewhite from "../../assets/dislike-black.png"
+import loveblack from "../../assets/heart-white.png"
+import lovewhite from "../../assets/heart-black.png"
 
 
 
@@ -64,6 +68,15 @@ function handleClick(){
   props.toggleFunction()
 }
 
+let visibleButton
+if(props.isLiked === "liked"){
+ visibleButton = (<div className="emoji selected" onClick={()=>props.toggleLikeFunction(false)}><img src={likewhite} alt="" className="likeButton" /></div>)
+} else if(props.isLiked === "disliked"){
+  visibleButton = (<div className="emoji selected" onClick={()=>props.toggleLikeFunction(false)}><img src={dislikewhite} alt="" className="likeButton" /></div>)
+} else if(props.isLiked === "loved"){
+  visibleButton =(<div className="emoji selected" onClick={()=>props.toggleLikeFunction(false)}><img src={lovewhite} alt="" className="likeButton" /></div>)
+}
+
 
  
   return (
@@ -82,10 +95,21 @@ function handleClick(){
         {props.isInMyList ?
               <div className="emojiPopUp" onClick={handleClick}>✔</div> :
               <div className="emojiPopUp" onClick={handleClick}>+</div>}
-        {props.isLiked ? 
+        {/* {props.isLiked ? 
            <div className="emojiPopUp" onClick={props.toggleLikeFunction}><img src={likewhite} alt="" className="likeButton likeButtonPopUp" /></div> : 
-           <div className="emojiPopUp" onClick={props.toggleLikeFunction}><img src={likeblack} alt="" className="likeButton likeButtonPopUp" /></div>}
-
+           <div className="emojiPopUp" onClick={props.toggleLikeFunction}><img src={likeblack} alt="" className="likeButton likeButtonPopUp" /></div>} */}
+        {props.isLiked ? 
+                <div className="emojiDiv">
+                <div className="emojiPopUp invisible one" onClick={()=>{props.isLiked === "loved" ? props.toggleLikeFunction(false) : props.toggleLikeFunction("loved")}}><img src={props.isLiked === "loved" ? lovewhite : loveblack} alt="" className="likeButton likeButtonPopUp" /></div>
+                <div className="emojiPopUp invisible three" onClick={()=>{props.isLiked === "liked" ? props.toggleLikeFunction(false) : props.toggleLikeFunction("liked")}}><img src={props.isLiked === "liked" ? likewhite : likeblack} alt="" className="likeButton likeButtonPopUp" /></div>
+                <div className="emojiPopUp invisible two" onClick={()=>{props.isLiked === "disliked" ?  props.toggleLikeFunction(false) : props.toggleLikeFunction("disliked")}}><img src={props.isLiked === "disliked" ? dislikewhite : dislikeblack} alt="" className="likeButton likeButtonPopUp" /></div>
+                {visibleButton}
+              </div> : 
+              <div className="emojiDiv">
+                <div className="emojiPopUp invisible one" onClick={()=>props.toggleLikeFunction("loved")}><img src={loveblack} alt="" className="likeButton likeButtonPopUp" /></div>
+                <div className="emojiPopUp main" onClick={()=>props.toggleLikeFunction("liked")}><img src={likeblack} alt="" className="likeButton likeButtonPopUp" /></div>
+                <div className="emojiPopUp invisible two" onClick={()=>props.toggleLikeFunction("disliked")}><img src={dislikeblack} alt="" className="likeButton likeButtonPopUp" /></div>
+              </div>}
       </div>
       <div className="popUpInfoGrid">
         <div className="yearRatingRuntimeDiv">

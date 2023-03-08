@@ -190,13 +190,13 @@ export default function MovieCard(props){
       setIsInMyList(prevValue => !prevValue)
     }
 
-    function toggleNeedsToBeSendToLikedFilms(){
+    function toggleNeedsToBeSendToLikedFilms(status){
       setNeedsToSendLikedRequest(true)
-      setIsLiked(prevValue => !prevValue)
+      setIsLiked(status)
     }
 
     //I cant send the films to the api automatically, because then the pop up closes. So I need to do this function every time the pop up closes. 
-    function handleMyListSubmission(id, mediaType, image){
+    function handleMyListAndLikeSubmission(id, mediaType, image){
       addOrRemoveMyFilm(id, mediaType, image)
       addOrRemoveSimilarMovies()
       addOrRemoveLikedMovies()
@@ -259,14 +259,16 @@ export default function MovieCard(props){
   function addOrRemoveLikedMovies(){
     if(needsToSendLikedRequest){
       for(let i = 0; i < props.likedFilms.length; i++){
-        if(isLiked === false && props.fetchId === props.likedFilms[i].id){
+        if((isLiked === false) && props.fetchId === props.likedFilms[i].id){
           props.stopLikingAFilm(props.fetchId, 0);
           return;
-        } else if(isLiked === true && props.fetchId === props.likedFilms[i].id){
-          return;
-
-        } else if (isLiked === true && i === props.likedFilms.length -1){
-          props.likeFilm(props.fetchId, 0, props.mediaType, "liked")
+        } else if(isLiked !== false && props.fetchId === props.likedFilms[i].id){
+          if(isLiked !== props.likedFilms[i].status){
+            props.updateStatusOfLikedFilm(props.fetchId, 0, props.mediaType, isLiked)
+            return;
+          }
+        } else if (isLiked !== false && i === props.likedFilms.length -1){
+          props.likeFilm(props.fetchId, 0, props.mediaType, isLiked)
         }
       }
     }
@@ -301,7 +303,7 @@ export default function MovieCard(props){
                 <div className="emoji invisible two" onClick={()=>props.likeFilm(detailedInfo.id, 0, props.mediaType, "disliked")}><img src={dislikeblack} alt="" className="likeButton" /></div>
               </div>}
             </div>
-            <Popup trigger={<div className="emoji vEmoji">˅</div>} onClose={handleMyListSubmission}  modal>
+            <Popup trigger={<div className="emoji vEmoji">˅</div>} onClose={handleMyListAndLikeSubmission}  modal>
               <MoviePopUp data={detailedInfo} 
                 contentRating={contentRating} 
                 contentRatingClass={contentRatingClass} 
