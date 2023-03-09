@@ -59,6 +59,8 @@ export default function SimilarMoviesList(props){
             <div className="similarMoviesListDiv">
                 {visualSimilarMovies}
             </div>
+            <hr />
+            <div className="similarMovies--arrow">v</div>
         </div>
     )
 }
