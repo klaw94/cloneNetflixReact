@@ -8,7 +8,21 @@ import ExtraInfoCard from "../ExtraInfoCard/ExtraInfoCard";
 
 export default function SimilarMoviesList(props){
     const [similarMovies, setSimilarMovies] = useState([])
+    const [divOpen, setDivOpen] = useState(false)
+    const [divStyle, setDivStyle] = useState({maxHeight: 700})
 
+    
+    useEffect(()=>{
+        if (divOpen === false){
+           setDivStyle({maxHeight: 700})
+        } else{
+            setDivStyle({maxHeight: 3000})
+        }
+      }, [divOpen])
+
+
+
+    console.log(divOpen)
 
     useEffect(()=>{
         console.log(props)
@@ -52,15 +66,19 @@ export default function SimilarMoviesList(props){
     )}})
        
 
+    function handleDivStyleButton (){
+        setDivOpen(prevValue => !prevValue)
+    }
+
         //console.log(similarMovies)
     return(
         <div className="similarMoviesList">
             <h3>Similar Movies</h3>
-            <div className="similarMoviesListDiv">
+            <div className="similarMoviesListDiv" style={divStyle}>
                 {visualSimilarMovies}
             </div>
             <hr />
-            <div className="similarMovies--arrow">v</div>
+            <div className="similarMovies--arrow" onClick={handleDivStyleButton}>v</div>
         </div>
     )
 }

@@ -14,24 +14,31 @@
     margin-left: 15px;
     margin-right: 15px;
     justify-content: space-evenly;
-    margin-bottom: 20px;
-
+    margin-bottom: 33px;
+    max-height: 700px;
+    overflow: hidden;
+    transition: max-height 0.4s linear;
 }
 
 .similarMoviesList > hr{
+    position: relative;
+    top: -20px;
     width: 80%;
     margin: 0 auto;
-    border: 1px solid rgba(208, 202, 202, 0.263);;
+    margin-top: -13px;
+    border: 1px solid rgba(208, 202, 202, 0.108);;
     /* margin-left: 20%;
     margin-right: 20%; */
-    
+    box-shadow: -1px -13px 24px 12px black;
+
 }
 
 .similarMovies--arrow{
+    position:relative;
     height: 25px;
     width: 25px;
     color: white;
-    background-color: rgba(0, 0, 0, 0.481);
+    background-color: black;
     border: 2px solid rgb(218, 216, 216);
     border-radius: 100%;
     cursor: pointer;
@@ -44,6 +51,26 @@
     font-size: 25px;
     transition: 1s ease-in-out;
     margin: 0 auto;
-    margin-top: -20px;
+    margin-top: -40px;
+    z-index: 9000000000;
 
 }
+
+
+@keyframes moreHeight {
+  from {
+    height: 500px;
+  }
+  to {
+    height: 100%; /* your line height here */
+  }
+}
+
+@keyframes lessHeight {
+    from {
+      height: 100%;
+    }
+    to {
+      height: 500px; /* your line height here */
+    }
+  }
