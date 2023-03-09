@@ -5,7 +5,7 @@ export default function DetailedInfoSelectedMovie(props){
     const visualGenres = props.genres.map((genre, index) => {
         if (index < 4){
           return(
-            <span className="genresList" key={genre.id}>{genre.name}{index === props.genres.length - 1 || index === 2 ? "" : ", "}</span>
+            <span className="white" key={genre.id}>{genre.name}{index === props.genres.length - 1 || index === 2 ? "" : ", "}</span>
         );
         } else{
           return
@@ -16,7 +16,7 @@ export default function DetailedInfoSelectedMovie(props){
       const visualKeywords = props.keywords.map((keyword, index) => {
         if (index < 4){
           return(
-            <span className="popUpKeywordsList" key={keyword.id}>{keyword.name}{index === props.keywords.length - 1 || index === 3 ? "" : ", "}</span>
+            <span className="white" key={keyword.id}>{keyword.name}{index === props.keywords.length - 1 || index === 3 ? "" : ", "}</span>
         );
         } else{
           return
@@ -52,7 +52,7 @@ export default function DetailedInfoSelectedMovie(props){
       const visualScreenWriters = screenWriters.map((screenWriter, index) => {
         if (index < 4){
           return(
-            <span className="popUpKeywordsList" key={screenWriter.id}>{screenWriter.name}{index === screenWriters.length - 1 || index === 3 ? "" : ", "}</span>
+            <span className="white" key={screenWriter.id}>{screenWriter.name}{index === screenWriters.length - 1 || index === 3 ? "" : ", "}</span>
         );
         } else{
           return
@@ -65,7 +65,7 @@ export default function DetailedInfoSelectedMovie(props){
         visualCast = props.cast.cast.map((actor, index) => {
           if (index < 10){
             return(
-              <span className="castNames" key={actor.id}>{actor.name}{index === props.cast.length - 1 || index === 9 ? "" : ", "}</span>
+              <span className="white" key={actor.id}>{actor.name}{index === props.cast.length - 1 || index === 9 ? "" : ", "}</span>
           );
           } else{
             return
@@ -78,21 +78,24 @@ export default function DetailedInfoSelectedMovie(props){
     return(
         <div className="detailedInfoSelectedMovie">
             <h3>About <strong>{props.title}</strong></h3>
-        {director && director.name && <div className="genre">{directorPresentation + " "} 
-            {director.name}
+        {director && director.name && <div className="grey">{directorPresentation + " "} 
+            <span className="white">{director.name}</span>
         </div>}
-        {screenWriters.length > 0 && <div className="genre">Screenplay: {" "} 
+        {screenWriters.length > 0 && <div className="grey">Screenplay: {" "} 
             {visualScreenWriters}
         </div>}
-        {props.cast != null && props.cast.cast.length > 0 && <div className="cast">Cast: {" "}
+        {props.cast != null && props.cast.cast.length > 0 && <div className="grey">Cast: {" "}
           {visualCast}
         </div>}
-        {props.genres.length > 0 && <div className="genre">Genres:  {" "}
+        {props.genres.length > 0 && <div className="grey">Genres:  {" "}
             {visualGenres}
         </div>}
-        {props.keywords.length > 0 && <div className="popUp-keywords">Belongs to: {" "}
+        {props.keywords.length > 0 && <div className="grey">Belongs to: {" "}
             {visualKeywords}
         </div>}
+        <div className="contentRatingExtraInfo grey">Content rating: 
+            <div className={`contentRating ${props.contentRatingClass}`}>{props.contentRating}</div></div>
+            
         </div>
     )
 }

@@ -139,6 +139,7 @@ if(props.isLiked === "liked"){
     genre={props.data.genres.length > 0 ? props.data.genres : []}
     myList={props.myList}
     addFilmsToTheListOfSimilarMoviesToMyList={props.addFilmsToTheListOfSimilarMoviesToMyList}
+  
 
     />
 
@@ -147,7 +148,8 @@ if(props.isLiked === "liked"){
       genres={props.data.genres} 
       keywords={props.keywords}
       title={props.data.title} 
-      contentRating={props.contentRating}/>
+      contentRating={props.contentRating}
+      contentRatingClass={props.contentRatingClass}/>
     </div>
   );
 }
