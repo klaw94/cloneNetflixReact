@@ -3,9 +3,9 @@ import netflixlogo from "../assets/netflixlogo.png"
 import avatar from "../assets/Netflix-avatar.png"
 import lens from "../assets/lens.png"
 
-export default function Navbar(){
+export default function Navbar(props){
   const [searchMode, setSearchMode] = useState(false)
-  const [stylesSearchBox, setStylesSearchBox] = useState({width: 20, border : "none"})
+  const [stylesSearchBox, setStylesSearchBox] = useState({width: 26, border : "none"})
   const searchRef = useRef(null)
 
 
@@ -30,7 +30,7 @@ export default function Navbar(){
   useEffect(()=>{
     if(!searchMode){
    
-      setStylesSearchBox({width: 20, border : "none"})
+      setStylesSearchBox({width: 26, border : "none"})
   
     
     } else{
@@ -46,6 +46,10 @@ export default function Navbar(){
   }
 
 
+  function handleChange(event) {
+    props.handleChange(event)
+  }
+
     return(
         <div className="navbar">
             <img src={netflixlogo} className="netflixLogo" />
@@ -58,9 +62,9 @@ export default function Navbar(){
                 type="search"
                 autoComplete="off"
                 placeholder="Titles, people, genres"
-              //  onChange={handleChange}
+                onChange={handleChange}
                 name="app_name"
-             //   value={formData.app_name}
+                value={props.searchForm}
               />
             </div>
             <img src={avatar} className="myAvatar" />

@@ -9,9 +9,13 @@ function App() {
   const[myList, setMyList] = useState([])
   const[likedFilms, setLikedFilms] = useState([])
   const [searchMode, setSearchMode] = useState(false)
-  const [searchForm, setSearchForm] = useState()
+  const [searchForm, setSearchForm] = useState("")
 
   //console.log(likedFilms)
+
+  //https://developers.themoviedb.org/3/search/multi-search
+
+  //https://www.themoviedb.org/talk/57c450299251416c04004704
 
   useEffect(()=>{
     fetch(requests.myList)
@@ -29,6 +33,19 @@ function App() {
       }) 
   }, [])
 
+  useEffect(()=>{
+    if(searchForm !== ""){
+      setSearchMode(true)
+    } else{
+      setSearchMode(false)
+    }
+  }, [searchForm])
+
+
+
+  function handleChange(event){
+    setSearchForm(event.target.value)
+  }
 
 //console.log(likedFilms)
   function addToMyList (id, employeeid, media_type, backdrop_path) {
@@ -123,7 +140,8 @@ function updateStatusOfLikedFilm(id, employeeid, media_type, status){
 
   return (
     <div className="App">
-      <Navbar searchMode={searchMode}/>
+      <Navbar searchMode={searchMode} searchForm={searchForm} handleChange={handleChange}/>
+
       {myList.length > 0 && <Row title="My List" 
                               fetch={requests.myList} 
                               myList={myList}

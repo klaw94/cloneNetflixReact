@@ -56,14 +56,14 @@ body::-webkit-scrollbar {
 
 .search-field>input{
     background-image: url('./assets/lens.png');
-    background-size: 17px;
+    background-size: 20px;
     background-repeat: no-repeat;
     background-position: 3px 3px; 
-    width: 20px;
-    height: 24px;
+    width: 22px;
+    height: 30px;
     margin-top: 24px;
-    margin-right: 13px;
-    text-indent: 20px;
+    margin-right: 15px;
+    text-indent: 24px;
     border: none;
     background-color: black;
     /* display: none; */
