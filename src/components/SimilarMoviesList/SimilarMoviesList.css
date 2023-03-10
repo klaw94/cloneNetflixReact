@@ -17,7 +17,7 @@
     margin-bottom: 33px;
     max-height: 700px;
     overflow: hidden;
-    transition: max-height 0.4s linear;
+    transition: max-height 3s linear;
 }
 
 .similarMoviesList > hr{

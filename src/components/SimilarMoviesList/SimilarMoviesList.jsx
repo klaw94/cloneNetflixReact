@@ -16,7 +16,7 @@ export default function SimilarMoviesList(props){
         if (divOpen === false){
            setDivStyle({maxHeight: 700})
         } else{
-            setDivStyle({maxHeight: 3000})
+            setDivStyle({maxHeight: 6000})
         }
       }, [divOpen])
 
