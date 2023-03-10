@@ -8,6 +8,8 @@ import Row from './components/Row'
 function App() {
   const[myList, setMyList] = useState([])
   const[likedFilms, setLikedFilms] = useState([])
+  const [searchMode, setSearchMode] = useState(false)
+  const [searchForm, setSearchForm] = useState()
 
   //console.log(likedFilms)
 
@@ -121,7 +123,7 @@ function updateStatusOfLikedFilm(id, employeeid, media_type, status){
 
   return (
     <div className="App">
-      <Navbar />
+      <Navbar searchMode={searchMode}/>
       {myList.length > 0 && <Row title="My List" 
                               fetch={requests.myList} 
                               myList={myList}

@@ -78,7 +78,7 @@ export default function SimilarMoviesList(props){
                 {visualSimilarMovies}
             </div>
             <hr />
-            <div className="similarMovies--arrow" onClick={handleDivStyleButton}>v</div>
+          <div className="similarMovies--arrow" onClick={handleDivStyleButton}>{divOpen ? "^" : "v" }</div>
         </div>
     )
 }
