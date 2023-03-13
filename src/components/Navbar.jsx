@@ -15,16 +15,21 @@ export default function Navbar(props){
      */
     function handleClickOutside(event) {
       if (searchRef.current && !searchRef.current.contains(event.target)) {
-       setSearchMode(false)
+        if(props.searchForm === "" || !props.searchForm){
+          setSearchMode(false)
+        } else{
+          setSearchMode(true)
+        }
       }
     }
     // Bind the event listener
     document.addEventListener("mousedown", handleClickOutside);
+
     return () => {
       // Unbind the event listener on clean up
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [searchRef]);
+  }, [props.searchForm]);
 
 
   useEffect(()=>{
@@ -33,7 +38,7 @@ export default function Navbar(props){
       setStylesSearchBox({width: 26, border : "none"})
   
     
-    } else{
+    } else {
 
       setStylesSearchBox({width: 200, border : "solid 1px white"})
 

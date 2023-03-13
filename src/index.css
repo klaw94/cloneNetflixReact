@@ -455,8 +455,8 @@ body::-webkit-scrollbar {
 
 .searchedMoviesDiv{
     display: flex;
-    justify-content: center;
     flex-wrap: wrap;
+    margin-left: 5%;
     margin-top: 60px;
 }
 

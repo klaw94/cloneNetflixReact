@@ -16,11 +16,9 @@ function App() {
   const [searchForm, setSearchForm] = useState("")
   const [searchedFilms, setSearchedFilms] = useState([])
 
-  console.log(searchedFilms)
 
 
   useEffect(()=>{
-    console.log('hehe')
     fetch(instance + requests.searchedFilms + encodeURI(searchForm))
     .then(res => res.json())
     .then(data => {
@@ -172,15 +170,7 @@ const visualSearchedMovies = searchedFilms.map(movie =>{
       <Navbar searchMode={searchMode} searchForm={searchForm} handleChange={handleChange}/>
 
 {searchMode === false && <div>
-      <Row title="Trend Now" 
-        fetch={requests.fetchTrending}  
-        myList={myList} myListFunction={addToMyList} 
-        removeListFunction={removeFromMyList}
-        likeFilm={likeAFilm}
-        stopLikingAFilm={stopLikingAFilm}
-        likedFilms={likedFilms}
-        updateStatusOfLikedFilm={updateStatusOfLikedFilm}/>
-      {myList.length > 0 && <Row title="My List" 
+  {myList.length > 0 && <Row title="My List" 
                       fetch={requests.myList} 
                       myList={myList}
                       myListFunction={addToMyList} 
@@ -189,6 +179,14 @@ const visualSearchedMovies = searchedFilms.map(movie =>{
                       stopLikingAFilm={stopLikingAFilm}
                       likedFilms={likedFilms}
                       updateStatusOfLikedFilm={updateStatusOfLikedFilm}/>}
+      <Row title="Trend Now" 
+        fetch={requests.fetchTrending}  
+        myList={myList} myListFunction={addToMyList} 
+        removeListFunction={removeFromMyList}
+        likeFilm={likeAFilm}
+        stopLikingAFilm={stopLikingAFilm}
+        likedFilms={likedFilms}
+        updateStatusOfLikedFilm={updateStatusOfLikedFilm}/>
       <Row title="Action Movies" 
         fetch={requests.fetchActionMovies}  
         myList={myList} 
