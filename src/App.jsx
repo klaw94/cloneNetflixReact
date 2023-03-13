@@ -3,6 +3,10 @@ import requests from './request'
 import Navbar from './components/Navbar'
 import './App.css'
 import Row from './components/Row'
+import instance from './axios'
+import {nanoid} from 'nanoid'
+import MovieCard from './components/MovieCard'
+
 
 
 function App() {
@@ -10,12 +14,20 @@ function App() {
   const[likedFilms, setLikedFilms] = useState([])
   const [searchMode, setSearchMode] = useState(false)
   const [searchForm, setSearchForm] = useState("")
+  const [searchedFilms, setSearchedFilms] = useState([])
 
-  //console.log(likedFilms)
+  console.log(searchMode)
 
-  //https://developers.themoviedb.org/3/search/multi-search
 
-  //https://www.themoviedb.org/talk/57c450299251416c04004704
+  useEffect(()=>{
+    console.log('hehe')
+    fetch(instance + requests.searchedFilms + encodeURI(searchForm))
+    .then(res => res.json())
+    .then(data => {
+      setSearchedFilms(data.results)
+      }) 
+  }, [searchForm])
+
 
   useEffect(()=>{
     fetch(requests.myList)
@@ -138,19 +150,27 @@ function updateStatusOfLikedFilm(id, employeeid, media_type, status){
 
 }
 
+const visualSearchedMovies = searchedFilms.map(movie =>
+  (<MovieCard key={nanoid} 
+  className="card" 
+  fetchId={movie.id} 
+  myList={myList}
+  mediaType={movie.media_type ? movie.media_type : movie.mediaType} 
+  myListFunction={addToMyList} 
+  removeListFunction={removeFromMyList}
+  link={`https://image.tmdb.org/t/p/w500${movie.backdrop_path}`}
+  likeFilm={likeAFilm}
+  stopLikingAFilm={stopLikingAFilm}
+  likedFilms={likedFilms}
+  updateStatusOfLikedFilm={updateStatusOfLikedFilm} />
+)
+  )
+
   return (
     <div className="App">
       <Navbar searchMode={searchMode} searchForm={searchForm} handleChange={handleChange}/>
 
-      {myList.length > 0 && <Row title="My List" 
-                              fetch={requests.myList} 
-                              myList={myList}
-                              myListFunction={addToMyList} 
-                              removeListFunction={removeFromMyList}
-                              likeFilm={likeAFilm}
-                              stopLikingAFilm={stopLikingAFilm}
-                              likedFilms={likedFilms}
-                              updateStatusOfLikedFilm={updateStatusOfLikedFilm}/>}
+{searchMode === false && <div>
       <Row title="Trend Now" 
         fetch={requests.fetchTrending}  
         myList={myList} myListFunction={addToMyList} 
@@ -159,6 +179,15 @@ function updateStatusOfLikedFilm(id, employeeid, media_type, status){
         stopLikingAFilm={stopLikingAFilm}
         likedFilms={likedFilms}
         updateStatusOfLikedFilm={updateStatusOfLikedFilm}/>
+      {myList.length > 0 && <Row title="My List" 
+                      fetch={requests.myList} 
+                      myList={myList}
+                      myListFunction={addToMyList} 
+                      removeListFunction={removeFromMyList}
+                      likeFilm={likeAFilm}
+                      stopLikingAFilm={stopLikingAFilm}
+                      likedFilms={likedFilms}
+                      updateStatusOfLikedFilm={updateStatusOfLikedFilm}/>}
       <Row title="Action Movies" 
         fetch={requests.fetchActionMovies}  
         myList={myList} 
@@ -177,7 +206,12 @@ function updateStatusOfLikedFilm(id, employeeid, media_type, status){
         stopLikingAFilm={stopLikingAFilm}
         likedFilms={likedFilms}
         updateStatusOfLikedFilm={updateStatusOfLikedFilm}/>
-    </div>
+    </div>}
+    
+    {searchMode === true && <div className='searchedMoviesDiv'>
+      {visualSearchedMovies}
+    </div>}
+     </div>
   )
 }
 
