@@ -16,7 +16,7 @@ function App() {
   const [searchForm, setSearchForm] = useState("")
   const [searchedFilms, setSearchedFilms] = useState([])
 
-  console.log(searchMode)
+  console.log(searchedFilms)
 
 
   useEffect(()=>{
@@ -150,8 +150,9 @@ function updateStatusOfLikedFilm(id, employeeid, media_type, status){
 
 }
 
-const visualSearchedMovies = searchedFilms.map(movie =>
-  (<MovieCard key={nanoid} 
+const visualSearchedMovies = searchedFilms.map(movie =>{
+  return movie.backdrop_path ?
+ (<MovieCard key={nanoid()} 
   className="card" 
   fetchId={movie.id} 
   myList={myList}
@@ -163,7 +164,7 @@ const visualSearchedMovies = searchedFilms.map(movie =>
   stopLikingAFilm={stopLikingAFilm}
   likedFilms={likedFilms}
   updateStatusOfLikedFilm={updateStatusOfLikedFilm} />
-)
+) : (<></>)}
   )
 
   return (

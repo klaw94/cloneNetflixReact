@@ -61,7 +61,7 @@ export default function Navbar(props){
                 style={stylesSearchBox}
                 type="search"
                 autoComplete="off"
-                placeholder="Titles, people, genres"
+                placeholder="Titles of series or movie"
                 onChange={handleChange}
                 name="app_name"
                 value={props.searchForm}
