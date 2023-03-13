@@ -55,9 +55,16 @@ export default function Navbar(props){
     props.handleChange(event)
   }
 
+  function reloadPage(){
+    if(props.searchMode){
+      location.reload();
+
+    }
+  }
+
     return(
         <div className="navbar">
-            <img src={netflixlogo} className="netflixLogo" />
+            <img src={netflixlogo} className="netflixLogo" onClick={reloadPage}/>
             <div className="navbar--search-avatar-div">
             <div className="search-field">
               {/* <div onClick={toggleSearchMode} style={stylesIcon} className="navbar--lensicon-div"><img className="navbar--lensicon" src={lens}/></div> */}
