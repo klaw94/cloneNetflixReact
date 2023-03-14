@@ -171,7 +171,14 @@ const visualSearchedMovies = searchedFilms.map(movie =>{
       <Navbar searchMode={searchMode} searchForm={searchForm} handleChange={handleChange}/>
 
 {searchMode === false && <div>
-  <HeaderMovie />
+  <HeaderMovie 
+    myList={myList}
+    likedFilms={likedFilms}             
+     myListFunction={addToMyList} 
+    removeListFunction={removeFromMyList}
+    likeFilm={likeAFilm}
+    stopLikingAFilm={stopLikingAFilm}
+    updateStatusOfLikedFilm={updateStatusOfLikedFilm}/>
   {myList.length > 0 && <Row title="My List" 
                       fetch={requests.myList} 
                       myList={myList}
