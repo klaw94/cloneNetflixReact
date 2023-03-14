@@ -2,6 +2,9 @@ import React, { useState, useEffect } from "react";
 import './HeaderMovie.css'
 import instance from "../../axios";
 import requests from "../../request";
+import VideoPlayer from "../VideoPlayer/VideoPlayer"
+import Popup from 'reactjs-popup';
+import 'reactjs-popup/dist/index.css';
 
 
 export default function HeaderMovie(){
@@ -33,7 +36,10 @@ export default function HeaderMovie(){
            <h1>{mainMovie.original_title}</h1>
            <p>{detailedInfo.overview}</p>
            <div className="header--buttonDiv">
-                <button className="main--playButton">▶ Play</button>
+           <Popup trigger={<button className="main--playButton">▶ Play</button>} modal>
+                <VideoPlayer apiCall={`${instance}/movie/${mainMovie.id}?api_key=${requests.apiKey}&language=en-US`}/>
+            </Popup> 
+                
                 <button className="main--meerInfo">More information</button>
            </div>
         </div>
