@@ -306,6 +306,17 @@
                 transition: 0.5s ease-in-out
             
         }
+
+        .main--meerInfo{
+            background-color: grey;
+            color: white;
+            background-image: url('../../assets/info.png');
+            background-size: 28px;
+            background-repeat: no-repeat;
+            background-position: 14px 10px; 
+            text-indent: 20px;
+        }
+        
         
         }
     
