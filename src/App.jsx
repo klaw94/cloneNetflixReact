@@ -6,6 +6,7 @@ import Row from './components/Row'
 import instance from './axios'
 import {nanoid} from 'nanoid'
 import MovieCard from './components/MovieCard'
+import HeaderMovie from './components/HeaderMovie/HeaderMovie'
 
 
 
@@ -170,6 +171,7 @@ const visualSearchedMovies = searchedFilms.map(movie =>{
       <Navbar searchMode={searchMode} searchForm={searchForm} handleChange={handleChange}/>
 
 {searchMode === false && <div>
+  <HeaderMovie />
   {myList.length > 0 && <Row title="My List" 
                       fetch={requests.myList} 
                       myList={myList}

@@ -35,12 +35,12 @@ export default function Navbar(props){
   useEffect(()=>{
     if(!searchMode){
    
-      setStylesSearchBox({width: 26, border : "none"})
+      setStylesSearchBox({width: 26, border : "none", backgroundColor: "transparent"})
   
     
     } else {
 
-      setStylesSearchBox({width: 200, border : "solid 1px white"})
+      setStylesSearchBox({width: 200, border : "solid 1px white", backgroundColor: "black"})
 
     }
    }, [searchMode])
