@@ -36,9 +36,11 @@ export default function HeaderMovie(props){
       }, [mainMovie])
 
       useEffect(()=>{
-        fetch(`${instance}/movie/${mainMovie.id}/keywords?api_key=${requests.apiKey}`)
-          .then(res=> res.json())
-          .then(data => setKeywords(data))
+        if(mainMovie.id){
+          fetch(`${instance}/movie/${mainMovie.id}/keywords?api_key=${requests.apiKey}`)
+            .then(res=> res.json())
+            .then(data => setKeywords(data))
+        }
       }, [detailedInfo])
 
       useEffect(()=>{
@@ -63,8 +65,7 @@ export default function HeaderMovie(props){
         }
       }, [])
 
-      console.log(mainMovie)
-      console.log(detailedInfo)
+ 
 
 
      let runtime = `${Math.floor(detailedInfo.runtime/60)}h ${detailedInfo.runtime%60}mins`

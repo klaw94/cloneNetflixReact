@@ -5,6 +5,8 @@ const requests = {
     fetchNetflixOriginals: `/discover/tv?api_key=${API_KEY}&with_networks=213`,
     fetchTopRated: `/movie/top_rated?api_key=${API_KEY}&language=en-US`,
     fetchActionMovies: `/discover/movie?api_key=${API_KEY}&with_genres=28`,
+    fetchFavouriteFilm: `/discover/movie?api_key=${API_KEY}&with_genres=`,
+    fetchFavouriteSeries: `/discover/tv?api_key=${API_KEY}&with_genres=`,
     fetchComedyMovies: `/discover/movie?api_key=${API_KEY}&with_genres=35`,
     fetchHorrorMovies: `/discover/movie?api_key=${API_KEY}&with_genres=27`,
     fetchRomanceMovies: `/discover/movie?api_key=${API_KEY}&with_genres=10749`,
@@ -12,6 +14,7 @@ const requests = {
     searchedFilms: `/search/multi?api_key=${API_KEY}&query=`,
     myList: `http://localhost:8080/api/v1/movie`,
     likedFilms: `http://localhost:8080/api/v1/liked-movie`,
+    favouriteGenres: `http://localhost:8080/api/v1/favourite-genres`,
     apiKey: `${API_KEY}`,
 }
  export default requests

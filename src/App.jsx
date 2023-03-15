@@ -16,8 +16,10 @@ function App() {
   const [searchMode, setSearchMode] = useState(false)
   const [searchForm, setSearchForm] = useState("")
   const [searchedFilms, setSearchedFilms] = useState([])
+  const [myGenres, setMyGenres] = useState([])
+  const [favouriteGenres, setFavouriteGenres] = useState([])
 
-
+console.log(favouriteGenres)
 
   useEffect(()=>{
     fetch(instance + requests.searchedFilms + encodeURI(searchForm))
@@ -27,6 +29,17 @@ function App() {
       }) 
   }, [searchForm])
 
+  useEffect(()=>{
+    fetch(requests.favouriteGenres)
+    .then(res => res.json())
+    .then(data => {
+      setMyGenres(data)
+      }) 
+  }, [])
+
+  useEffect(()=>{
+    setFavouriteGenres(myGenres.filter(genre => genre.score > 0))
+  }, [myGenres])
 
   useEffect(()=>{
     fetch(requests.myList)
@@ -58,7 +71,6 @@ function App() {
     setSearchForm(event.target.value)
   }
 
-//console.log(likedFilms)
   function addToMyList (id, employeeid, media_type, backdrop_path) {
     fetch(`http://localhost:8080/api/v1/movie`, {
          method: 'post',
@@ -143,7 +155,6 @@ function updateStatusOfLikedFilm(id, employeeid, media_type, status){
     }),
 })
   setLikedFilms(prevData=> prevData.map(movie=>{
-    console.log(movie)
    return  movie.id === id ? ({...movie, status : status}) : movie
   }))
 
@@ -188,15 +199,35 @@ const visualSearchedMovies = searchedFilms.map(movie =>{
                       stopLikingAFilm={stopLikingAFilm}
                       likedFilms={likedFilms}
                       updateStatusOfLikedFilm={updateStatusOfLikedFilm}/>}
-      <Row title="Trend Now" 
+      {favouriteGenres.length >= 3 ? 
+        <Row title={favouriteGenres[2].genreName}
+        fetch={requests.fetchFavouriteFilm + favouriteGenres[2].genreId}  
+        myList={myList} 
+        myListFunction={addToMyList} 
+        removeListFunction={removeFromMyList}
+        likeFilm={likeAFilm}
+        stopLikingAFilm={stopLikingAFilm}
+        likedFilms={likedFilms}
+        updateStatusOfLikedFilm={updateStatusOfLikedFilm}/> :
+        <Row title="Trend Now" 
         fetch={requests.fetchTrending}  
         myList={myList} myListFunction={addToMyList} 
         removeListFunction={removeFromMyList}
         likeFilm={likeAFilm}
         stopLikingAFilm={stopLikingAFilm}
         likedFilms={likedFilms}
-        updateStatusOfLikedFilm={updateStatusOfLikedFilm}/>
-      <Row title="Action Movies" 
+        updateStatusOfLikedFilm={updateStatusOfLikedFilm}/>}
+      {favouriteGenres.length >= 1 ? 
+      <Row title={favouriteGenres[0].genreName}
+        fetch={requests.fetchFavouriteFilm + favouriteGenres[0].genreId}  
+        myList={myList} 
+        myListFunction={addToMyList} 
+        removeListFunction={removeFromMyList}
+        likeFilm={likeAFilm}
+        stopLikingAFilm={stopLikingAFilm}
+        likedFilms={likedFilms}
+        updateStatusOfLikedFilm={updateStatusOfLikedFilm}/> :
+        <Row title="Action Movies" 
         fetch={requests.fetchActionMovies}  
         myList={myList} 
         myListFunction={addToMyList} 
@@ -204,8 +235,18 @@ const visualSearchedMovies = searchedFilms.map(movie =>{
         likeFilm={likeAFilm}
         stopLikingAFilm={stopLikingAFilm}
         likedFilms={likedFilms}
-        updateStatusOfLikedFilm={updateStatusOfLikedFilm}/>
-      <Row title="Comedy Movies" 
+        updateStatusOfLikedFilm={updateStatusOfLikedFilm}/>}
+      {favouriteGenres.length >= 2 ?  
+      <Row title={favouriteGenres[1].genreName}
+        fetch={requests.fetchFavouriteFilm + favouriteGenres[1].genreId}  
+        myList={myList} 
+        myListFunction={addToMyList} 
+        removeListFunction={removeFromMyList}
+        likeFilm={likeAFilm}
+        stopLikingAFilm={stopLikingAFilm}
+        likedFilms={likedFilms}
+        updateStatusOfLikedFilm={updateStatusOfLikedFilm}/>:
+         <Row title="Comedy Movies" 
         fetch={requests.fetchComedyMovies}  
         myList={myList} 
         myListFunction={addToMyList} 
@@ -213,7 +254,7 @@ const visualSearchedMovies = searchedFilms.map(movie =>{
         likeFilm={likeAFilm}
         stopLikingAFilm={stopLikingAFilm}
         likedFilms={likedFilms}
-        updateStatusOfLikedFilm={updateStatusOfLikedFilm}/>
+        updateStatusOfLikedFilm={updateStatusOfLikedFilm}/>}
     </div>}
     
     {searchMode === true && <div className='searchedMoviesDiv'>
