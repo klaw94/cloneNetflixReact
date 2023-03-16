@@ -33,7 +33,8 @@ export default function Row(props){
       likeFilm={props.likeFilm}
       stopLikingAFilm={props.stopLikingAFilm}
       likedFilms={props.likedFilms}
-      updateStatusOfLikedFilm={props.updateStatusOfLikedFilm} />
+      updateStatusOfLikedFilm={props.updateStatusOfLikedFilm} 
+      likeAGenre={props.likeAGenre}/>
     )
   )
   } else {
@@ -47,6 +48,7 @@ export default function Row(props){
         removeListFunction={props.removeListFunction}
         link={`https://image.tmdb.org/t/p/w500${movie.backdrop_path}`}
         likeFilm={props.likeFilm}
+        likeAGenre={props.likeAGenre}
         stopLikingAFilm={props.stopLikingAFilm}
         likedFilms={props.likedFilms}
         updateStatusOfLikedFilm={props.updateStatusOfLikedFilm} />

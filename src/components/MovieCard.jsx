@@ -202,19 +202,18 @@ export default function MovieCard(props){
       addOrRemoveLikedMovies()
     }
 
-    function addFilmsToTheListOfSimilarMoviesToMyList(id, mediaType, image){
+    function addFilmsToTheListOfSimilarMoviesToMyList(id, mediaType, image, genres){//HERE
       if(similarMoviesToSendToMyList.length === 0){
-        setSimilarMoviesToSendToMyList(prevValue=>[...prevValue, {id: id, mediaType : mediaType, backdrop_path: image}])
+        setSimilarMoviesToSendToMyList(prevValue=>[...prevValue, {id: id, mediaType : mediaType, backdrop_path: image, genres: genres}])
       } else{
-      for(let i = 0; i < similarMoviesToSendToMyList.length; i++){
-        if(id === similarMoviesToSendToMyList[i].id){
-          setSimilarMoviesToSendToMyList(prevValue => prevValue.filter(film=> film.id != id))
-          return;
-        } else if (id !== similarMoviesToSendToMyList[i].id && i === similarMoviesToSendToMyList.length - 1){
-          setSimilarMoviesToSendToMyList(prevValue=>[...prevValue, {id: id, mediaType : mediaType, backdrop_path: image}])
-
+        for(let i = 0; i < similarMoviesToSendToMyList.length; i++){
+          if(id === similarMoviesToSendToMyList[i].id){
+            setSimilarMoviesToSendToMyList(prevValue => prevValue.filter(film=> film.id != id))
+            return;
+          } else if (id !== similarMoviesToSendToMyList[i].id && i === similarMoviesToSendToMyList.length - 1){
+            setSimilarMoviesToSendToMyList(prevValue=>[...prevValue, {id: id, mediaType : mediaType, backdrop_path: image,  genres: genres}])
+          }
         }
-      }
      }
     }
 
@@ -228,7 +227,7 @@ export default function MovieCard(props){
             return;
 
           } else if (isInMyList === true && i === props.myList.length -1){
-            props.myListFunction(props.fetchId, 0, props.mediaType, detailedInfo.backdrop_path)
+            handleAddToList(props.fetchId, 0, props.mediaType, detailedInfo.backdrop_path, detailedInfo.genres)
           }
         }
       }
@@ -238,10 +237,10 @@ export default function MovieCard(props){
     for(let i = 0; i < similarMoviesToSendToMyList.length; i++){
       for(let x = 0; x < props.myList.length; x++){
         if(similarMoviesToSendToMyList[i].id === props.myList[x].id){
-          props.removeListFunction(similarMoviesToSendToMyList[i].id, 0);
+          props.removeListFunction(similarMoviesToSendToMyList[i].id, 0);//HERE
           return;
         } else if (x === props.myList.length -1){
-          props.myListFunction(similarMoviesToSendToMyList[i].id, 0, similarMoviesToSendToMyList[i].mediaType, similarMoviesToSendToMyList[i].backdrop_path)
+          handleAddToList(similarMoviesToSendToMyList[i].id, 0, similarMoviesToSendToMyList[i].mediaType, similarMoviesToSendToMyList[i].backdrop_path, similarMoviesToSendToMyList[i].genres)
         }
       }
     }
@@ -249,28 +248,74 @@ export default function MovieCard(props){
   
   let visibleButton
   if(isLiked === "liked"){
-   visibleButton = (<div className="emoji selected" onClick={()=>props.stopLikingAFilm(detailedInfo.id, 0)}><img src={likewhite} alt="" className="likeButton" /></div>)
+   visibleButton = (<div className="emoji selected" onClick={()=>handleStopLikingAFilm(detailedInfo.id, 0)}><img src={likewhite} alt="" className="likeButton" /></div>)
   } else if(isLiked === "disliked"){
-    visibleButton = (<div className="emoji selected" onClick={()=>props.stopLikingAFilm(detailedInfo.id, 0)}><img src={dislikewhite} alt="" className="likeButton" /></div>)
+    visibleButton = (<div className="emoji selected" onClick={()=>handleStopLikingAFilm(detailedInfo.id, 0)}><img src={dislikewhite} alt="" className="likeButton" /></div>)
   } else if(isLiked === "loved"){
-    visibleButton =(<div className="emoji selected" onClick={()=>props.stopLikingAFilm(detailedInfo.id, 0)}><img src={lovewhite} alt="" className="likeButton" /></div>)
+    visibleButton =(<div className="emoji selected" onClick={()=>handleStopLikingAFilm(detailedInfo.id, 0)}><img src={lovewhite} alt="" className="likeButton" /></div>)
   }
 
   function addOrRemoveLikedMovies(){
     if(needsToSendLikedRequest){
       for(let i = 0; i < props.likedFilms.length; i++){
         if((isLiked === false) && props.fetchId === props.likedFilms[i].id){
-          props.stopLikingAFilm(props.fetchId, 0);
+          handleStopLikingAFilm(props.fetchId, 0);
           return;
         } else if(isLiked !== false && props.fetchId === props.likedFilms[i].id){
           if(isLiked !== props.likedFilms[i].status){
-            props.updateStatusOfLikedFilm(props.fetchId, 0, props.mediaType, isLiked)
+            handleUpdateLikeStatus(props.fetchId, 0, props.mediaType, isLiked)//HERE
             return;
           }
         } else if (isLiked !== false && i === props.likedFilms.length -1){
-          props.likeFilm(props.fetchId, 0, props.mediaType, isLiked)
+          handleLikingAFilm(props.fetchId, 0, props.mediaType, isLiked)//HERE
         }
       }
+    }
+  }
+
+
+  function handleAddToList(id, employeeid, mediaType, backdrop_path, myGenres){
+    props.myListFunction(id, employeeid, mediaType, backdrop_path)//HERE
+    for(let i = 0; i < myGenres.length; i++){
+      props.likeAGenre(employeeid, myGenres[i].id, myGenres[i].name, "list")
+    }
+  }
+
+  function handleStopLikingAFilm(id, employeeid, originalStatus){
+    let status;
+    switch(originalStatus) {
+      case "liked":
+        status = "disliked"
+        break;
+      case "loved":
+        status = "stoplove"
+        break;
+      case "disliked":
+        status = "liked"
+        break;
+      default:
+        status = ""
+    }
+  
+    props.stopLikingAFilm(detailedInfo.id, 0)
+    for(let i = 0; i < detailedInfo.genres.length; i++){
+      props.likeAGenre(employeeid, detailedInfo.genres[i].id, detailedInfo.genres[i].name, status)
+    }
+  }
+
+  function handleUpdateLikeStatus(id, employeeid, mediaType, status){
+    props.updateStatusOfLikedFilm(id, employeeid, mediaType, status)
+    for(let i = 0; i < detailedInfo.genres.length; i++){
+      console.log(`change my liking of ${detailedInfo.genres[i].name}`)
+      props.likeAGenre(employeeid, detailedInfo.genres[i].id, detailedInfo.genres[i].name, status)
+    }
+  }
+
+  function handleLikingAFilm(id, employeeid, mediaType, status){
+    props.likeFilm(id, employeeid, mediaType, status)
+    for(let i = 0; i < detailedInfo.genres.length; i++){
+      console.log(`change my liking of ${detailedInfo.genres[i].name}`)
+      props.likeAGenre(employeeid, detailedInfo.genres[i].id, detailedInfo.genres[i].name, status)
     }
   }
 
@@ -289,18 +334,21 @@ export default function MovieCard(props){
             </Popup> 
              {isInMyList ?
               <div className="emoji list" onClick={() => props.removeListFunction(detailedInfo.id, 0)}>✔</div> :
-              <div className="emoji list" onClick={() => props.myListFunction(detailedInfo.id, 0, props.mediaType, detailedInfo.backdrop_path)}>+</div>}
+              <div className="emoji list" onClick={() => handleAddToList(detailedInfo.id, 0, props.mediaType, detailedInfo.backdrop_path, detailedInfo.genres)}>+</div>}
              {isLiked ? 
                 <div className="emojiDiv">
-                <div className="emoji invisible one" onClick={()=>{isLiked === "loved" ? props.stopLikingAFilm(detailedInfo.id, 0) : props.updateStatusOfLikedFilm(detailedInfo.id, 0, props.mediaType, "loved")}}><img src={isLiked === "loved" ? lovewhite : loveblack} alt="" className="likeButton" /></div>
-                <div className="emoji invisible three" onClick={()=>{isLiked === "liked" ? props.stopLikingAFilm(detailedInfo.id, 0) : props.updateStatusOfLikedFilm(detailedInfo.id, 0, props.mediaType, "liked") }}><img src={isLiked === "liked" ? likewhite : likeblack} alt="" className="likeButton" /></div>
-                <div className="emoji invisible two" onClick={()=>{isLiked === "disliked" ?  props.stopLikingAFilm(detailedInfo.id, 0) : props.updateStatusOfLikedFilm(detailedInfo.id, 0, props.mediaType, "disliked")}}><img src={isLiked === "disliked" ? dislikewhite : dislikeblack} alt="" className="likeButton" /></div>
+                <div className="emoji invisible one" 
+                  onClick={()=>{isLiked === "loved" ? handleStopLikingAFilm(detailedInfo.id, 0, isLiked) : handleUpdateLikeStatus(detailedInfo.id, 0, props.mediaType, "loved")}}><img src={isLiked === "loved" ? lovewhite : loveblack} alt="" className="likeButton" /></div>
+                <div className="emoji invisible three" 
+                  onClick={()=>{isLiked === "liked" ? handleStopLikingAFilm(detailedInfo.id, 0, isLiked) : handleUpdateLikeStatus(detailedInfo.id, 0, props.mediaType, "liked") }}><img src={isLiked === "liked" ? likewhite : likeblack} alt="" className="likeButton" /></div>
+                <div className="emoji invisible two" 
+                  onClick={()=>{isLiked === "disliked" ?  handleStopLikingAFilm(detailedInfo.id, 0, isLiked) : handleUpdateLikeStatus(detailedInfo.id, 0, props.mediaType, "disliked")}}><img src={isLiked === "disliked" ? dislikewhite : dislikeblack} alt="" className="likeButton" /></div>
                 {visibleButton}
               </div> : 
               <div className="emojiDiv">
-                <div className="emoji invisible one" onClick={()=>props.likeFilm(detailedInfo.id, 0, props.mediaType, "loved")}><img src={loveblack} alt="" className="likeButton" /></div>
-                <div className="emoji main" onClick={()=>props.likeFilm(detailedInfo.id, 0, props.mediaType, "liked")}><img src={likeblack} alt="" className="likeButton" /></div>
-                <div className="emoji invisible two" onClick={()=>props.likeFilm(detailedInfo.id, 0, props.mediaType, "disliked")}><img src={dislikeblack} alt="" className="likeButton" /></div>
+                <div className="emoji invisible one" onClick={()=>handleLikingAFilm(detailedInfo.id, 0, props.mediaType, "loved")}><img src={loveblack} alt="" className="likeButton" /></div>
+                <div className="emoji main" onClick={()=>handleLikingAFilm(detailedInfo.id, 0, props.mediaType, "liked")}><img src={likeblack} alt="" className="likeButton" /></div>
+                <div className="emoji invisible two" onClick={()=>handleLikingAFilm(detailedInfo.id, 0, props.mediaType, "disliked")}><img src={dislikeblack} alt="" className="likeButton" /></div>
               </div>}
             </div>
             <Popup trigger={<div className="emoji vEmoji">˅</div>} onClose={handleMyListAndLikeSubmission}  modal>

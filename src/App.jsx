@@ -11,15 +11,14 @@ import HeaderMovie from './components/HeaderMovie/HeaderMovie'
 
 
 function App() {
-  const[myList, setMyList] = useState([])
-  const[likedFilms, setLikedFilms] = useState([])
+  const [myList, setMyList] = useState([])
+  const [likedFilms, setLikedFilms] = useState([])
   const [searchMode, setSearchMode] = useState(false)
   const [searchForm, setSearchForm] = useState("")
   const [searchedFilms, setSearchedFilms] = useState([])
   const [myGenres, setMyGenres] = useState([])
   const [favouriteGenres, setFavouriteGenres] = useState([])
 
-console.log(favouriteGenres)
 
   useEffect(()=>{
     fetch(instance + requests.searchedFilms + encodeURI(searchForm))
@@ -131,6 +130,87 @@ function likeAFilm (id, employeeid, media_type, status) {
   
 }
 
+console.log(myGenres)
+
+function handleLikingAGenre(employeeid, genre_id, genre_name, status){
+  let addition;
+  switch(status) {
+    case "liked":
+      addition = 1
+      break;
+    case "list":
+      addition = 1
+      break;
+    case "love":
+      addition = 2
+      break;
+    case "disliked":
+      addition = -1
+      break;
+    case "stoplove":
+      addition = -2
+      break;
+    default:
+      addition = 0
+  }
+  
+  /* vendors contains the element we're looking for */
+  if (myGenres.filter(genre => genre.genreId === genre_id).length > 0) {
+    let relevantGenre = myGenres.filter(genre => genre.genreId === genre_id)[0];
+    if(relevantGenre.score + addition === 0){
+      deleteGenre(genre_id, employeeid)
+    } else{
+      updateGenre(genre_id, employeeid, addition, genre_name)
+    }
+  } else {
+    addNewGenre(genre_id, employeeid, addition, genre_name)
+  }
+}
+
+function updateGenre(genre_id, employeeid, addition, genre_name){
+  fetch(`${requests.favouriteGenres}/${genre_id}/${employeeid}/${addition}`, {
+    method: 'put',
+    headers: { 'Content-Type': 'application/json' },
+   })
+  setMyGenres(prevData=> prevData.map(genre=>{
+   return  genre.genreId === genre_id ? ({...genre, score : genre.score + addition}) : genre
+  }))
+}
+
+function deleteGenre(genre_id, employeeid){
+  fetch(`${requests.favouriteGenres}/${genre_id}/${employeeid}`, {
+    method: 'delete'
+       })
+
+  setMyGenres(prevData =>{
+    const newData = prevData.filter(data => data.genreId != genre_id)
+    return newData
+  })
+}
+
+function addNewGenre(genre_id, employeeid, score, genre_name){
+  fetch(requests.favouriteGenres, {
+    method: 'post',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+        employeeid,
+        genre_id,
+        genre_name,
+        score
+    })
+})
+
+ setMyGenres((prevData => [
+   {
+     genreId : genre_id,
+     employeeid : employeeid,
+     genre_name : genre_name,
+     score : score     
+   }, ...prevData
+ ]))
+
+}
+
 function stopLikingAFilm (id, employeeid) {
   fetch(`http://localhost:8080/api/v1/liked-movie/${id}/${employeeid}`, {
        method: 'delete'
@@ -173,7 +253,8 @@ const visualSearchedMovies = searchedFilms.map(movie =>{
   likeFilm={likeAFilm}
   stopLikingAFilm={stopLikingAFilm}
   likedFilms={likedFilms}
-  updateStatusOfLikedFilm={updateStatusOfLikedFilm} />
+  updateStatusOfLikedFilm={updateStatusOfLikedFilm}
+  likeAGenre={handleLikingAGenre} />
 ) : (<></>)}
   )
 
@@ -188,6 +269,7 @@ const visualSearchedMovies = searchedFilms.map(movie =>{
      myListFunction={addToMyList} 
     removeListFunction={removeFromMyList}
     likeFilm={likeAFilm}
+    likeAGenre={handleLikingAGenre}
     stopLikingAFilm={stopLikingAFilm}
     updateStatusOfLikedFilm={updateStatusOfLikedFilm}/>
   {myList.length > 0 && <Row title="My List" 
@@ -196,27 +278,20 @@ const visualSearchedMovies = searchedFilms.map(movie =>{
                       myListFunction={addToMyList} 
                       removeListFunction={removeFromMyList}
                       likeFilm={likeAFilm}
+                      likeAGenre={handleLikingAGenre}
                       stopLikingAFilm={stopLikingAFilm}
                       likedFilms={likedFilms}
                       updateStatusOfLikedFilm={updateStatusOfLikedFilm}/>}
-      {favouriteGenres.length >= 3 ? 
-        <Row title={favouriteGenres[2].genreName}
-        fetch={requests.fetchFavouriteFilm + favouriteGenres[2].genreId}  
-        myList={myList} 
-        myListFunction={addToMyList} 
-        removeListFunction={removeFromMyList}
-        likeFilm={likeAFilm}
-        stopLikingAFilm={stopLikingAFilm}
-        likedFilms={likedFilms}
-        updateStatusOfLikedFilm={updateStatusOfLikedFilm}/> :
+ 
         <Row title="Trend Now" 
         fetch={requests.fetchTrending}  
         myList={myList} myListFunction={addToMyList} 
         removeListFunction={removeFromMyList}
         likeFilm={likeAFilm}
+        likeAGenre={handleLikingAGenre}
         stopLikingAFilm={stopLikingAFilm}
         likedFilms={likedFilms}
-        updateStatusOfLikedFilm={updateStatusOfLikedFilm}/>}
+        updateStatusOfLikedFilm={updateStatusOfLikedFilm}/>
       {favouriteGenres.length >= 1 ? 
       <Row title={favouriteGenres[0].genreName}
         fetch={requests.fetchFavouriteFilm + favouriteGenres[0].genreId}  
@@ -224,6 +299,7 @@ const visualSearchedMovies = searchedFilms.map(movie =>{
         myListFunction={addToMyList} 
         removeListFunction={removeFromMyList}
         likeFilm={likeAFilm}
+        likeAGenre={handleLikingAGenre}
         stopLikingAFilm={stopLikingAFilm}
         likedFilms={likedFilms}
         updateStatusOfLikedFilm={updateStatusOfLikedFilm}/> :
@@ -233,6 +309,7 @@ const visualSearchedMovies = searchedFilms.map(movie =>{
         myListFunction={addToMyList} 
         removeListFunction={removeFromMyList}
         likeFilm={likeAFilm}
+        likeAGenre={handleLikingAGenre}
         stopLikingAFilm={stopLikingAFilm}
         likedFilms={likedFilms}
         updateStatusOfLikedFilm={updateStatusOfLikedFilm}/>}
@@ -243,6 +320,7 @@ const visualSearchedMovies = searchedFilms.map(movie =>{
         myListFunction={addToMyList} 
         removeListFunction={removeFromMyList}
         likeFilm={likeAFilm}
+        likeAGenre={handleLikingAGenre}
         stopLikingAFilm={stopLikingAFilm}
         likedFilms={likedFilms}
         updateStatusOfLikedFilm={updateStatusOfLikedFilm}/>:
@@ -252,6 +330,18 @@ const visualSearchedMovies = searchedFilms.map(movie =>{
         myListFunction={addToMyList} 
         removeListFunction={removeFromMyList}
         likeFilm={likeAFilm}
+        likeAGenre={handleLikingAGenre}
+        stopLikingAFilm={stopLikingAFilm}
+        likedFilms={likedFilms}
+        updateStatusOfLikedFilm={updateStatusOfLikedFilm}/>}
+      {favouriteGenres.length >= 3 && 
+        <Row title={favouriteGenres[2].genreName}
+        fetch={requests.fetchFavouriteFilm + favouriteGenres[2].genreId}  
+        myList={myList} 
+        myListFunction={addToMyList} 
+        removeListFunction={removeFromMyList}
+        likeFilm={likeAFilm}
+        likeAGenre={handleLikingAGenre}
         stopLikingAFilm={stopLikingAFilm}
         likedFilms={likedFilms}
         updateStatusOfLikedFilm={updateStatusOfLikedFilm}/>}

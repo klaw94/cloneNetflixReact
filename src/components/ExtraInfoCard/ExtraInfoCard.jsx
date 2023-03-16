@@ -118,7 +118,7 @@ export default function ExtraInfoCard(props){
 
     function handleMyListClick(){
       setIsInMyList(prevValue=>!prevValue)
-      props.addFilmsToTheListOfSimilarMoviesToMyList(props.fetchId, props.mediaType, detailedInfo.backdrop_path)
+      props.addFilmsToTheListOfSimilarMoviesToMyList(props.fetchId, props.mediaType, detailedInfo.backdrop_path, detailedInfo.genres)
 
     }
 
