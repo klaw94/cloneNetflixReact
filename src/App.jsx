@@ -258,6 +258,8 @@ const visualSearchedMovies = searchedFilms.map(movie =>{
 ) : (<></>)}
   )
 
+favouriteGenres.length > 0 && console.log(instance + requests.fetchFavouriteFilm + favouriteGenres[0].genreId)
+
   return (
     <div className="App">
       <Navbar searchMode={searchMode} searchForm={searchForm} handleChange={handleChange}/>
@@ -281,6 +283,7 @@ const visualSearchedMovies = searchedFilms.map(movie =>{
                       likeAGenre={handleLikingAGenre}
                       stopLikingAFilm={stopLikingAFilm}
                       likedFilms={likedFilms}
+                      favouriteGenres={favouriteGenres}
                       updateStatusOfLikedFilm={updateStatusOfLikedFilm}/>}
  
         <Row title="Trend Now" 
@@ -291,6 +294,7 @@ const visualSearchedMovies = searchedFilms.map(movie =>{
         likeAGenre={handleLikingAGenre}
         stopLikingAFilm={stopLikingAFilm}
         likedFilms={likedFilms}
+        favouriteGenres={favouriteGenres}
         updateStatusOfLikedFilm={updateStatusOfLikedFilm}/>
       {favouriteGenres.length >= 1 ? 
       <Row title={favouriteGenres[0].genreName}
@@ -299,6 +303,7 @@ const visualSearchedMovies = searchedFilms.map(movie =>{
         myListFunction={addToMyList} 
         removeListFunction={removeFromMyList}
         likeFilm={likeAFilm}
+        favouriteGenres={favouriteGenres}
         likeAGenre={handleLikingAGenre}
         stopLikingAFilm={stopLikingAFilm}
         likedFilms={likedFilms}
@@ -311,6 +316,7 @@ const visualSearchedMovies = searchedFilms.map(movie =>{
         likeFilm={likeAFilm}
         likeAGenre={handleLikingAGenre}
         stopLikingAFilm={stopLikingAFilm}
+        favouriteGenres={favouriteGenres}
         likedFilms={likedFilms}
         updateStatusOfLikedFilm={updateStatusOfLikedFilm}/>}
       {favouriteGenres.length >= 2 ?  
@@ -322,6 +328,7 @@ const visualSearchedMovies = searchedFilms.map(movie =>{
         likeFilm={likeAFilm}
         likeAGenre={handleLikingAGenre}
         stopLikingAFilm={stopLikingAFilm}
+        favouriteGenres={favouriteGenres}
         likedFilms={likedFilms}
         updateStatusOfLikedFilm={updateStatusOfLikedFilm}/>:
          <Row title="Comedy Movies" 
@@ -340,6 +347,7 @@ const visualSearchedMovies = searchedFilms.map(movie =>{
         myList={myList} 
         myListFunction={addToMyList} 
         removeListFunction={removeFromMyList}
+        favouriteGenres={favouriteGenres}
         likeFilm={likeAFilm}
         likeAGenre={handleLikingAGenre}
         stopLikingAFilm={stopLikingAFilm}

@@ -18,7 +18,7 @@ export default function Row(props){
         .then(data => setMovieData(data.results)) :
     
     setMovieData(props.myList)       
-  }, [props.myList])
+  }, [props.myList, props.favouriteGenres])
 
   if (props.title === "My List"){
   visualMovies = props.myList.map(movie =>
