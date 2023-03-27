@@ -12,9 +12,9 @@ const requests = {
     fetchRomanceMovies: `/discover/movie?api_key=${API_KEY}&with_genres=10749`,
     fetchDocumentaries: `/discover/movie?api_key=${API_KEY}&with_genres=99`,
     searchedFilms: `/search/multi?api_key=${API_KEY}&query=`,
-    myList: `http://localhost:8080/api/v1/movie`,
-    likedFilms: `http://localhost:8080/api/v1/liked-movie`,
-    favouriteGenres: `http://localhost:8080/api/v1/favourite-genres`,
+    myList: `https://netflixapo.fly.dev/api/v1/movie`,
+    likedFilms: `https://netflixapo.fly.dev/api/v1/liked-movie`,
+    favouriteGenres: `https://netflixapo.fly.dev/api/v1/favourite-genres`,
     apiKey: `${API_KEY}`,
 }
  export default requests

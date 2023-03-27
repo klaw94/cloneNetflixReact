@@ -71,7 +71,7 @@ function App() {
   }
 
   function addToMyList (id, employeeid, media_type, backdrop_path) {
-    fetch(`http://localhost:8080/api/v1/movie`, {
+    fetch(requests.myList, {
          method: 'post',
          headers: { 'Content-Type': 'application/json' },
          body: JSON.stringify({
@@ -96,7 +96,7 @@ function App() {
 
 function removeFromMyList(movieId, employeeId){
 
-  fetch(`http://localhost:8080/api/v1/movie/${movieId}/${employeeId}`,{
+  fetch(`${requests.myList}/${movieId}/${employeeId}`,{
     method: 'delete'
   })     
   
@@ -108,7 +108,7 @@ function removeFromMyList(movieId, employeeId){
 }
 
 function likeAFilm (id, employeeid, media_type, status) {
-  fetch(`http://localhost:8080/api/v1/liked-movie`, {
+  fetch(requests.likedFilms, {
        method: 'post',
        headers: { 'Content-Type': 'application/json' },
        body: JSON.stringify({
@@ -212,7 +212,7 @@ function addNewGenre(genre_id, employeeid, score, genre_name){
 }
 
 function stopLikingAFilm (id, employeeid) {
-  fetch(`http://localhost:8080/api/v1/liked-movie/${id}/${employeeid}`, {
+  fetch(`${requests.likedFilms}/${id}/${employeeid}`, {
        method: 'delete'
           })
   
@@ -224,7 +224,7 @@ function stopLikingAFilm (id, employeeid) {
 }
 
 function updateStatusOfLikedFilm(id, employeeid, media_type, status){
-  fetch(`http://localhost:8080/api/v1/liked-movie/${id}/${employeeid}`, {
+  fetch(`${requests.likedFilms}/${id}/${employeeid}`, {
     method: 'put',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
